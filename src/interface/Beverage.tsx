@@ -1,21 +1,18 @@
 export interface Beverage {
   id: number,
-  category: Category,
+  category: string,
   name: string,
   price: number
 }
 
-export const enum Category {
-  TraditionalCoffee = "Traditional Coffee",
-  IceBlended = "Ice Blended",
-  HotFlowerTea = "Hot Flower Tea",
-  SpecialtyIcedDrinks = "Specialty Iced Drinks"
+export interface Customisations extends CommonCustomisations {
+  [key: string]: string | string[] | boolean | number | null
 }
 
-export interface Customisations {
-  [key: string]: string
-}
-
-export interface FixedCustomisations {
+export interface CommonCustomisations {
   // sweetness, thickness, takeaway, custom
+  isTakeAway: boolean,
+  thicknessLevel: string[],
+  sweetnessLevel: string[],
+  custom: string | null
 }
