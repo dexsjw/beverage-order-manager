@@ -1,10 +1,5 @@
-export interface BeverageOrder {
-  beverage: Beverage,
-  customisations: Customisations,
-  quantity: number
-}
-
 export interface Beverage {
+  id: number,
   category: Category,
   name: string,
   price: number
