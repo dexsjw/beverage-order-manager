@@ -6,5 +6,6 @@ export interface Transaction {
   payer: SessionUser,
   payee: SessionUser,
   amount: number,
-  isPaid: boolean
+  isPaid: boolean,
+  paidTimestamp: string
 }
