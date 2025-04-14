@@ -7,10 +7,7 @@ function SessionForm() {
   })
 
   return (
-    <Box sx={{
-      display: "flex",
-      flexDirection: "column"
-    }}>
+    <Box>
       <CustomTextField 
         required 
         id="session-name" 
