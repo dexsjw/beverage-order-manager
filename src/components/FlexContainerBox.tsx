@@ -1,17 +1,14 @@
 import { Box, Container, styled } from "@mui/material";
 
-export const FlexContainer = styled(Container)({
+export const FlexContainerColumn = styled(Container)({
+  height: "100vh",
   display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  alignContent: "flex-start",
-  alignItems: "flex-start"
+  flexDirection: "column"
 })
 
 export const FlexBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "flex-start",
-  alignContent: "flex-start",
-  alignItems: "flex-start"
+  alignContent: "flex-start"
 })

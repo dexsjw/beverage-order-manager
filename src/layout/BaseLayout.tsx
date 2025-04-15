@@ -1,7 +1,8 @@
-import { AppBar, Box, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
 import CoffeeIcon from '@mui/icons-material/Coffee';
+import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { FlexContainer, FlexContainerColumn } from '../components/FlexContainerBox';
 
 function BaseLayout() {
   
@@ -29,7 +30,9 @@ function BaseLayout() {
         </Toolbar>
       </AppBar>
 
-      <Outlet />
+      <FlexContainerColumn>
+        <Outlet />
+      </FlexContainerColumn>
     </Container>
   )
 }
