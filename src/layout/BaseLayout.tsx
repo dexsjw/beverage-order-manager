@@ -2,7 +2,7 @@ import CoffeeIcon from '@mui/icons-material/Coffee';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { FlexContainer, FlexContainerColumn } from '../components/FlexContainerBox';
+import { FlexContainerColumn } from '../components/styled/FlexContainer';
 
 function BaseLayout() {
   
@@ -30,7 +30,7 @@ function BaseLayout() {
         </Toolbar>
       </AppBar>
 
-      <FlexContainerColumn>
+      <FlexContainerColumn sx={{pt: "5vh"}}>
         <Outlet />
       </FlexContainerColumn>
     </Container>
