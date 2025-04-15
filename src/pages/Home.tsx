@@ -3,7 +3,7 @@ import SessionForm from "../components/SessionForm";
 
 function Home() {
   return (
-    <Box>
+    <Box component="section">
       <SessionForm />
     </Box>
   )
