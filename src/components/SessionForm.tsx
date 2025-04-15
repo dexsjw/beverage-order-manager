@@ -1,31 +1,34 @@
-import { Box, styled, TextField } from "@mui/material";
+import { Box, Button, styled, TextField } from "@mui/material";
+import { FlexBoxColumnGap } from "./styled/FlexBox";
 
 function SessionForm() {
-  const CustomTextField = styled(TextField)({
-    margin: 10,
 
-  })
 
   return (
-    <Box>
-      <CustomTextField 
+    <FlexBoxColumnGap>
+      <TextField 
         required 
         id="session-name" 
         label="Session Name" 
       />
-      <CustomTextField 
+      <TextField 
         required 
         type="password"
         id="password" 
         label="Password" 
       />
-      <CustomTextField 
+      <TextField 
         required 
         type="password"
         id="confirm-password" 
         label="Confirm Password" 
       />
-    </Box>
+      <Button
+        variant="contained"
+      >
+        Create
+      </Button>
+    </FlexBoxColumnGap>
   )
 }
 
