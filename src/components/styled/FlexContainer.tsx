@@ -5,10 +5,3 @@ export const FlexContainerColumn = styled(Container)({
   display: "flex",
   flexDirection: "column"
 })
-
-export const FlexBox = styled(Box)({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  alignContent: "flex-start"
-})
