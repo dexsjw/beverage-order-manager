@@ -1,11 +1,13 @@
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import SessionForm from "../components/SessionForm";
+import SortableTable from "../components/SortableTable";
 
 function Home() {
   return (
-    <Box component="section">
+    <Stack spacing={5}>
       <SessionForm />
-    </Box>
+      <SortableTable tableTitle="Join A Session: "/>
+    </Stack>
   )
 }
 
