@@ -1,8 +1,7 @@
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Container, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { FlexContainerColumn } from '../components/styled/FlexContainer';
 
 function BaseLayout() {
   
@@ -18,7 +17,7 @@ function BaseLayout() {
               <CoffeeIcon />
             </IconButton>
           </Box>
-          <Typography variant="h6" component="div" sx={{flexGrow: "1"}}>
+          <Typography variant="h5" component="div" sx={{flexGrow: "1"}}>
             Beverage Order Manager
           </Typography>
           <IconButton
@@ -30,9 +29,9 @@ function BaseLayout() {
         </Toolbar>
       </AppBar>
 
-      <FlexContainerColumn sx={{pt: "5vh"}}>
+      <Stack sx={{ height: "100vh", pt: "5vh" }}>
         <Outlet />
-      </FlexContainerColumn>
+      </Stack>
     </Container>
   )
 }
