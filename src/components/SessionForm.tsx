@@ -1,11 +1,10 @@
-import { Button, TextField } from "@mui/material";
-import { FlexBoxColumnGap } from "./styled/FlexBox";
+import { Button, Stack, TextField } from "@mui/material";
 
 function SessionForm() {
 
 
   return (
-    <FlexBoxColumnGap>
+    <Stack spacing={2}>
       <TextField 
         required 
         id="session-name" 
@@ -26,9 +25,9 @@ function SessionForm() {
       <Button
         variant="contained"
       >
-        Create
+        Create Session
       </Button>
-    </FlexBoxColumnGap>
+    </Stack>
   )
 }
 
