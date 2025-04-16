@@ -52,7 +52,7 @@ export const OnePlusKopiMenu: Beverage[] = [
   { id: 404, category: Category.SpecialtyIcedDrinks, name: "Honey Lemon Aloe Vera", price: 3.5 }
 ]
 
-export const OnePlusKopiCustomisationsTraditional: Customisations = {
+export const OnePlusKopiCustomisations: Customisations = {
   // OnePlusKopi take away for hot drinks need to +$0.10 ~ $0.20
   isTakeAway: true,
   thicknessLevel: ["Di Lo (Thickest)", "Gao (Thicker)", "Po (Thinner)"],
