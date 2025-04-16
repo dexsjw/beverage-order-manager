@@ -1,4 +1,5 @@
 import { Box, Tab, Tabs } from "@mui/material";
+import MainSessionOrder from "../components/MainSessionOrder";
 
 function MainSession() {
 
@@ -13,6 +14,7 @@ function MainSession() {
         <Tab label="One Plus Kopi" />
         <Tab label="Custom" />
       </Tabs>
+      <MainSessionOrder />
     </Box>
   )
 }
