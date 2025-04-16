@@ -3,7 +3,7 @@ import './App.css'
 import BaseLayout from './layout/BaseLayout'
 import History from './pages/History'
 import Home from './pages/Home'
-import MainOrder from './pages/MainOrder'
+import MainSession from './pages/MainSession'
 
 function App() {
 
@@ -12,7 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<BaseLayout />}>
           <Route index element={<Home />} />
-          <Route path="main-order/:sessionId" element={<MainOrder />} />
+          {/* <Route path="main-session/:sessionId" element={<MainSession />} /> */}
+          <Route path="main-session" element={<MainSession />} />
           <Route path="history/:sessionId" element={<History />} />
         </Route>
       </Routes>
