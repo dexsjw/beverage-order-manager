@@ -9,6 +9,7 @@ function SortableTable({ tableTitle }: Readonly<SortableTableProps>) {
       <Typography 
         variant="h6" 
         component="div" 
+        align="left"
         sx={{ flexGrow: "1", mb: 2 }}
       >
         {tableTitle}
