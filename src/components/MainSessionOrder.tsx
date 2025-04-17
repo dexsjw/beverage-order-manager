@@ -32,7 +32,7 @@ function MainSessionOrder() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <SortableTable />
+          <SortableTable tableTitle="Date: " />
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -46,7 +46,7 @@ function MainSessionOrder() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          Transactions
+          <SortableTable tableTitle="Date: " />
         </AccordionDetails>
       </Accordion>
     </Box>
