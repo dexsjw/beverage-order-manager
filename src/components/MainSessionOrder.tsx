@@ -1,5 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import OrderForm from "./order-form/OrderForm";
+import SortableTable from "./SortableTable";
 
 function MainSessionOrder() {
 
@@ -31,7 +32,7 @@ function MainSessionOrder() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          All orders
+          <SortableTable />
         </AccordionDetails>
       </Accordion>
       <Accordion>
