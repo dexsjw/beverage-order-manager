@@ -1,3 +1,3 @@
 export interface SortableTableProps {
-  tableTitle: string
+  tableTitle?: string
 }
