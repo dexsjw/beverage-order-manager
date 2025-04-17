@@ -14,5 +14,5 @@ export interface CommonCustomisations {
   isTakeAway: boolean,
   thicknessLevel: string[],
   sweetnessLevel: string[],
-  custom: string | null
+  others: string | null
 }

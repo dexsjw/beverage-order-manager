@@ -57,5 +57,5 @@ export const OnePlusKopiCustomisations: Customisations = {
   isTakeAway: true,
   thicknessLevel: ["Di Lo (Thickest)", "Gao (Thicker)", "Po (Thinner)"],
   sweetnessLevel: ["Ga Dai (Sweeter)", "Siu Dai (Less Sweet)", "Siu Siu Dai (Less Less Sweet)", "Kosong (No sugar)"],
-  custom: null
+  others: null
 }
