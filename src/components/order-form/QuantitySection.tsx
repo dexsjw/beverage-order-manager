@@ -1,4 +1,4 @@
-import { Box, Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 
 function QuantitySection() {
   return (
@@ -15,7 +15,7 @@ function QuantitySection() {
         required
         type="number"
         variant="filled"
-        placeholder="1" 
+        defaultValue={1} 
       />
   </Stack>
   )
