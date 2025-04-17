@@ -6,15 +6,15 @@ function CustomisationsSection() {
     <Stack spacing={1}>
       <Typography 
         variant="body1" 
-        align="left" 
         component="div"
+        align="left" 
       >
         Customisations
       </Typography>
       <Typography 
         variant="body2" 
-        align="left" 
         component="div"
+        align="left" 
       >
         Take Away?*
       </Typography>
@@ -33,8 +33,8 @@ function CustomisationsSection() {
       />
       <Typography 
         variant="body2" 
-        align="left" 
         component="div"
+        align="left" 
       >
         Thickness Level*:
       </Typography>
@@ -53,8 +53,8 @@ function CustomisationsSection() {
       />
       <Typography 
         variant="body2" 
-        align="left" 
         component="div"
+        align="left" 
       >
         Sweetness Level*:
       </Typography>
@@ -73,8 +73,8 @@ function CustomisationsSection() {
       />
       <Typography 
         variant="body2" 
-        align="left" 
         component="div"
+        align="left" 
       >
         Other customisations:
       </Typography>

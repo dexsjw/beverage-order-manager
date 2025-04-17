@@ -5,8 +5,8 @@ function QuantitySection() {
     <Stack spacing={1}>
     <Typography 
       variant="body1" 
-      align="left" 
       component="div"
+      align="left" 
     >
       Quantity
     </Typography>
