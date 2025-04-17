@@ -6,7 +6,11 @@ function SortableTable({ tableTitle }: Readonly<SortableTableProps>) {
   
   return (
     <Box>
-      <Typography variant="h6" component="div" sx={{flexGrow: "1"}}>
+      <Typography 
+        variant="h6" 
+        component="div" 
+        sx={{ flexGrow: "1", mb: 2 }}
+      >
         {tableTitle}
       </Typography>
       <Paper elevation={12}>
