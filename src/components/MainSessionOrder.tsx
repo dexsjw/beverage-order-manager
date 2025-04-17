@@ -1,22 +1,34 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
-import OrderForm from "./OrderForm";
+import OrderForm from "./order-form/OrderForm";
 
 function MainSessionOrder() {
 
 
   return (
     <Box>
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary>
-          <Typography variant="h6" component="div">Order Form</Typography>
+          <Typography 
+            variant="h6" 
+            component="div" 
+            color="primary"
+          >
+            Order Form
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <OrderForm />
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary>
-          <Typography variant="h6" component="div">All Orders</Typography>
+          <Typography
+            variant="h6" 
+            component="div" 
+            color="primary"
+          >
+            All Orders
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           All orders
@@ -24,7 +36,13 @@ function MainSessionOrder() {
       </Accordion>
       <Accordion>
         <AccordionSummary>
-          <Typography variant="h6" component="div">Transactions</Typography>
+          <Typography 
+            variant="h6" 
+            component="div" 
+            color="primary"
+          >
+            Transactions
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           Transactions
