@@ -1,6 +1,4 @@
-import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { Beverage } from "../../interface/Beverage";
-import { OnePlusKopiCustomisations, OnePlusKopiMenu } from "../../static-data/OnePlusKopi";
+import { Stack } from "@mui/material";
 import BeverageOrderSection from "./BeverageOrderSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
