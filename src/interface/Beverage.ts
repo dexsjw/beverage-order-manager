@@ -6,12 +6,12 @@ export interface Beverage {
 }
 
 export interface Customisations extends CommonCustomisations {
-  [key: string]: string | string[] | boolean | number | null
+  [key: string]: string | string[] | boolean | boolean[] | number | number[] | null
 }
 
 export interface CommonCustomisations {
   // sweetness, thickness, takeaway, custom
-  isTakeAway: boolean,
+  isTakeAway: boolean[],
   thicknessLevel: string[],
   sweetnessLevel: string[],
   others: string | null

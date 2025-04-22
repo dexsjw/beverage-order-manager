@@ -20,8 +20,9 @@ function CustomisationsSection() {
       </Typography>
       <Autocomplete 
         id="customisations" 
-        options={["Yes", "No"]} 
-        getOptionLabel={(option: string) => option} 
+        options={OnePlusKopiCustomisations.isTakeAway} 
+        getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
+        defaultValue={OnePlusKopiCustomisations.isTakeAway[0]}
         renderInput={(params) => (
           <TextField 
             {...params}
