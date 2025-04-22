@@ -8,11 +8,11 @@ export interface Session {
   password: string,
   timestamp: string,
   isActive: boolean,
-  data: string
+  owner: SessionUser,
+  data: SessionData | string
 }
 
 export interface SessionData {
-  sessionUsers: SessionUser[],
   orders: Order[],
   transactions: Transaction[]
 }
