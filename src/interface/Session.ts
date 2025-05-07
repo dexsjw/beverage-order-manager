@@ -6,9 +6,9 @@ export interface Session {
   id: string,
   name: string,
   password: string,
+  owner: SessionUser,
   timestamp: string,
   isActive: boolean,
-  owner: SessionUser,
   data: SessionData | string
 }
 
