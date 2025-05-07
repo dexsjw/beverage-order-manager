@@ -2,7 +2,11 @@ import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import { SortableTableProps } from "../interface/props/SortableTableProps";
 import JoinSessionDialog from "./JoinSessionDialog";
 
-function SortableTable({ tableTitle }: Readonly<SortableTableProps>) {
+function SortableTable<T extends { id: string }>({
+  tableTitle, 
+  tableHeaders,
+  tableData
+}: Readonly<SortableTableProps<T>>) {
   
   return (
     <Box>
@@ -19,21 +23,23 @@ function SortableTable({ tableTitle }: Readonly<SortableTableProps>) {
           <Table stickyHeader>
             <TableHead>
               <TableRow>
-                <TableCell>Test Header</TableCell>
-                <TableCell>Test Header</TableCell>
-                <TableCell>Test Header</TableCell>
-                <TableCell>Test Header</TableCell>
-                <TableCell>Test Header</TableCell>
+                {tableHeaders.map(header => (
+                  <TableCell key={header.id}>
+                    {header.name}
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>Test Row</TableCell>
-                <TableCell>Test Row</TableCell>
-                <TableCell>Test Row</TableCell>
-                <TableCell>Test Row</TableCell>
-                <TableCell>Test Row</TableCell>
-              </TableRow>
+              {tableData.map(data => (
+                <TableRow key={data.id}>
+                  {tableHeaders.map(header => (
+                    <TableCell key={header.id}>
+                      {data[header.id]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>

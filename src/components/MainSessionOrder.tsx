@@ -3,7 +3,11 @@ import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
 
 function MainSessionOrder() {
-
+  const tableHeaders = [
+    { id: 1, name: "Name" },
+    { id: 2, name: "Owner" },
+    { id: 3, name: "Status" }
+  ];
 
   return (
     <Box>
@@ -32,7 +36,11 @@ function MainSessionOrder() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <SortableTable tableTitle="Date: " />
+          <SortableTable 
+            tableTitle="Date: " 
+            tableHeaders={tableHeaders}
+            tableData={[]}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -46,7 +54,11 @@ function MainSessionOrder() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <SortableTable tableTitle="Date: " />
+          <SortableTable 
+            tableTitle="Date: " 
+            tableHeaders={tableHeaders}
+            tableData={[]}
+          />
         </AccordionDetails>
       </Accordion>
     </Box>
