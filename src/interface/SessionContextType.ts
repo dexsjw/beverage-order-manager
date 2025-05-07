@@ -2,6 +2,6 @@ import { Session } from "./Session";
 
 export interface SessionContextType {
   sessions: Session[],
-  handleAddSession: (session: Session) => void,
+  handleCreateSession: (session: Session) => void,
   handleDeleteSession: (sessionId: string) => void
 }

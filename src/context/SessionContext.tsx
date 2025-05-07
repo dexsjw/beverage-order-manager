@@ -15,7 +15,7 @@ export const useSessionContext = () => {
 export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
   const [sessions, setSessions] = useState<Session[]>([]);
 
-  const handleAddSession = (session: Session) => {
+  const handleCreateSession = (session: Session) => {
     setSessions(prevState => [session, ...prevState]);
   }
 
@@ -26,7 +26,7 @@ export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
   const contextValue: SessionContextType = useMemo(() => {
     return {
       sessions,
-      handleAddSession,
+      handleCreateSession,
       handleDeleteSession
     }
   }, [])
