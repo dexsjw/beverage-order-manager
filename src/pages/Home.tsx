@@ -3,6 +3,7 @@ import SessionForm from "../components/SessionForm";
 import SortableTable from "../components/SortableTable";
 import SessionUserForm from "../components/SessionUserForm";
 import { useSessionContext } from "../context/SessionContext";
+import { Session } from "../interface/Session";
 
 function Home() {
   const tableHeaders = [
@@ -16,7 +17,7 @@ function Home() {
     <Stack spacing={5}>
       <SessionUserForm />
       <SessionForm />
-      <SortableTable 
+      <SortableTable<Session> 
         tableTitle="Join A Session: " 
         tableHeaders={tableHeaders}
         tableData={sessions}
