@@ -1,5 +1,10 @@
 export interface SortableTableProps<T> {
   tableTitle?: string,
-  tableHeaders: { id: string, name: string }[],
+  tableHeaders: TableHeader<T>[],
   tableData: T[]
+}
+
+interface TableHeader<T> {
+  id: keyof T & string,
+  name: string
 }
