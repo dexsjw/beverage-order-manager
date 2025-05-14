@@ -1,3 +1,5 @@
+import { Key } from "react"
+
 export interface SortableTableProps<T> {
   tableTitle?: string,
   tableHeaders: TableHeader<T>[],
@@ -5,6 +7,6 @@ export interface SortableTableProps<T> {
 }
 
 interface TableHeader<T> {
-  id: keyof T & string,
+  id: keyof T & Key,
   name: string
 }
