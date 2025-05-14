@@ -3,7 +3,7 @@ import { Key, ReactNode } from "react";
 import { SortableTableProps } from "../interface/props/SortableTableProps";
 import JoinSessionDialog from "./JoinSessionDialog";
 
-function SortableTable<T extends { id: Key, [key: string]: ReactNode }>({
+function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>({
   tableTitle, 
   tableHeaders,
   tableData
