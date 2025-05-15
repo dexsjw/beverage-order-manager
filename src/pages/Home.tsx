@@ -9,7 +9,7 @@ import { TableHeader } from "../interface/props/SortableTableProps";
 function Home() {
   const tableHeaders: TableHeader<Session>[] = [
     { id: "name", name: "Name" },
-    { id: "owner", name: "Owner" },
+    { id: "owner", name: "Owner"},
     { id: "isActive", name: "Status" }
   ];
   const { sessions } = useSessionContext();

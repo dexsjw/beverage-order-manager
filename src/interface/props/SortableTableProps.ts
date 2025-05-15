@@ -8,6 +8,5 @@ export interface SortableTableProps<T> {
 
 export interface TableHeader<T> {
   id: keyof T & Key,
-  name: string,
-  renderCell?: (value: T[keyof T]) => ReactNode
+  name: string
 }
