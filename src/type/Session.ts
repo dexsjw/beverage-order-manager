@@ -2,7 +2,7 @@ import { Order } from "./Order"
 import { SessionUser } from "./SessionUser"
 import { Transaction } from "./Transaction"
 
-export interface Session {
+export type Session = {
   id: string,
   name: string,
   password: string,
@@ -12,7 +12,7 @@ export interface Session {
   data: SessionData | string
 }
 
-export interface SessionData {
+export type SessionData = {
   orders: Order[],
   transactions: Transaction[]
 }

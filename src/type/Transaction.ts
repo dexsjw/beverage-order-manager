@@ -1,6 +1,6 @@
 import { SessionUser } from "./SessionUser";
 
-export interface Transaction {
+export type Transaction = {
   id: string,
   timestamp: string,
   payer: SessionUser,

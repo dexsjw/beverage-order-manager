@@ -3,10 +3,11 @@ import SessionForm from "../components/SessionForm";
 import SortableTable from "../components/SortableTable";
 import SessionUserForm from "../components/SessionUserForm";
 import { useSessionContext } from "../context/SessionContext";
-import { Session } from "../interface/Session";
+import { Session } from "../type/Session";
+import { TableHeader } from "../interface/props/SortableTableProps";
 
 function Home() {
-  const tableHeaders = [
+  const tableHeaders: TableHeader<Session>[] = [
     { id: "name", name: "Name" },
     { id: "owner", name: "Owner" },
     { id: "isActive", name: "Status" }

@@ -1,5 +1,5 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { Beverage } from "../../interface/Beverage";
+import { Beverage } from "../../type/Beverage";
 import { OnePlusKopiMenu } from "../../static-data/OnePlusKopi";
 
 function BeverageOrderSection() {

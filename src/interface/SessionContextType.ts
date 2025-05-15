@@ -1,4 +1,4 @@
-import { Session } from "./Session";
+import { Session } from "../type/Session";
 
 export interface SessionContextType {
   sessions: Session[],

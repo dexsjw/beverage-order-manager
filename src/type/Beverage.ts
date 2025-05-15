@@ -1,15 +1,15 @@
-export interface Beverage {
+export type Beverage = {
   id: number,
   category: string,
   name: string,
   price: number
 }
 
-export interface Customisations extends CommonCustomisations {
+export type Customisations = CommonCustomisations & {
   [key: string]: string | string[] | boolean | boolean[] | number | number[] | null
 }
 
-export interface CommonCustomisations {
+export type CommonCustomisations = {
   // sweetness, thickness, takeaway, custom
   isTakeAway: boolean[],
   thicknessLevel: string[],

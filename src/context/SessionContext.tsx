@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 import { SessionContextType } from "../interface/SessionContextType";
-import { Session } from "../interface/Session";
+import { Session } from "../type/Session";
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
