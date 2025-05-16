@@ -10,7 +10,7 @@ export type Session = {
   owner: SessionUser,
   timestamp: string,
   isActive: boolean,
-  data: SessionData | string
+  data: SessionData
 }
 
 export type SessionData = {
