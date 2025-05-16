@@ -6,7 +6,7 @@ export type Beverage = {
 }
 
 export interface Customisations extends CommonCustomisations {
-  [key: string]: string | string[] | boolean | boolean[] | number | number[] | null
+  [key: string]: string | string[] | boolean | boolean[] | number | number[] | undefined | null
 }
 
 export type CommonCustomisations = {
@@ -14,5 +14,5 @@ export type CommonCustomisations = {
   isTakeAway: boolean,
   thicknessLevel: string,
   sweetnessLevel: string,
-  others: string | null
+  others?: string
 }
