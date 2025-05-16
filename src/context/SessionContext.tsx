@@ -41,7 +41,7 @@ export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
 
 const testSessions: Session[] = [
   {
-    id: "111",
+    id: "001",
     name: "testSession",
     password: "testest",
     owner: {
@@ -53,7 +53,7 @@ const testSessions: Session[] = [
     data: {
       orders: [
         {
-          id: "222",
+          id: "123",
           sessionUser: {
             id: "ownerId",
             name: "admin"
@@ -74,7 +74,7 @@ const testSessions: Session[] = [
       ],
       transactions: [
         {
-          id: "333",
+          id: "123",
           timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
           payer: {
             id: "testUser",
@@ -92,7 +92,7 @@ const testSessions: Session[] = [
     }
   },
   {
-    id: "222",
+    id: "002",
     name: "testSession2",
     password: "testest",
     owner: {
@@ -104,7 +104,7 @@ const testSessions: Session[] = [
     data: {
       orders: [
         {
-          id: "222",
+          id: "234",
           sessionUser: {
             id: "ownerId",
             name: "admin"
@@ -125,7 +125,7 @@ const testSessions: Session[] = [
       ],
       transactions: [
         {
-          id: "333",
+          id: "234",
           timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
           payer: {
             id: "testUser",
