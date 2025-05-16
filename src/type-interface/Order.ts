@@ -13,7 +13,7 @@ export type Order = {
 export interface OrderTableData extends TableData {
   id: Order["id"],
   sessionUser: SessionUser["name"],
-  takeAway: Customisations["isTakeAway"],
+  takeAway: "Take Away" | "Dine In",
   beverage: Beverage["name"],
   customisations: string,
   quantity: Order["quantity"],
