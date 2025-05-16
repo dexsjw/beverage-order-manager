@@ -3,11 +3,11 @@ import SessionForm from "../components/SessionForm";
 import SessionUserForm from "../components/SessionUserForm";
 import SortableTable from "../components/SortableTable";
 import { useSessionContext } from "../context/SessionContext";
-import { Session, SessionTableData } from "../type-interface/Session";
+import { SessionTableData } from "../type-interface/Session";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 
 function Home() {
-  const tableHeaders: TableHeader<SessionTableData>[] = [
+  const sessionTableHeaders: TableHeader<SessionTableData>[] = [
     { id: "name", name: "Name" },
     { id: "owner", name: "Owner"},
     { id: "isActive", name: "Status" }
@@ -26,7 +26,7 @@ function Home() {
       <SessionForm />
       <SortableTable<SessionTableData> 
         tableTitle="Join A Session: " 
-        tableHeaders={tableHeaders}
+        tableHeaders={sessionTableHeaders}
         tableData={sessionTableDataArray}
       />
     </Stack>
