@@ -7,11 +7,6 @@ import { SessionTableData } from "../type-interface/Session";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 
 function Home() {
-  const sessionTableHeaders: TableHeader<SessionTableData>[] = [
-    { id: "name", name: "Name" },
-    { id: "owner", name: "Owner"},
-    { id: "isActive", name: "Status" }
-  ];
   const { sessions } = useSessionContext();
   const sessionTableDataArray: SessionTableData[] = sessions.map(session => ({
     id: session.id,
@@ -19,6 +14,12 @@ function Home() {
     owner: session.owner.name,
     isActive: session.isActive ? "Active" : "Closed"
   }))
+  
+  const sessionTableHeaders: TableHeader<SessionTableData>[] = [
+    { id: "name", name: "Name" },
+    { id: "owner", name: "Owner"},
+    { id: "isActive", name: "Status" }
+  ];
 
   return (
     <Stack spacing={5}>
