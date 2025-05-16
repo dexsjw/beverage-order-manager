@@ -5,7 +5,7 @@ export type Beverage = {
   price: number
 }
 
-export type Customisations = CommonCustomisations & {
+export interface Customisations extends CommonCustomisations {
   [key: string]: string | string[] | boolean | boolean[] | number | number[] | null
 }
 
