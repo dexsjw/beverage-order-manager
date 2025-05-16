@@ -13,7 +13,8 @@ export const useSessionContext = () => {
 }
 
 export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
-  const [sessions, setSessions] = useState<Session[]>([]);
+  // const [sessions, setSessions] = useState<Session[]>([]);
+  const [sessions, setSessions] = useState<Session[]>(testSessions);
 
   const handleCreateSession = (session: Session) => {
     setSessions(prevState => [session, ...prevState]);
@@ -37,3 +38,108 @@ export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
     </SessionContext.Provider>
   )
 }
+
+const testSessions: Session[] = [
+  {
+    id: "111",
+    name: "testSession",
+    password: "testest",
+    owner: {
+      id: "admin",
+      name: "admin"
+    },
+    timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+    isActive: true,
+    data: {
+      orders: [
+        {
+          id: "222",
+          sessionUser: {
+            id: "ownerId",
+            name: "admin"
+          },
+          beverage: {
+            id: 101,
+            category: "Hot Traditional Coffee",
+            name: "Kopi",
+            price: 1.8
+          },
+          customisations: {
+            isTakeAway: true,
+            thicknessLevel: "Di Lo (Thickest)",
+            sweetnessLevel: "Siu Dai (Less Sweet)"
+          },
+          quantity: 1
+        }
+      ],
+      transactions: [
+        {
+          id: "333",
+          timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+          payer: {
+            id: "testUser",
+            name: "testUser"
+          },
+          payee: {
+            id: "admin",
+            name: "admin"
+          },
+          amount: 1.8,
+          isPaid: false,
+          paidTimestamp: new Date(Date.now() + 5).toLocaleDateString("en-GB")
+        }
+      ]
+    }
+  },
+  {
+    id: "222",
+    name: "testSession2",
+    password: "testest",
+    owner: {
+      id: "admin",
+      name: "admin"
+    },
+    timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+    isActive: true,
+    data: {
+      orders: [
+        {
+          id: "222",
+          sessionUser: {
+            id: "ownerId",
+            name: "admin"
+          },
+          beverage: {
+            id: 101,
+            category: "Hot Traditional Coffee",
+            name: "Kopi",
+            price: 1.8
+          },
+          customisations: {
+            isTakeAway: true,
+            thicknessLevel: "Di Lo (Thickest)",
+            sweetnessLevel: "Siu Dai (Less Sweet)"
+          },
+          quantity: 1
+        }
+      ],
+      transactions: [
+        {
+          id: "333",
+          timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+          payer: {
+            id: "testUser",
+            name: "testUser"
+          },
+          payee: {
+            id: "admin",
+            name: "admin"
+          },
+          amount: 1.8,
+          isPaid: false,
+          paidTimestamp: new Date(Date.now() + 5).toLocaleDateString("en-GB")
+        }
+      ]
+    }
+  }
+]
