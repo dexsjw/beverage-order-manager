@@ -1,6 +1,6 @@
-import { Session } from "../type/Session";
+import { Session } from "./Session";
 
-export interface SessionContextType {
+export type SessionContextType = {
   sessions: Session[],
   handleCreateSession: (session: Session) => void,
   handleDeleteSession: (sessionId: string) => void

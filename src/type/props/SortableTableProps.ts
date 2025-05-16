@@ -1,12 +1,12 @@
-import { Key, ReactNode } from "react"
+import { Key } from "react"
 
-export interface SortableTableProps<T> {
+export type SortableTableProps<T> = {
   tableTitle?: string,
   tableHeaders: TableHeader<T>[],
   tableData: T[]
 }
 
-export interface TableHeader<T> {
+export type TableHeader<T> = {
   id: keyof T & Key,
   name: string
 }

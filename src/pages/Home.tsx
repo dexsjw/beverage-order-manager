@@ -4,7 +4,7 @@ import SortableTable from "../components/SortableTable";
 import SessionUserForm from "../components/SessionUserForm";
 import { useSessionContext } from "../context/SessionContext";
 import { Session } from "../type/Session";
-import { TableHeader } from "../interface/props/SortableTableProps";
+import { TableHeader } from "../type/props/SortableTableProps";
 
 function Home() {
   const tableHeaders: TableHeader<Session>[] = [
