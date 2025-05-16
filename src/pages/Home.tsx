@@ -1,10 +1,10 @@
 import { Stack } from "@mui/material";
 import SessionForm from "../components/SessionForm";
-import SortableTable from "../components/SortableTable";
 import SessionUserForm from "../components/SessionUserForm";
+import SortableTable from "../components/SortableTable";
 import { useSessionContext } from "../context/SessionContext";
-import { Session } from "../type/Session";
-import { TableHeader } from "../type/props/SortableTableProps";
+import { Session } from "../type-interface/Session";
+import { TableHeader } from "../type-interface/props/SortableTableProps";
 
 function Home() {
   const tableHeaders: TableHeader<Session>[] = [
