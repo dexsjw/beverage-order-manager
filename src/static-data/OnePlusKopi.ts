@@ -1,4 +1,4 @@
-import { Beverage, Customisations } from "../type/Beverage";
+import { Beverage, Customisations } from "../type-interface/Beverage";
 
 export const enum Category {
   HotTraditionalCoffee = "Hot Traditional Coffee",

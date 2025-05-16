@@ -1,6 +1,6 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Key, ReactNode } from "react";
-import { SortableTableProps } from "../type/props/SortableTableProps";
+import { SortableTableProps } from "../type-interface/props/SortableTableProps";
 import JoinSessionDialog from "./JoinSessionDialog";
 
 function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>({
