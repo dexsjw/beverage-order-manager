@@ -11,8 +11,8 @@ export interface Customisations extends CommonCustomisations {
 
 export type CommonCustomisations = {
   // sweetness, thickness, takeaway, custom
-  isTakeAway: boolean[],
-  thicknessLevel: string[],
-  sweetnessLevel: string[],
+  isTakeAway: boolean,
+  thicknessLevel: string,
+  sweetnessLevel: string,
   others: string | null
 }
