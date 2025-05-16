@@ -1,7 +1,4 @@
 export type SessionUser = {
   id: string,
-  name: string,
-  userRole: SessionRole
+  name: string
 }
-
-export type SessionRole = "SESSION_ADMIN" | "SESSION_USER";
