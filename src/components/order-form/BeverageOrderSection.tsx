@@ -1,8 +1,8 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { OnePlusKopiMenu } from "../../static-data/OnePlusKopi";
 import { Beverage } from "../../type-interface/Beverage";
+import { BeverageOrderSectionProps } from "../../type-interface/props/BeverageOrderSectionProps";
 
-function BeverageOrderSection() {
+function BeverageOrderSection({ beverageMenu }: Readonly<BeverageOrderSectionProps>) {
   return (
     <Stack spacing={1}>
       <Typography 
@@ -14,7 +14,7 @@ function BeverageOrderSection() {
       </Typography>
       <Autocomplete 
         id="beverage-order" 
-        options={OnePlusKopiMenu} 
+        options={beverageMenu} 
         getOptionLabel={(option: Beverage) => option.name}
         renderInput={(params) => (
           <TextField 
