@@ -1,12 +1,12 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { OrderTableData } from "../type-interface/Order";
-import { MainSessionOrderProps } from "../type-interface/props/MainSessionOrderProps";
+import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
 
-function MainSessionOrder({ orders, timestamp }: Readonly<MainSessionOrderProps>) {
-  const orderTableDataArray: OrderTableData[] = orders.map(order => ({
+function MainSessionData({ selectedBrandIndex, orders, timestamp }: Readonly<MainSessionDataProps>) {
+  const orderTableData: OrderTableData[] = orders.map(order => ({
     id: order.id,
     sessionUser: order.sessionUser.name,
     takeAway: order.customisations.isTakeAway ? "Take Away" : "Dine In",
@@ -38,7 +38,9 @@ function MainSessionOrder({ orders, timestamp }: Readonly<MainSessionOrderProps>
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <OrderForm />
+          <OrderForm 
+            selectedBrandIndex={selectedBrandIndex}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded>
@@ -55,7 +57,7 @@ function MainSessionOrder({ orders, timestamp }: Readonly<MainSessionOrderProps>
           <SortableTable<OrderTableData>
             tableTitle={"Date: " + timestamp} 
             tableHeaders={orderTableHeaders}
-            tableData={orderTableDataArray}
+            tableData={orderTableData}
           />
         </AccordionDetails>
       </Accordion>
@@ -73,7 +75,7 @@ function MainSessionOrder({ orders, timestamp }: Readonly<MainSessionOrderProps>
           <SortableTable<OrderTableData>
             tableTitle={"Date: " + timestamp} 
             tableHeaders={orderTableHeaders}
-            tableData={orderTableDataArray}
+            tableData={orderTableData}
           />
         </AccordionDetails>
       </Accordion>
@@ -81,4 +83,4 @@ function MainSessionOrder({ orders, timestamp }: Readonly<MainSessionOrderProps>
   )
 }
 
-export default MainSessionOrder;
+export default MainSessionData;
