@@ -8,7 +8,7 @@ import { TableHeader } from "../type-interface/props/SortableTableProps";
 
 function Home() {
   const { sessions } = useSessionContext();
-  const sessionTableDataArray: SessionTableData[] = sessions.map(session => ({
+  const sessionTableData: SessionTableData[] = sessions.map(session => ({
     id: session.id,
     name: session.name,
     owner: session.owner.name,
@@ -28,7 +28,7 @@ function Home() {
       <SortableTable<SessionTableData> 
         tableTitle="Join A Session: " 
         tableHeaders={sessionTableHeaders}
-        tableData={sessionTableDataArray}
+        tableData={sessionTableData}
       />
     </Stack>
   )
