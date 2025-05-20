@@ -1,5 +1,7 @@
 import { Beverage, Customisations } from "../type-interface/Beverage";
 
+export const BRAND_ONE_PLUS_KOPI = "One Plus Kopi";
+
 export const enum Category {
   HotTraditionalCoffee = "Hot Traditional Coffee",
   IcedTraditionalCoffee = "Iced Traditional Coffee",
