@@ -5,7 +5,7 @@ import { TableHeader } from "../type-interface/props/SortableTableProps";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
 
-function MainSessionData({ selectedBrandIndex, orders, timestamp }: Readonly<MainSessionDataProps>) {
+function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Readonly<MainSessionDataProps>) {
   const orderTableData: OrderTableData[] = orders.map(order => ({
     id: order.id,
     sessionUser: order.sessionUser.name,
@@ -55,7 +55,7 @@ function MainSessionData({ selectedBrandIndex, orders, timestamp }: Readonly<Mai
         </AccordionSummary>
         <AccordionDetails>
           <SortableTable<OrderTableData>
-            tableTitle={"Date: " + timestamp} 
+            tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
           />
@@ -73,7 +73,7 @@ function MainSessionData({ selectedBrandIndex, orders, timestamp }: Readonly<Mai
         </AccordionSummary>
         <AccordionDetails>
           <SortableTable<OrderTableData>
-            tableTitle={"Date: " + timestamp} 
+            tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
           />
