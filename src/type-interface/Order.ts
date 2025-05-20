@@ -4,6 +4,7 @@ import { SessionUser } from "./SessionUser";
 
 export type Order = {
   id: string,
+  brand: string,
   sessionUser: SessionUser,
   beverage: Beverage,
   customisations: Customisations,

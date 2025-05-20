@@ -54,6 +54,7 @@ const testSessions: Session[] = [
       orders: [
         {
           id: "123",
+          brand: "One Plus Kopi",
           sessionUser: {
             id: "ownerId",
             name: "admin"
@@ -105,6 +106,7 @@ const testSessions: Session[] = [
       orders: [
         {
           id: "234",
+          brand: "One Plus Kopi",
           sessionUser: {
             id: "ownerId",
             name: "admin"
