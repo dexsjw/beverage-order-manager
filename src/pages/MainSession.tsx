@@ -1,7 +1,9 @@
 import { Box, Tab, Tabs } from "@mui/material";
-import MainSessionOrder from "../components/MainSessionOrder";
+import { SyntheticEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import MainSessionData from "../components/MainSessionData";
 import { useSessionContext } from "../context/SessionContext";
+import { AvailableBrands } from "../static-data/AvailableBrandsMenu";
 import { Order } from "../type-interface/Order";
 
 function MainSession() {
@@ -9,32 +11,44 @@ function MainSession() {
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  let orders: Order[] = [];
-  let timestamp: string = "";
-  const selectedSession = sessions.find(session => session.id === sessionId);
+  const [tabIndex, setTabIndex] = useState(0);
 
+  let orders: Order[] = [];
+  let sessionTimestamp: string = "";
+
+  const selectedSession = sessions.find(session => session.id === sessionId);
   if (selectedSession === undefined) {
     console.error(`Unable to find Session with id: ${sessionId}`);
     navigate("/");
   } else {
     orders = selectedSession.data.orders;
-    timestamp = selectedSession.timestamp;
+    sessionTimestamp = selectedSession.timestamp;
   }
 
+  const handleTabChange = (event: SyntheticEvent, tabIndex: number) => {
+    setTabIndex(tabIndex);
+  }
 
   return (
     <Box component="section" sx={{ borderBottom: 1, borderColor: 'divider' }}>
       <Tabs
+        value={tabIndex}
+        onChange={handleTabChange}
         variant="scrollable"
         scrollButtons
         allowScrollButtonsMobile
       >
-        <Tab label="One Plus Kopi" />
-        <Tab label="Custom" />
+        {AvailableBrands.map(brand => (
+          <Tab 
+            key={brand}
+            label={brand} 
+          />
+        ))}
       </Tabs>
-      <MainSessionOrder 
+      <MainSessionData 
+        selectedBrandIndex={tabIndex}
         orders={orders}
-        timestamp={timestamp}
+        sessionTimestamp={sessionTimestamp}
       />
     </Box>
   )
