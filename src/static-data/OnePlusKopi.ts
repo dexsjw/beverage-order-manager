@@ -54,10 +54,9 @@ export const OnePlusKopiMenu: Beverage[] = [
   { id: 404, category: Category.SpecialtyIcedDrinks, name: "Honey Lemon Aloe Vera", price: 3.5 }
 ]
 
-export const OnePlusKopiCustomisations = {
+export const OnePlusKopiCustomisationsOptions: Customisations = {
   // OnePlusKopi take away for hot drinks need to +$0.10 ~ $0.20
-  isTakeAway: [true, false],
-  thicknessLevel: ["Di Lo (Thickest)", "Gao (Thicker)", "Po (Thinner)"],
-  sweetnessLevel: ["Ga Dai (Sweeter)", "Siu Dai (Less Sweet)", "Siu Siu Dai (Less Less Sweet)", "Kosong (No sugar)"],
-  others: null
+  isTakeAwayOptions: [true, false],
+  thicknessLevelOptions: ["Di Lo (Thickest)", "Gao (Thicker)", "Po (Thinner)"],
+  sweetnessLevelOptions: ["Ga Dai (Sweeter)", "Siu Dai (Less Sweet)", "Siu Siu Dai (Less Less Sweet)", "Kosong (No sugar)"],
 }
