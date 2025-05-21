@@ -7,6 +7,7 @@ function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>
   tableTitle, 
   tableHeaders,
   tableData
+  // TODO: include row select function to run when row is selected e.g. open dialog, edit field
 }: Readonly<SortableTableProps<T>>) {
   
   const [selectedRowId, setSelectedRowId] = useState<Key>("");
