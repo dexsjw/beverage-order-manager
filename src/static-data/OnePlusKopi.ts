@@ -1,4 +1,5 @@
-import { Beverage, Customisations } from "../type-interface/Beverage";
+import { Beverage } from "../type-interface/Beverage";
+import { CustomisationsOption } from "../type-interface/Customisations";
 
 export const BRAND_ONE_PLUS_KOPI = "One Plus Kopi";
 
@@ -54,9 +55,24 @@ export const OnePlusKopiMenu: Beverage[] = [
   { id: 404, category: Category.SpecialtyIcedDrinks, name: "Honey Lemon Aloe Vera", price: 3.5 }
 ]
 
-export const OnePlusKopiCustomisationsOptions: Customisations = {
-  // OnePlusKopi take away for hot drinks need to +$0.10 ~ $0.20
-  isTakeAwayOptions: [true, false],
-  thicknessLevelOptions: ["Di Lo (Thickest)", "Gao (Thicker)", "Po (Thinner)"],
-  sweetnessLevelOptions: ["Ga Dai (Sweeter)", "Siu Dai (Less Sweet)", "Siu Siu Dai (Less Less Sweet)", "Kosong (No sugar)"]
-}
+// OnePlusKopi take away for hot drinks need to +$0.10 ~ $0.20
+export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
+  {
+    name: "Take Away?", 
+    placeholder:"Yes", 
+    defaultValue: true,
+    booleanOptions: [true, false]
+  },
+  {
+    name: "Thickness Level", 
+    placeholder:"Normal", 
+    defaultValue: "Normal",
+    stringOptions: ["Di Lo (Thickest)", "Gao (Thicker)", "Normal", "Po (Thinner)"]
+  },
+  {
+    name: "Sweetness Level", 
+    placeholder:"Normal", 
+    defaultValue:"Normal", 
+    stringOptions: ["Ga Dai (Sweeter)", "Normal", "Siu Dai (Less Sweet)", "Siu Siu Dai (Less Less Sweet)", "Kosong (No sugar)"]
+  }
+]
