@@ -1,12 +1,11 @@
 import { Stack } from "@mui/material";
 import { AvailableBrands, AvailableBrandsCustomisations, AvailableBrandsMenu } from "../../static-data/AvailableBrandsData";
 import { Beverage } from "../../type-interface/Beverage";
+import { CustomisationsOption } from "../../type-interface/Customisations";
 import { OrderFormProps } from "../../type-interface/props/OrderFormProps";
 import BeverageOrderSection from "./BeverageOrderSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
-import { OnePlusKopiCustomisationsOptions } from "../../static-data/OnePlusKopi";
-import { CustomisationsOption } from "../../type-interface/Customisations";
 
 function OrderForm({ selectedBrandIndex }: Readonly<OrderFormProps>) {
   const brandBeverageMenu: Beverage[] = AvailableBrandsMenu[AvailableBrands[selectedBrandIndex]];
