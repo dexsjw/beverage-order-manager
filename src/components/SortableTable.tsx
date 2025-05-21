@@ -1,5 +1,5 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { Key, ReactNode } from "react";
+import { Key, ReactNode, useState } from "react";
 import { SortableTableProps } from "../type-interface/props/SortableTableProps";
 import JoinSessionDialog from "./JoinSessionDialog";
 
@@ -8,6 +8,14 @@ function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>
   tableHeaders,
   tableData
 }: Readonly<SortableTableProps<T>>) {
+  
+  const [selectedRowId, setSelectedRowId] = useState<Key>("");
+
+  const handleRowSelect = (rowId: Key) => {
+    setSelectedRowId(prevRowId => {
+      return prevRowId === rowId ? "" : rowId;
+    });
+  }
   
   return (
     <Box>
@@ -33,7 +41,12 @@ function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>
             </TableHead>
             <TableBody>
               {tableData.map(data => (
-                <TableRow key={data.id}>
+                <TableRow 
+                  hover
+                  key={data.id}
+                  selected={data.id === selectedRowId}
+                  onClick={() => handleRowSelect(data.id)}
+                >
                   {tableHeaders.map(header => (
                     <TableCell key={header.id}>
                       {data[header.id]}
