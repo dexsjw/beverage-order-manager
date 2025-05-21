@@ -1,7 +1,8 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { OnePlusKopiCustomisations } from "../../static-data/OnePlusKopi";
+import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
-function CustomisationsSection() {
+function CustomisationsSection({ customisationsOptions }: Readonly<CustomisationsSectionProps>) {
+
   return (
     <Stack spacing={1}>
       <Typography 
@@ -11,67 +12,57 @@ function CustomisationsSection() {
       >
         Customisations
       </Typography>
-      <Typography 
-        variant="body2" 
-        component="div"
-        align="left" 
-      >
-        Take Away?*
-      </Typography>
-      <Autocomplete 
-        id="customisations" 
-        options={OnePlusKopiCustomisations.isTakeAway} 
-        getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-        defaultValue={OnePlusKopiCustomisations.isTakeAway[0]}
-        renderInput={(params) => (
-          <TextField 
-            {...params}
-            required
-            variant="filled"
-            placeholder="Yes" 
-          />
-        )}
-      />
-      <Typography 
-        variant="body2" 
-        component="div"
-        align="left" 
-      >
-        Thickness Level*:
-      </Typography>
-      <Autocomplete 
-        id="thickness-level" 
-        options={OnePlusKopiCustomisations.thicknessLevel} 
-        getOptionLabel={(option: string) => option} 
-        renderInput={(params) => (
-          <TextField 
-            {...params}
-            required
-            variant="filled"
-            placeholder="Gao" 
-          />
-        )}
-      />
-      <Typography 
-        variant="body2" 
-        component="div"
-        align="left" 
-      >
-        Sweetness Level*:
-      </Typography>
-      <Autocomplete 
-        id="sweetness-level" 
-        options={OnePlusKopiCustomisations.sweetnessLevel} 
-        getOptionLabel={(option: string) => option} 
-        renderInput={(params) => (
-          <TextField 
-            {...params}
-            required
-            variant="filled"
-            placeholder="Siu Dai" 
-          />
-        )}
-      />
+      {customisationsOptions.map(customisationsOption => (
+        <>
+          <Typography 
+            variant="body2" 
+            component="div"
+            align="left" 
+          >
+            {customisationsOption.name}*:
+          </Typography>
+          {customisationsOption.stringOptions &&
+            <Autocomplete 
+              id={customisationsOption.name}
+              options={customisationsOption.stringOptions} 
+              getOptionLabel={(option: string) => option} 
+              defaultValue={
+                typeof customisationsOption.defaultValue === "string" 
+                ? customisationsOption.defaultValue 
+                : ""
+              }
+              renderInput={(params) => (
+                <TextField 
+                  {...params}
+                  required
+                  variant="filled"
+                  placeholder={customisationsOption.placeholder} 
+                />
+              )}
+            />
+          }
+          {customisationsOption.booleanOptions && 
+            <Autocomplete 
+              id={customisationsOption.name}
+              options={customisationsOption.booleanOptions} 
+              getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
+              defaultValue={
+                typeof customisationsOption.defaultValue === "boolean" 
+                ? customisationsOption.defaultValue 
+                : true
+              }
+              renderInput={(params) => (
+                <TextField 
+                  {...params}
+                  required
+                  variant="filled"
+                  placeholder={customisationsOption.placeholder}
+                />
+              )}
+            />
+          }
+        </>
+      ))}
       <Typography 
         variant="body2" 
         component="div"
