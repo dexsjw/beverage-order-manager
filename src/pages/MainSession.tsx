@@ -3,7 +3,7 @@ import { SyntheticEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MainSessionData from "../components/MainSessionData";
 import { useSessionContext } from "../context/SessionContext";
-import { AvailableBrands } from "../static-data/AvailableBrandsMenu";
+import { AvailableBrands } from "../static-data/AvailableBrandsData";
 import { Order } from "../type-interface/Order";
 
 function MainSession() {
