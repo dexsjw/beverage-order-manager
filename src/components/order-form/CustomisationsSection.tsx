@@ -13,7 +13,10 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
         Customisations
       </Typography>
       {customisationsOptions.map(customisationsOption => (
-        <>
+        <Stack 
+          key={customisationsOption.name}
+          spacing={1}
+        >
           <Typography 
             variant="body2" 
             component="div"
@@ -61,7 +64,7 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
               )}
             />
           }
-        </>
+        </Stack>
       ))}
       <Typography 
         variant="body2" 
