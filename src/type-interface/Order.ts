@@ -1,4 +1,5 @@
-import { Beverage, Customisations } from "./Beverage";
+import { Beverage } from "./Beverage";
+import { Customisations } from "./Customisations";
 import { TableData } from "./props/SortableTableProps";
 import { SessionUser } from "./SessionUser";
 
