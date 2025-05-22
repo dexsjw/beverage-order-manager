@@ -1,5 +1,5 @@
 import { Box, Tab, Tabs } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MainSessionData from "../components/MainSessionData";
 import { useSessionContext } from "../context/SessionContext";
@@ -25,7 +25,7 @@ function MainSession() {
     sessionTimestamp = selectedSession.timestamp;
   }
 
-  const handleTabChange = (event: SyntheticEvent, tabIndex: number) => {
+  const handleTabChange = (tabIndex: number) => {
     setTabIndex(tabIndex);
   }
 
@@ -33,7 +33,7 @@ function MainSession() {
     <Box component="section" sx={{ borderBottom: 1, borderColor: 'divider' }}>
       <Tabs
         value={tabIndex}
-        onChange={handleTabChange}
+        onChange={(event, tabIndex) => handleTabChange(tabIndex)}
         variant="scrollable"
         scrollButtons
         allowScrollButtonsMobile
