@@ -1,4 +1,4 @@
-import { Key, ReactNode } from "react"
+import { Key } from "react"
 
 export type SortableTableProps<T> = {
   tableTitle?: string,
