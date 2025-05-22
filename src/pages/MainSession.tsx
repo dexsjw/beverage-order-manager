@@ -15,8 +15,8 @@ function MainSession() {
 
   let orders: Order[] = [];
   let sessionTimestamp: string = "";
-
   const selectedSession = sessions.find(session => session.id === sessionId);
+
   if (selectedSession === undefined) {
     console.error(`Unable to find Session with id: ${sessionId}`);
     navigate("/");
