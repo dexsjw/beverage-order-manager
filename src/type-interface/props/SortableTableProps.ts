@@ -10,7 +10,3 @@ export type TableHeader<T> = {
   id: keyof T & Key,
   name: string
 }
-
-export type TableData = {
-  [key: string | number]: ReactNode
-}
