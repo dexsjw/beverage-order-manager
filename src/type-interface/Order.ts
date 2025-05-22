@@ -1,6 +1,5 @@
 import { Beverage } from "./Beverage";
 import { Customisations } from "./Customisations";
-import { TableData } from "./props/SortableTableProps";
 import { SessionUser } from "./SessionUser";
 
 export type Order = {
@@ -12,12 +11,12 @@ export type Order = {
   quantity: number
 }
 
-export interface OrderTableData extends TableData {
-  id: Order["id"],
+export type OrderTableData = 
+Pick<Order, "id" | "quantity">
+& {
   sessionUser: SessionUser["name"],
   takeAway: "Take Away" | "Dine In",
   beverage: Beverage["name"],
   customisations: string,
-  quantity: Order["quantity"],
   price: Beverage["price"]
 }
