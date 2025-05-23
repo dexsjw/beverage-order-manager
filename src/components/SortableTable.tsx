@@ -1,21 +1,20 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Key, ReactNode, useState } from "react";
 import { SortableTableProps } from "../type-interface/props/SortableTableProps";
-import JoinSessionDialog from "./JoinSessionDialog";
 
 function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>({
   tableTitle, 
   tableHeaders,
-  tableData
+  tableData,
+  onRowSelect
   // TODO: include row select function to run when row is selected e.g. open dialog, edit field
 }: Readonly<SortableTableProps<T>>) {
   
   const [selectedRowId, setSelectedRowId] = useState<Key>("");
 
   const handleRowSelect = (rowId: Key) => {
-    setSelectedRowId(prevRowId => {
-      return prevRowId === rowId ? "" : rowId;
-    });
+    onRowSelect(rowId);
+    setSelectedRowId(prevRowId => prevRowId === rowId ? "" : rowId);
   }
   
   return (
@@ -59,7 +58,6 @@ function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>
           </Table>
         </TableContainer>
       </Paper>
-      <JoinSessionDialog />
     </Box>
   )
 }
