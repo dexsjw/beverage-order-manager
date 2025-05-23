@@ -1,19 +1,30 @@
-import { Box, Button, Dialog, DialogTitle, Stack, TextField } from "@mui/material";
+import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
+import { JoinSessionDialogProps } from "../type-interface/props/JoinSessionDialogProps";
 
-function JoinSessionDialog() {
+function JoinSessionDialog({ sessionName, isDialogOpen }: Readonly<JoinSessionDialogProps>) {
 
   return (
     <Box>
-      <Dialog open={false}>
+      <Dialog 
+        open={isDialogOpen}
+        scroll="paper"
+      >
         <Box sx={{ p: 1 }}>
-          <Stack spacing={1}>
-            <DialogTitle>Enter Password: </DialogTitle>
-            <TextField
-              required 
-              type="password"
-              id="password" 
-              label="Password" 
-            />
+          <Stack>
+            <DialogTitle>{`Session Name: ${sessionName}`}</DialogTitle>
+            <DialogContent>
+              <DialogContentText align="left">
+                Enter Password:
+              </DialogContentText>
+              <TextField
+                required
+                type="password"
+                id="password"
+                name="password"
+                label="Password"
+                margin="dense"
+              />
+            </DialogContent>
             <Button variant="contained">Join</Button>
           </Stack>
         </Box>
