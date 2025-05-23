@@ -3,7 +3,8 @@ import { Key } from "react"
 export type SortableTableProps<T> = {
   tableTitle?: string,
   tableHeaders: TableHeader<T>[],
-  tableData: T[]
+  tableData: T[],
+  onRowSelect: (rowId: Key) => void
 }
 
 export type TableHeader<T> = {
