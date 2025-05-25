@@ -1,13 +1,23 @@
-import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
 import { JoinSessionDialogProps } from "../type-interface/props/JoinSessionDialogProps";
 
-function JoinSessionDialog({ sessionName, isDialogOpen }: Readonly<JoinSessionDialogProps>) {
+function JoinSessionDialog({
+  sessionId, 
+  sessionName, 
+  isDialogOpen,
+  onDialogClose
+}: Readonly<JoinSessionDialogProps>) {
+  
+  const handleClose = () => {
+    onDialogClose(isDialogOpen);
+  }
+  
 
   return (
     <Box>
       <Dialog 
+        onClose={handleClose}
         open={isDialogOpen}
-        scroll="paper"
       >
         <Box sx={{ p: 1 }}>
           <Stack>
@@ -25,7 +35,15 @@ function JoinSessionDialog({ sessionName, isDialogOpen }: Readonly<JoinSessionDi
                 margin="dense"
               />
             </DialogContent>
-            <Button variant="contained">Join</Button>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button 
+                variant="contained"
+                onClick={() => {}}
+              >
+                Join
+              </Button>
+            </DialogActions>
           </Stack>
         </Box>
       </Dialog>
