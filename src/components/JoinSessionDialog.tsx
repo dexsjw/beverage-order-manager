@@ -1,6 +1,7 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
 import { JoinSessionDialogProps } from "../type-interface/props/JoinSessionDialogProps";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function JoinSessionDialog({
   sessionCredentials,
@@ -9,13 +10,19 @@ function JoinSessionDialog({
 }: Readonly<JoinSessionDialogProps>) {
 
   const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [isDisplayErrorMessage, setIsDisplayErrorMessage] = useState(false);
   
   const handleClose = () => {
     onDialogClose(isDialogOpen);
   }
   
   const handleJoinSession = () => {
-    navigate(`main-session/${sessionCredentials.id}`)
+    if (password === sessionCredentials.password) {
+      navigate(`main-session/${sessionCredentials.id}`);
+    } else {
+      setIsDisplayErrorMessage(true);
+    }
   }
 
   return (
@@ -38,7 +45,17 @@ function JoinSessionDialog({
                 name="password"
                 label="Password"
                 margin="dense"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
+              {isDisplayErrorMessage &&
+                <DialogContentText
+                  align="left"
+                  color="error"
+                >
+                  Password is wrong!
+                </DialogContentText>
+              }
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
