@@ -9,7 +9,9 @@ import { Key, useState } from "react";
 import JoinSessionDialog from "../components/JoinSessionDialog";
 
 function Home() {
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
+  const [sessionId, setSessionId] = useState("");
+  const [sessionName, setSessionName] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { sessions } = useSessionContext();
   const sessionTableData: SessionTableData[] = sessions.map(session => ({
@@ -27,7 +29,17 @@ function Home() {
 
   const onSessionSelect = (sessionId: Key) => {
     const session = sessions.find(session => session.id === sessionId);
-    console.log(session);
+    if (session !== undefined) {
+      setSessionId(session.id);
+      setSessionName(session.name);
+      setIsDialogOpen(prevDialogState => !prevDialogState);
+    }
+  }
+
+  const handleDialogClose = (dialogState: boolean) => {
+    setSessionId("");
+    setSessionName("");
+    setIsDialogOpen(!dialogState);
   }
 
   return (
@@ -38,11 +50,14 @@ function Home() {
         tableTitle="Join A Session: " 
         tableHeaders={sessionTableHeaders}
         tableData={sessionTableData}
+        selectedRowId={sessionId}
         onRowSelect={onSessionSelect}
       />
-      <JoinSessionDialog 
-        sessionName="name"
+      <JoinSessionDialog
+        sessionId={sessionId}
+        sessionName={sessionName}
         isDialogOpen={isDialogOpen}
+        onDialogClose={handleDialogClose}
       />
     </Stack>
   )
