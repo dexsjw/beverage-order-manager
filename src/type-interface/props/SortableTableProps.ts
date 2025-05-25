@@ -4,6 +4,7 @@ export type SortableTableProps<T> = {
   tableTitle?: string,
   tableHeaders: TableHeader<T>[],
   tableData: T[],
+  selectedRowId: Key,
   onRowSelect: (rowId: Key) => void
 }
 
