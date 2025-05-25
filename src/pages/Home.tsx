@@ -3,14 +3,19 @@ import SessionForm from "../components/SessionForm";
 import SessionUserForm from "../components/SessionUserForm";
 import SortableTable from "../components/SortableTable";
 import { useSessionContext } from "../context/SessionContext";
-import { SessionTableData } from "../type-interface/Session";
+import { Session, SessionTableData } from "../type-interface/Session";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import { Key, useState } from "react";
 import JoinSessionDialog from "../components/JoinSessionDialog";
 
+const emptySessionCredentials = {
+  id: "",
+  name: "",
+  password: ""
+}
+
 function Home() {
-  const [sessionId, setSessionId] = useState("");
-  const [sessionName, setSessionName] = useState("");
+  const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { sessions } = useSessionContext();
@@ -30,15 +35,17 @@ function Home() {
   const onSessionSelect = (sessionId: Key) => {
     const session = sessions.find(session => session.id === sessionId);
     if (session !== undefined) {
-      setSessionId(session.id);
-      setSessionName(session.name);
+      setSessionCredentials({
+        id: session.id,
+        name: session.name,
+        password: session.password
+      })
       setIsDialogOpen(prevDialogState => !prevDialogState);
     }
   }
 
   const handleDialogClose = (dialogState: boolean) => {
-    setSessionId("");
-    setSessionName("");
+    setSessionCredentials(emptySessionCredentials);
     setIsDialogOpen(!dialogState);
   }
 
@@ -50,12 +57,11 @@ function Home() {
         tableTitle="Join A Session: " 
         tableHeaders={sessionTableHeaders}
         tableData={sessionTableData}
-        selectedRowId={sessionId}
+        selectedRowId={sessionCredentials.id}
         onRowSelect={onSessionSelect}
       />
       <JoinSessionDialog
-        sessionId={sessionId}
-        sessionName={sessionName}
+        sessionCredentials={sessionCredentials}
         isDialogOpen={isDialogOpen}
         onDialogClose={handleDialogClose}
       />

@@ -1,6 +1,7 @@
+import { Session } from "../Session"
+
 export type JoinSessionDialogProps = {
-  sessionId: string
-  sessionName: string,
+  sessionCredentials: Pick<Session, "id" | "name" | "password">,
   isDialogOpen: boolean,
   onDialogClose: (isDialogOpen: boolean) => void
 }

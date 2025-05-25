@@ -1,17 +1,22 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
 import { JoinSessionDialogProps } from "../type-interface/props/JoinSessionDialogProps";
+import { useNavigate } from "react-router-dom";
 
 function JoinSessionDialog({
-  sessionId, 
-  sessionName, 
+  sessionCredentials,
   isDialogOpen,
   onDialogClose
 }: Readonly<JoinSessionDialogProps>) {
+
+  const navigate = useNavigate();
   
   const handleClose = () => {
     onDialogClose(isDialogOpen);
   }
   
+  const handleJoinSession = () => {
+    navigate(`main-session/${sessionCredentials.id}`)
+  }
 
   return (
     <Box>
@@ -21,7 +26,7 @@ function JoinSessionDialog({
       >
         <Box sx={{ p: 1 }}>
           <Stack>
-            <DialogTitle>{`Session Name: ${sessionName}`}</DialogTitle>
+            <DialogTitle>{`Session Name: ${sessionCredentials.name}`}</DialogTitle>
             <DialogContent>
               <DialogContentText align="left">
                 Enter Password:
@@ -39,7 +44,7 @@ function JoinSessionDialog({
               <Button onClick={handleClose}>Cancel</Button>
               <Button 
                 variant="contained"
-                onClick={() => {}}
+                onClick={handleJoinSession}
               >
                 Join
               </Button>
