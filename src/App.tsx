@@ -16,7 +16,6 @@ function App() {
           <Route path="/" element={<BaseLayout />}>
             <Route index element={<Home />} />
             <Route path="main-session/:sessionId" element={<MainSession />} />
-            {/* <Route path="main-session" element={<MainSession />} /> */}
             <Route path="history/:sessionId" element={<History />} />
             <Route path="*" element={<DefaultPage />} />
           </Route>
