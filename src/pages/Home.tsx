@@ -5,16 +5,37 @@ import SortableTable from "../components/SortableTable";
 import { useSessionContext } from "../context/SessionContext";
 import { Session, SessionTableData } from "../type-interface/Session";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
-import { Key, useState } from "react";
+import { ChangeEvent, Key, useState } from "react";
 import JoinSessionDialog from "../components/JoinSessionDialog";
+import { SessionUser } from "../type-interface/SessionUser";
 
-const emptySessionCredentials = {
+const BOM_SESSION_USER_KEY = "bomSessionUserKey";
+const existingSessionUser = localStorage.getItem(BOM_SESSION_USER_KEY);
+const newSessionUser: SessionUser = { id: crypto.randomUUID(), name: "" };
+let currentSessionUser: SessionUser = { id: "", name: "" };
+
+try {
+  currentSessionUser = existingSessionUser
+    ? JSON.parse(existingSessionUser)
+    : newSessionUser;
+  if (!currentSessionUser.id || currentSessionUser.id.trim() === "") {
+    console.warn("Removing key...");
+    localStorage.removeItem(BOM_SESSION_USER_KEY);
+    currentSessionUser = newSessionUser;
+  }
+} catch (error) {
+  console.error(error);
+  localStorage.removeItem(BOM_SESSION_USER_KEY);
+}
+
+const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
   id: "",
   name: "",
   password: ""
 }
 
 function Home() {
+  const [sessionUser, setSessionUser] = useState(currentSessionUser);
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -32,6 +53,18 @@ function Home() {
     { id: "isActive", name: "Status" }
   ];
 
+  const onSessionUserChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setSessionUser(prevSessionUser => {
+      const newSessionUser: SessionUser = {
+        ...prevSessionUser,
+        [event.target.name]: event.target.value
+      };
+      localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(newSessionUser));
+      return newSessionUser;
+    })
+    console.log(event);
+  }
+
   const onSessionSelect = (sessionId: Key) => {
     const session = sessions.find(session => session.id === sessionId);
     if (session !== undefined) {
@@ -46,12 +79,15 @@ function Home() {
 
   const handleDialogClose = (dialogState: boolean) => {
     setSessionCredentials(emptySessionCredentials);
-    setIsDialogOpen(!dialogState);
+    setIsDialogOpen(false);
   }
 
   return (
     <Stack spacing={5}>
-      <SessionUserForm />
+      <SessionUserForm 
+        sessionUser={sessionUser}
+        handleSessionUserChange={onSessionUserChange}
+      />
       <SessionForm />
       <SortableTable<SessionTableData> 
         tableTitle="Join A Session: " 
