@@ -5,3 +5,10 @@ export const FlexBoxColumnGap = styled(Box)({
   flexDirection: "column",
   gap: 10
 })
+
+export const FlexBoxRowGap = styled(Box)({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  gap: 10
+})
