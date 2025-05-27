@@ -1,6 +1,8 @@
-import { Stack, TextField, Typography } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { SessionUser } from "../type-interface/SessionUser";
+import { FlexBoxRowGap } from "./styled/FlexBox";
 
 const BOM_SESSION_USER_KEY = "bomSessionUserKey";
 const existingSessionUser = localStorage.getItem(BOM_SESSION_USER_KEY);
@@ -22,11 +24,23 @@ try {
 }
 
 function SessionUserForm() {
+  const [isIdFieldDisabled, setIsIdFieldDisabled] = useState(true);
   const [sessionUser, setSessionUser] = useState(currentSessionUser);
 
+  const handleSessionUserIdChange = (sessionUserId: string) => {
+    setSessionUser(prevSessionUser => {
+      const newSessionUser: SessionUser = {
+        ...prevSessionUser,
+        id: sessionUserId
+      };
+      localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(newSessionUser));
+      return newSessionUser;
+    });
+  }
+
   const handleSessionUserNameChange = (sessionUserName: string) => {
-    setSessionUser((prevSessionUser) => {
-      const newSessionUser = {
+    setSessionUser(prevSessionUser => {
+      const newSessionUser: SessionUser = {
         ...prevSessionUser,
         name: sessionUserName
       };
@@ -37,13 +51,21 @@ function SessionUserForm() {
 
   return (
     <Stack spacing={2}>
-      <Typography 
-        variant="body1" 
-        component="div"
-        align="left" 
-      >
-        User ID: {sessionUser.id}
-      </Typography>
+      <FlexBoxRowGap>
+        <TextField 
+          required
+          fullWidth
+          disabled={isIdFieldDisabled}
+          id="session-user-id"
+          name="session-user-id"
+          label="User ID"
+          value={sessionUser.id}
+          onChange={(event) => handleSessionUserIdChange(event.target.value)}
+        />
+        <IconButton onClick={() => setIsIdFieldDisabled(prevState => !prevState)}>
+          <EditIcon />
+        </IconButton>
+      </FlexBoxRowGap>
       <TextField 
         required 
         id="session-username"
