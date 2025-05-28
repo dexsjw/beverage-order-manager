@@ -30,7 +30,7 @@ export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
       handleCreateSession,
       handleDeleteSession
     }
-  }, [])
+  }, [sessions])
 
   return (
     <SessionContext.Provider value={contextValue}>
