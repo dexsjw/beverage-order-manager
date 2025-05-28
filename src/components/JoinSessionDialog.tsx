@@ -14,7 +14,9 @@ function JoinSessionDialog({
   const [isDisplayErrorMessage, setIsDisplayErrorMessage] = useState(false);
   
   const handleClose = () => {
-    onDialogClose(isDialogOpen);
+    setPassword("");
+    setIsDisplayErrorMessage(false);
+    onDialogClose();
   }
   
   const handleJoinSession = () => {
@@ -53,7 +55,7 @@ function JoinSessionDialog({
                   align="left"
                   color="error"
                 >
-                  Password is wrong!
+                  Wrong password!
                 </DialogContentText>
               }
             </DialogContent>
