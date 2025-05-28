@@ -53,7 +53,7 @@ function Home() {
     { id: "isActive", name: "Status" }
   ];
 
-  const onSessionUserChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleSessionUserChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSessionUser(prevSessionUser => {
       const newSessionUser: SessionUser = {
         ...prevSessionUser,
@@ -62,10 +62,9 @@ function Home() {
       localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(newSessionUser));
       return newSessionUser;
     })
-    console.log(event);
   }
 
-  const onSessionSelect = (sessionId: Key) => {
+  const handleSessionSelect = (sessionId: Key) => {
     const session = sessions.find(session => session.id === sessionId);
     if (session !== undefined) {
       setSessionCredentials({
@@ -73,11 +72,11 @@ function Home() {
         name: session.name,
         password: session.password
       })
-      setIsDialogOpen(prevDialogState => !prevDialogState);
+      setIsDialogOpen(true);
     }
   }
 
-  const handleDialogClose = (dialogState: boolean) => {
+  const handleDialogClose = () => {
     setSessionCredentials(emptySessionCredentials);
     setIsDialogOpen(false);
   }
@@ -86,7 +85,7 @@ function Home() {
     <Stack spacing={5}>
       <SessionUserForm 
         sessionUser={sessionUser}
-        handleSessionUserChange={onSessionUserChange}
+        handleSessionUserChange={handleSessionUserChange}
       />
       <SessionForm />
       <SortableTable<SessionTableData> 
@@ -94,7 +93,7 @@ function Home() {
         tableHeaders={sessionTableHeaders}
         tableData={sessionTableData}
         selectedRowId={sessionCredentials.id}
-        onRowSelect={onSessionSelect}
+        handleRowSelect={handleSessionSelect}
       />
       <JoinSessionDialog
         sessionCredentials={sessionCredentials}
