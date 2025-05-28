@@ -43,7 +43,7 @@ const testSessions: Session[] = [
   {
     id: "001",
     name: "testSession",
-    password: "testest",
+    password: "test1",
     owner: {
       id: "admin",
       name: "admin"
@@ -95,7 +95,7 @@ const testSessions: Session[] = [
   {
     id: "002",
     name: "testSession2",
-    password: "testest",
+    password: "test2",
     owner: {
       id: "admin",
       name: "admin"
