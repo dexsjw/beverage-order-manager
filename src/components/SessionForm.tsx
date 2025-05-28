@@ -2,6 +2,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { SessionFormProps } from "../type-interface/props/SessionFormProps";
 import { Session } from "../type-interface/Session";
 import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const newSession: Session = {
   id: crypto.randomUUID(),
@@ -17,6 +18,8 @@ const newSession: Session = {
 }
 
 function SessionForm({ sessionUser }: SessionFormProps) {
+  const navigate = useNavigate();
+
   const [session, setSession] = useState(newSession);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordsMatch, setIsPasswordsMatch] = useState<boolean>(true);
@@ -27,6 +30,7 @@ function SessionForm({ sessionUser }: SessionFormProps) {
     }
     // TODO: Not sure if shallow copy works here
     setSession(prevSession => {
+      console.log(structuredClone(newSession.data));
       return {
         ...prevSession,
         [event.target.name]: event.target.value
@@ -37,7 +41,10 @@ function SessionForm({ sessionUser }: SessionFormProps) {
   const handleConfirmPasswordChange = (confirmPassword: string) => {
     setConfirmPassword(confirmPassword);
     setIsPasswordsMatch(session.password === confirmPassword);
-    console.log(session);
+  }
+
+  const handleCreateSession = () => {
+
   }
 
   return (
@@ -80,6 +87,7 @@ function SessionForm({ sessionUser }: SessionFormProps) {
       }
       <Button
         variant="contained"
+        onClick={handleCreateSession}
       >
         Create Session
       </Button>
