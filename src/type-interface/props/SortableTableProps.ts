@@ -5,7 +5,7 @@ export type SortableTableProps<T> = {
   tableHeaders: TableHeader<T>[],
   tableData: T[],
   selectedRowId: Key,
-  onRowSelect: (rowId: Key) => void
+  handleRowSelect: (rowId: Key) => void
 }
 
 export type TableHeader<T> = {
