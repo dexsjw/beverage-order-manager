@@ -1,4 +1,5 @@
 import EditIcon from '@mui/icons-material/Edit';
+import DoneIcon from '@mui/icons-material/Done';
 import { IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { SessionUserFormProps } from '../type-interface/props/SessionUserFormProps';
@@ -20,9 +21,16 @@ function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<Sess
           value={sessionUser.id}
           onChange={(event) => handleSessionUserChange(event)}
         />
-        <IconButton onClick={() => setIsIdFieldDisabled(prevState => !prevState)}>
-          <EditIcon />
-        </IconButton>
+        {isIdFieldDisabled && 
+          <IconButton onClick={() => setIsIdFieldDisabled(prevState => !prevState)}>
+            <EditIcon />
+          </IconButton>
+        }
+        {!isIdFieldDisabled && 
+          <IconButton onClick={() => setIsIdFieldDisabled(prevState => !prevState)}>
+            <DoneIcon />
+          </IconButton>
+        }
       </FlexBoxRowGap>
       <TextField 
         required 
