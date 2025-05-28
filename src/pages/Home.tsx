@@ -87,7 +87,9 @@ function Home() {
         sessionUser={sessionUser}
         handleSessionUserChange={handleSessionUserChange}
       />
-      <SessionForm />
+      <SessionForm 
+        sessionUser={sessionUser}
+      />
       <SortableTable<SessionTableData> 
         tableTitle="Join A Session: " 
         tableHeaders={sessionTableHeaders}
