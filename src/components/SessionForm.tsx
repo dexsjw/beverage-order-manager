@@ -3,6 +3,7 @@ import { SessionFormProps } from "../type-interface/props/SessionFormProps";
 import { Session } from "../type-interface/Session";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSessionContext } from "../context/SessionContext";
 
 const newSession: Session = {
   id: crypto.randomUUID(),
@@ -18,6 +19,7 @@ const newSession: Session = {
 }
 
 function SessionForm({ sessionUser }: SessionFormProps) {
+  const { handleCreateSession } = useSessionContext();
   const navigate = useNavigate();
 
   const [session, setSession] = useState(newSession);
@@ -28,9 +30,7 @@ function SessionForm({ sessionUser }: SessionFormProps) {
     if (event.target.name === "password") {
       setIsPasswordsMatch(event.target.value === confirmPassword);
     }
-    // TODO: Not sure if shallow copy works here
     setSession(prevSession => {
-      console.log(structuredClone(newSession.data));
       return {
         ...prevSession,
         [event.target.name]: event.target.value
@@ -43,8 +43,14 @@ function SessionForm({ sessionUser }: SessionFormProps) {
     setIsPasswordsMatch(session.password === confirmPassword);
   }
 
-  const handleCreateSession = () => {
-
+  const handleCreateSessionClick = () => {
+    if (session.name !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
+      const updatedSession = structuredClone(session);
+      updatedSession.owner = sessionUser;
+      setSession(updatedSession);
+      handleCreateSession(updatedSession);
+      navigate(`main-session/${updatedSession.id}`);
+    }
   }
 
   return (
@@ -87,7 +93,7 @@ function SessionForm({ sessionUser }: SessionFormProps) {
       }
       <Button
         variant="contained"
-        onClick={handleCreateSession}
+        onClick={handleCreateSessionClick}
       >
         Create Session
       </Button>
