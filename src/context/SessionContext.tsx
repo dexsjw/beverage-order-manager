@@ -17,11 +17,16 @@ export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
   const [sessions, setSessions] = useState<Session[]>(testSessions);
 
   const handleCreateSession = (session: Session) => {
-    setSessions(prevState => [session, ...prevState]);
+    // setSessions(prevSessions => [session, ...prevSessions]);
+    setSessions(prevSessions => {
+      const newSessions = [session, ...prevSessions];
+      console.log(newSessions);
+      return newSessions;
+    })
   }
 
   const handleDeleteSession = (sessionId: string) => {
-    setSessions(prevState => prevState.filter(session => session.id !== sessionId));
+    setSessions(prevSessions => prevSessions.filter(session => session.id !== sessionId));
   }
 
   const contextValue: SessionContextType = useMemo(() => {
