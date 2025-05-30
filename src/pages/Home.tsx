@@ -100,7 +100,7 @@ function Home() {
       <JoinSessionDialog
         sessionCredentials={sessionCredentials}
         isDialogOpen={isDialogOpen}
-        onDialogClose={handleDialogClose}
+        handleDialogClose={handleDialogClose}
       />
     </Stack>
   )

@@ -6,7 +6,7 @@ import { useState } from "react";
 function JoinSessionDialog({
   sessionCredentials,
   isDialogOpen,
-  onDialogClose
+  handleDialogClose
 }: Readonly<JoinSessionDialogProps>) {
 
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function JoinSessionDialog({
   const handleClose = () => {
     setPassword("");
     setIsDisplayErrorMessage(false);
-    onDialogClose();
+    handleDialogClose();
   }
   
   const handleJoinSession = () => {
