@@ -5,20 +5,20 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionContext } from "../context/SessionContext";
 
-const newSession: Session = {
-  id: crypto.randomUUID(),
-  name: "",
-  password: "",
-  owner: { id: "", name: "" },
-  timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
-  isActive: true,
-  data: {
-    orders: [],
-    transactions: []
-  }
-}
-
 function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
+  const newSession: Session = {
+    id: crypto.randomUUID(),
+    name: "",
+    password: "",
+    owner: sessionUser,
+    timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+    isActive: true,
+    data: {
+      orders: [],
+      transactions: []
+    }
+  }
+
   const { handleCreateSession } = useSessionContext();
   const navigate = useNavigate();
 
