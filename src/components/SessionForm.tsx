@@ -18,7 +18,7 @@ const newSession: Session = {
   }
 }
 
-function SessionForm({ sessionUser }: SessionFormProps) {
+function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
   const { handleCreateSession } = useSessionContext();
   const navigate = useNavigate();
 
