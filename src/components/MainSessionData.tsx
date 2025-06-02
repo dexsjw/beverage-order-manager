@@ -4,12 +4,13 @@ import { MainSessionDataProps } from "../type-interface/props/MainSessionDataPro
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
+import { Key, useState } from "react";
 
 function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Readonly<MainSessionDataProps>) {
   const orderTableData: OrderTableData[] = orders.map(order => ({
     id: order.id,
     sessionUser: order.sessionUser.name,
-    takeAway: order.customisations.isTakeAway ? "Take Away" : "Dine In",
+    takeAway: order.customisations.isTakeAway ? "Yes" : "No",
     beverage: order.beverage.name,
     customisations: `${order.customisations.thicknessLevel}, ${order.customisations.sweetnessLevel}, ${order.customisations.others}`,
     quantity: order.quantity,
@@ -30,7 +31,7 @@ function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Reado
       <Accordion defaultExpanded>
         <AccordionSummary>
           <Typography 
-            variant="h6" 
+            variant="h5" 
             component="div" 
             color="primary"
           >
