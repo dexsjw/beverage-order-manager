@@ -15,7 +15,7 @@ export type OrderTableData =
 Pick<Order, "id" | "quantity">
 & {
   sessionUser: SessionUser["name"],
-  takeAway: "Take Away" | "Dine In",
+  takeAway: "Yes" | "No",
   beverage: Beverage["name"],
   customisations: string,
   price: Beverage["price"]
