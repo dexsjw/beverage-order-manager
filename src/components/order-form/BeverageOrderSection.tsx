@@ -6,7 +6,7 @@ function BeverageOrderSection({ beverageMenu }: Readonly<BeverageOrderSectionPro
   return (
     <Stack spacing={1}>
       <Typography 
-        variant="body1" 
+        variant="h6" 
         component="div"
         align="left" 
       >
