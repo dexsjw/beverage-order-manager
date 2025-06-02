@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { AvailableBrands, AvailableBrandsData } from "../../static-data/AvailableBrandsData";
 import { Beverage } from "../../type-interface/Beverage";
 import { CustomisationsOption } from "../../type-interface/Customisations";
@@ -11,8 +11,12 @@ function OrderForm({ selectedBrandIndex }: Readonly<OrderFormProps>) {
   const brandBeverageMenu: Beverage[] = AvailableBrandsData[AvailableBrands[selectedBrandIndex]].menu;
   const brandCustomisationsOptions: CustomisationsOption[] = AvailableBrandsData[AvailableBrands[selectedBrandIndex]].customisationsOptions;
 
+  const handleAddOrderClick = () => {
+
+  }
+
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       <BeverageOrderSection 
         beverageMenu={brandBeverageMenu}
       />
@@ -20,6 +24,12 @@ function OrderForm({ selectedBrandIndex }: Readonly<OrderFormProps>) {
         customisationsOptions={brandCustomisationsOptions}
       />
       <QuantitySection />
+      <Button
+        variant="contained"
+        onClick={handleAddOrderClick}
+      >
+        Add Order
+      </Button>
     </Stack>
   )
 }
