@@ -46,7 +46,6 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
   const handleCreateSessionClick = () => {
     if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
       const updatedSession = structuredClone(session);
-      updatedSession.owner = sessionUser;
       setSession(updatedSession);
       handleCreateSession(updatedSession);
       navigate(`main-session/${updatedSession.id}`);
