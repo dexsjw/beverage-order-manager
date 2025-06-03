@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import SessionForm from "../components/SessionForm";
 import SessionUserForm from "../components/SessionUserForm";
 import SortableTable from "../components/SortableTable";
-import { useSessionContext } from "../context/SessionContext";
+import { testSessions, useSessionContext } from "../context/SessionContext";
 import { Session, SessionTableData } from "../type-interface/Session";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import { ChangeEvent, Key, useState } from "react";
@@ -39,7 +39,7 @@ function Home() {
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { sessions } = useSessionContext();
+  const sessions = testSessions;
   const sessionTableData: SessionTableData[] = sessions.map(session => ({
     id: session.id,
     name: session.name,

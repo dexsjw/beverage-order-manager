@@ -44,7 +44,7 @@ export function SessionProvider({ children }: Readonly<{children: ReactNode}>) {
   )
 }
 
-const testSessions: Session[] = [
+export const testSessions: Session[] = [
   {
     id: "001",
     name: "testSession",
