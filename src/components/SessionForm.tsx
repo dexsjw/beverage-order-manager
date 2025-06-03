@@ -44,7 +44,7 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
   }
 
   const handleCreateSessionClick = () => {
-    if (session.name !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
+    if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
       const updatedSession = structuredClone(session);
       updatedSession.owner = sessionUser;
       setSession(updatedSession);
