@@ -10,24 +10,7 @@ import JoinSessionDialog from "../components/JoinSessionDialog";
 import { SessionUser } from "../type-interface/SessionUser";
 
 const BOM_SESSION_USER_KEY = "bomSessionUserKey";
-const existingSessionUser = localStorage.getItem(BOM_SESSION_USER_KEY);
-const newSessionUser: SessionUser = { id: crypto.randomUUID(), name: "" };
 let currentSessionUser: SessionUser = { id: "", name: "" };
-
-try {
-  currentSessionUser = existingSessionUser
-    ? JSON.parse(existingSessionUser)
-    : newSessionUser;
-  if (!currentSessionUser.id || currentSessionUser.id.trim() === "") {
-    console.warn("Removing key...");
-    localStorage.removeItem(BOM_SESSION_USER_KEY);
-    currentSessionUser = newSessionUser;
-  }
-} catch (error) {
-  console.error(error);
-  localStorage.removeItem(BOM_SESSION_USER_KEY);
-}
-
 const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
   id: "",
   name: "",
@@ -35,6 +18,23 @@ const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
 }
 
 function Home() {
+  const existingSessionUser = localStorage.getItem(BOM_SESSION_USER_KEY);
+  const newSessionUser: SessionUser = { id: crypto.randomUUID(), name: "" };
+
+  try {
+    currentSessionUser = existingSessionUser
+      ? JSON.parse(existingSessionUser)
+      : newSessionUser;
+    if (!currentSessionUser.id || currentSessionUser.id.trim() === "") {
+      console.warn("Removing key...");
+      localStorage.removeItem(BOM_SESSION_USER_KEY);
+      currentSessionUser = newSessionUser;
+    }
+  } catch (error) {
+    console.error(error);
+    localStorage.removeItem(BOM_SESSION_USER_KEY);
+  }
+  
   const [sessionUser, setSessionUser] = useState(currentSessionUser);
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
