@@ -1,18 +1,44 @@
 import { Button, Stack } from "@mui/material";
+import { useState } from "react";
 import { AvailableBrands, AvailableBrandsData } from "../../static-data/AvailableBrandsData";
 import { Beverage } from "../../type-interface/Beverage";
 import { CustomisationsOption } from "../../type-interface/Customisations";
+import { Order } from "../../type-interface/Order";
 import { OrderFormProps } from "../../type-interface/props/OrderFormProps";
+import { FlexBoxColumnGap } from "../styled/FlexBox";
 import BeverageOrderSection from "./BeverageOrderSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
 
-function OrderForm({ selectedBrandIndex }: Readonly<OrderFormProps>) {
+function OrderForm({ 
+  selectedBrandIndex,
+  isEditMode,
+  handleExitEditMode,
+  handleAddOrder, 
+  handleRemoveOrder 
+}: Readonly<OrderFormProps>) {
+
+  const brand = AvailableBrands[selectedBrandIndex];
   const brandBeverageMenu: Beverage[] = AvailableBrandsData[AvailableBrands[selectedBrandIndex]].menu;
   const brandCustomisationsOptions: CustomisationsOption[] = AvailableBrandsData[AvailableBrands[selectedBrandIndex]].customisationsOptions;
 
-  const handleAddOrderClick = () => {
+  const newOrder: Order = {
+    id: crypto.randomUUID(),
+    brand,
+    sessionUser: { id: crypto.randomUUID(), name: "Peter" },
+    beverage: {id: 1, category: "", name: "", price: 0},
+    customisations: {custom: ""},
+    quantity: 1
+  }
 
+  const [order, setOrder] = useState<Order>(newOrder);
+
+  const handleAddOrderClick = () => {
+    handleAddOrder(order);
+  }
+
+  const handleRemoveOrderClick = () => {
+    handleRemoveOrder(order.id);
   }
 
   return (
@@ -24,12 +50,32 @@ function OrderForm({ selectedBrandIndex }: Readonly<OrderFormProps>) {
         customisationsOptions={brandCustomisationsOptions}
       />
       <QuantitySection />
-      <Button
-        variant="contained"
-        onClick={handleAddOrderClick}
-      >
-        Add Order
-      </Button>
+      {!isEditMode &&
+        <Button
+          variant="contained"
+          color="success"
+          onClick={handleAddOrderClick}
+        >
+          Add Order
+        </Button>
+      }
+      {isEditMode &&
+        <FlexBoxColumnGap>
+          <Button
+            variant="contained"
+            onClick={handleExitEditMode}
+          >
+            Done
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleRemoveOrderClick}
+          >
+            Remove Order
+          </Button>
+        </FlexBoxColumnGap>
+      }
     </Stack>
   )
 }
