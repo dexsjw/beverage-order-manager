@@ -1,12 +1,32 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
-import { OrderTableData } from "../type-interface/Order";
+import { Key, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSessionContext } from "../context/SessionContext";
+import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
-import { Key, useState } from "react";
 
-function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Readonly<MainSessionDataProps>) {
+function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
+  const { sessions } = useSessionContext();
+  const { sessionId } = useParams();
+  const navigate = useNavigate();
+
+  let orders: Order[] = [];
+  let sessionTimestamp: string = "";
+  const selectedSession = sessions.find(session => session.id === sessionId);
+
+  if (selectedSession === undefined) {
+    console.error(`Unable to find Session with id: ${sessionId}`);
+    navigate("/");
+  } else {
+    orders = selectedSession.data.orders;
+    sessionTimestamp = selectedSession.timestamp;
+  }
+
+  const [selectedOrderId, setSelectedOrderId] = useState("");
+
   const orderTableData: OrderTableData[] = orders.map(order => ({
     id: order.id,
     sessionUser: order.sessionUser.name,
@@ -25,6 +45,10 @@ function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Reado
     { id: "quantity", name: "Quantity" },
     { id: "price", name: "Price" }
   ];
+
+  const handleOrderSelect = (orderId: Key) => {
+
+  }
 
   return (
     <Box>
@@ -59,6 +83,8 @@ function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Reado
             tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
+            selectedRowId={selectedOrderId}
+            handleRowSelect={handleOrderSelect}
           />
         </AccordionDetails>
       </Accordion>
@@ -77,6 +103,8 @@ function MainSessionData({ selectedBrandIndex, orders, sessionTimestamp }: Reado
             tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
+            selectedRowId={selectedOrderId}
+            handleRowSelect={handleOrderSelect}
           />
         </AccordionDetails>
       </Accordion>
