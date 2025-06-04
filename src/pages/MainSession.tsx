@@ -12,9 +12,6 @@ function MainSession() {
 
   return (
     <Box component="section" sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      {/* <JoinSessionDialog
-
-      /> */}
       <Tabs
         value={tabIndex}
         onChange={(event, tabIndex) => handleTabChange(tabIndex)}
