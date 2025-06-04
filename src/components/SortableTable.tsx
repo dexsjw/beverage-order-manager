@@ -1,4 +1,6 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { Key, ReactNode } from "react";
 import { SortableTableProps } from "../type-interface/props/SortableTableProps";
 
@@ -31,6 +33,8 @@ function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>
                     {header.name}
                   </TableCell>
                 ))}
+                <TableCell />
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
@@ -46,6 +50,16 @@ function SortableTable<T extends { id: Key, [key: string | number]: ReactNode }>
                       {data[header.id]}
                     </TableCell>
                   ))}
+                  <TableCell>
+                    <IconButton onClick={() => {}}>
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={() => {}}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
