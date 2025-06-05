@@ -1,8 +1,8 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { Beverage } from "../../type-interface/Beverage";
-import { BeverageOrderSectionProps } from "../../type-interface/props/BeverageOrderSectionProps";
+import { BeverageSectionProps } from "../../type-interface/props/BeverageSectionProps";
 
-function BeverageOrderSection({ beverageMenu }: Readonly<BeverageOrderSectionProps>) {
+function BeverageSection({ beverageMenu, beverage }: Readonly<BeverageSectionProps>) {
   return (
     <Stack spacing={1}>
       <Typography 
@@ -16,6 +16,7 @@ function BeverageOrderSection({ beverageMenu }: Readonly<BeverageOrderSectionPro
         id="beverage-order" 
         options={beverageMenu} 
         getOptionLabel={(option: Beverage) => option.name}
+        value={beverage}
         renderInput={(params) => (
           <TextField 
             {...params}
@@ -29,4 +30,4 @@ function BeverageOrderSection({ beverageMenu }: Readonly<BeverageOrderSectionPro
   )
 }
 
-export default BeverageOrderSection;
+export default BeverageSection;
