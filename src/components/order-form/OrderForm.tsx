@@ -2,11 +2,11 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { AvailableBrands, AvailableBrandsData } from "../../static-data/AvailableBrandsData";
 import { Beverage } from "../../type-interface/Beverage";
-import { CustomisationsOption } from "../../type-interface/Customisations";
+import { Customisations, CustomisationsOption } from "../../type-interface/Customisations";
 import { Order } from "../../type-interface/Order";
 import { OrderFormProps } from "../../type-interface/props/OrderFormProps";
 import { FlexBoxColumnGap } from "../styled/FlexBox";
-import BeverageOrderSection from "./BeverageOrderSection";
+import BeverageOrderSection from "./BeverageSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
 
@@ -25,13 +25,37 @@ function OrderForm({
   const newOrder: Order = {
     id: crypto.randomUUID(),
     brand,
-    sessionUser: { id: crypto.randomUUID(), name: "Peter" },
-    beverage: {id: 1, category: "", name: "", price: 0},
-    customisations: {custom: ""},
+    sessionUser: { id: crypto.randomUUID(), name: "" },
+    beverage: brandBeverageMenu[0],
+    customisations: {others: ""},
     quantity: 1
   }
 
   const [order, setOrder] = useState<Order>(newOrder);
+
+  const handleBeverageChange = (beverage: Beverage) => {
+    setOrder(prevOrder => {
+      const newOrder = structuredClone(prevOrder);
+      newOrder.beverage = beverage;
+      return newOrder;
+    })
+  }
+
+  const handleCustomisationsChange = (customisations: Customisations) => {
+    setOrder(prevOrder => {
+      const newOrder = structuredClone(prevOrder);
+      newOrder.customisations = customisations;
+      return newOrder;
+    })
+  }
+
+  const handleQuantityChange = (quantity: number) => {
+    setOrder(prevOrder => {
+      const newOrder = structuredClone(prevOrder);
+      newOrder.quantity = quantity;
+      return newOrder;
+    })
+  }
 
   const handleAddOrderClick = () => {
     handleAddOrder(order);
@@ -45,6 +69,8 @@ function OrderForm({
     <Stack spacing={3}>
       <BeverageOrderSection 
         beverageMenu={brandBeverageMenu}
+        orderBeverage={order.beverage}
+        handleBeverageChange={handleBeverageChange}
       />
       <CustomisationsSection 
         customisationsOptions={brandCustomisationsOptions}
