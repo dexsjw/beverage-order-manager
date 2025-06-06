@@ -16,11 +16,12 @@ function BeverageSection({
    handleBeverageChange 
 }: Readonly<BeverageSectionProps>) {
 
-  // const [beverageInputValue, setBeverageInputValue] = useState(orderBeverage.name);
+  const [beverageValue, setBeverageValue] = useState<Beverage | null>(orderBeverage);
+  const [beverageInputValue, setBeverageInputValue] = useState(orderBeverage.name);
   const [isBeverageNull, setIsBeverageNull] = useState(false);
 
   const handleBeverageValueChange = (beverage: Beverage | null) => {
-    console.log(beverage);
+    setBeverageValue(beverage);
     if (beverage !== null) {
       handleBeverageChange(beverage);
       setIsBeverageNull(false);
@@ -31,7 +32,7 @@ function BeverageSection({
   }
 
   const handleBeverageInputValueChange = (beverageName: string) => {
-    console.log(beverageName);
+    setBeverageInputValue(beverageName);
   }
 
   return (
@@ -47,10 +48,10 @@ function BeverageSection({
         id="beverage-order" 
         options={beverageMenu} 
         getOptionLabel={(option: Beverage) => option.name}
-        value={orderBeverage}
-        onChange={(event, value) => handleBeverageValueChange(value)}
-        // inputValue={orderBeverage.name}
-        // onInputChange={(event, value) => handleBeverageInputValueChange(value)}
+        value={beverageValue}
+        onChange={(event, newValue) => handleBeverageValueChange(newValue)}
+        inputValue={beverageInputValue}
+        onInputChange={(event, newInputValue) => handleBeverageInputValueChange(newInputValue)}
         renderInput={(params) => (
           <TextField 
             {...params}
