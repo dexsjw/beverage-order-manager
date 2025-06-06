@@ -5,7 +5,10 @@ import { useState } from "react";
 
 function CustomisationsSection({ customisationsOptions }: Readonly<CustomisationsSectionProps>) {
 
-  // const 
+  const initialCustomisationsValues: Customisations = {};
+  customisationsOptions.forEach(customisationsOption => {
+    initialCustomisationsValues[customisationsOption.id] = customisationsOption.initialValue;
+  })
 
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>()
 
@@ -20,7 +23,7 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
       </Typography>
       {customisationsOptions.map(customisationsOption => (
         <Stack 
-          key={customisationsOption.name}
+          key={customisationsOption.id}
           spacing={1}
         >
           <Typography 
@@ -32,10 +35,10 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
           </Typography>
           {customisationsOption.stringOptions &&
             <Autocomplete 
-              id={customisationsOption.name}
+              id={customisationsOption.id}
               options={customisationsOption.stringOptions} 
               getOptionLabel={(option: string) => option} 
-              
+              // TODO: add value and inputValue
               renderInput={(params) => (
                 <TextField 
                   {...params}
@@ -49,10 +52,10 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
           }
           {customisationsOption.booleanOptions && 
             <Autocomplete 
-              id={customisationsOption.name}
+              id={customisationsOption.id}
               options={customisationsOption.booleanOptions} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-              
+              // TODO: add value and inputValue
               renderInput={(params) => (
                 <TextField 
                   {...params}
