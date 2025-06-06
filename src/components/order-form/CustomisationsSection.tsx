@@ -1,7 +1,13 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
+import { Customisations } from "../../type-interface/Customisations";
+import { useState } from "react";
 
 function CustomisationsSection({ customisationsOptions }: Readonly<CustomisationsSectionProps>) {
+
+  // const 
+
+  const [customisationsValues, setCustomisationsValues] = useState<Customisations>()
 
   return (
     <Stack spacing={1}>
@@ -29,16 +35,13 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
               id={customisationsOption.name}
               options={customisationsOption.stringOptions} 
               getOptionLabel={(option: string) => option} 
-              defaultValue={
-                typeof customisationsOption.defaultValue === "string" 
-                ? customisationsOption.defaultValue 
-                : ""
-              }
+              
               renderInput={(params) => (
                 <TextField 
                   {...params}
                   required
                   variant="filled"
+                  label={customisationsOption.label}
                   placeholder={customisationsOption.placeholder} 
                 />
               )}
@@ -49,16 +52,13 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
               id={customisationsOption.name}
               options={customisationsOption.booleanOptions} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-              defaultValue={
-                typeof customisationsOption.defaultValue === "boolean" 
-                ? customisationsOption.defaultValue 
-                : true
-              }
+              
               renderInput={(params) => (
                 <TextField 
                   {...params}
                   required
                   variant="filled"
+                  label={customisationsOption.label}
                   placeholder={customisationsOption.placeholder}
                 />
               )}
