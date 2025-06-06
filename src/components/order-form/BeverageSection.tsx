@@ -57,8 +57,8 @@ function BeverageSection({
             {...params}
             required
             variant="filled"
-            placeholder="Kopi" 
             label="Beverage" 
+            placeholder="Kopi" 
           />
         )}
       />
