@@ -58,6 +58,7 @@ export const OnePlusKopiMenu: Beverage[] = [
 // OnePlusKopi take away for hot drinks need to +$0.10 ~ $0.20
 export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
   {
+    id: "take-away,",
     name: "Take Away?",
     label: "Yes / No",
     placeholder:"Yes", 
@@ -65,6 +66,7 @@ export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
     booleanOptions: [true, false]
   },
   {
+    id: "thickness-level",
     name: "Thickness Level",
     label: "Thickness",
     placeholder:"Normal", 
@@ -72,6 +74,7 @@ export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
     stringOptions: ["Di Lo (Thickest)", "Gao (Thicker)", "Normal", "Po (Thinner)"]
   },
   {
+    id: "sweetness-level",
     name: "Sweetness Level",
     label: "Sweetness",
     placeholder:"Normal", 
