@@ -11,8 +11,9 @@ export type CommonCustomisations = {
 
 export type CustomisationsOption = {
   name: string,
-  placeholder: string,
-  defaultValue?: string | number | boolean,
+  label: string,
+  placeholder?: string,
+  initialValue?: string | number | boolean,
   stringOptions?: string[],
   numberOptions?: number[],
   booleanOptions?: boolean[]
