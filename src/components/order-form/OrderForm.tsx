@@ -74,6 +74,7 @@ function OrderForm({
       />
       <CustomisationsSection 
         customisationsOptions={brandCustomisationsOptions}
+        handleCustomisationsChange={handleCustomisationsChange}
       />
       <QuantitySection />
       {!isEditMode &&
