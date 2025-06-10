@@ -62,7 +62,6 @@ export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
     name: "Take Away?",
     label: "Yes / No",
     placeholder:"Yes", 
-    initialValue: true,
     booleanOptions: [true, false]
   },
   {
@@ -70,15 +69,13 @@ export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
     name: "Thickness Level",
     label: "Thickness",
     placeholder:"Normal", 
-    initialValue: "Normal",
-    stringOptions: ["Di Lo (Thickest)", "Gao (Thicker)", "Normal", "Po (Thinner)"]
+    stringOptions: ["Normal", "Po (Thinner)", "Gao (Thicker)", "Di Lo (Thickest)"]
   },
   {
     id: "sweetnessLevel",
     name: "Sweetness Level",
     label: "Sweetness",
     placeholder:"Normal", 
-    initialValue:"Normal", 
-    stringOptions: ["Ga Dai (Sweeter)", "Normal", "Siu Dai (Less Sweet)", "Siu Siu Dai (Less Less Sweet)", "Kosong (No sugar)"]
+    stringOptions: ["Normal", "Kosong (No sugar)", "Siu Siu Dai (Less Less Sweet)", "Siu Dai (Less Sweet)", "Ga Dai (Sweeter)"]
   }
 ]

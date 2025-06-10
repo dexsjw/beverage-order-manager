@@ -14,7 +14,6 @@ export type CustomisationsOption = {
   name: string,
   label: string,
   placeholder?: string,
-  initialValue?: string | number | boolean,
   stringOptions?: string[],
   numberOptions?: number[],
   booleanOptions?: boolean[]
