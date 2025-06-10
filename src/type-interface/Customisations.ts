@@ -10,7 +10,7 @@ export type CommonCustomisations = {
 }
 
 export type CustomisationsOption = {
-  id: string,
+  id: keyof Customisations & string,
   name: string,
   label: string,
   placeholder?: string,
