@@ -3,14 +3,21 @@ import { CustomisationsSectionProps } from "../../type-interface/props/Customisa
 import { Customisations } from "../../type-interface/Customisations";
 import { useState } from "react";
 
-function CustomisationsSection({ customisationsOptions }: Readonly<CustomisationsSectionProps>) {
+function CustomisationsSection({ customisationsOptions, handleCustomisationsChange }: Readonly<CustomisationsSectionProps>) {
 
   const initialCustomisationsValues: Customisations = {};
   customisationsOptions.forEach(customisationsOption => {
-    initialCustomisationsValues[customisationsOption.id] = customisationsOption.initialValue;
+    if (customisationsOption.stringOptions) {
+      initialCustomisationsValues[customisationsOption.id] = customisationsOption.stringOptions[0];
+    } else if (customisationsOption.numberOptions) {
+      initialCustomisationsValues[customisationsOption.id] = customisationsOption.numberOptions[0];
+    } else if (customisationsOption.booleanOptions) {
+      initialCustomisationsValues[customisationsOption.id] = customisationsOption.booleanOptions[0];
+    }
   })
 
-  const [customisationsValues, setCustomisationsValues] = useState<Customisations>()
+  const [customisationsValues, setCustomisationsValues] = useState<Customisations | null>(initialCustomisationsValues);
+  const [customisationsInputValues, setCustomisationsInputValues] = useState<Customisations>();
 
   return (
     <Stack spacing={1}>
@@ -39,6 +46,8 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
               options={customisationsOption.stringOptions} 
               getOptionLabel={(option: string) => option} 
               // TODO: add value and inputValue
+              value={customisationsValues ? customisationsValues[customisationsOption.id] as string : null}
+              onChange={() => {}}
               renderInput={(params) => (
                 <TextField 
                   {...params}
@@ -56,6 +65,8 @@ function CustomisationsSection({ customisationsOptions }: Readonly<Customisation
               options={customisationsOption.booleanOptions} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
               // TODO: add value and inputValue
+              value={customisationsValues ? customisationsValues[customisationsOption.id] as boolean : null}
+
               renderInput={(params) => (
                 <TextField 
                   {...params}
