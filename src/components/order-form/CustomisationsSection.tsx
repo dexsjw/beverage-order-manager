@@ -19,6 +19,18 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
   const [customisationsInputValues, setCustomisationsInputValues] = useState<Customisations>();
 
+  const handleCustomisationsValuesChange = (customisationId: string, customisationValue: string | boolean | number | null) => {
+    setCustomisationsValues(prevCustomisations => {
+      const newCustomisations = {
+        ...prevCustomisations,
+        [customisationId]: customisationValue
+      }
+      console.log(newCustomisations);
+      handleCustomisationsChange(newCustomisations);
+      return newCustomisations;
+    })
+  }
+
   return (
     <Stack spacing={1}>
       <Typography 
@@ -47,7 +59,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               getOptionLabel={(option: string) => option} 
               // TODO: add value and inputValue
               value={customisationsValues ? customisationsValues[customisationsOption.id] as string : null}
-              onChange={() => {}}
+              onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
                 <TextField 
                   {...params}
@@ -66,7 +78,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
               // TODO: add value and inputValue
               value={customisationsValues ? customisationsValues[customisationsOption.id] as boolean : null}
-
+              onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
                 <TextField 
                   {...params}
@@ -85,7 +97,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               getOptionLabel={(option: number) => option.toString()} 
               // TODO: add value and inputValue
               value={customisationsValues ? customisationsValues[customisationsOption.id] as number : null}
-
+              onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
                 <TextField 
                   {...params}
