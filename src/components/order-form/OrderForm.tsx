@@ -27,7 +27,7 @@ function OrderForm({
     brand,
     sessionUser: { id: crypto.randomUUID(), name: "" },
     beverage: brandBeverageMenu[0],
-    customisations: {others: ""},
+    customisations: {},
     quantity: 1
   }
 
@@ -45,6 +45,7 @@ function OrderForm({
     setOrder(prevOrder => {
       const newOrder = structuredClone(prevOrder);
       newOrder.customisations = customisations;
+      console.log("Order: ", newOrder)
       return newOrder;
     })
   }
