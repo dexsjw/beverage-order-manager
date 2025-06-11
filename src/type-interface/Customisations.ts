@@ -14,6 +14,7 @@ export type CustomisationsOption = {
   name: string,
   label: string,
   placeholder?: string,
+  // if dropdown for options is required, any of the "*Options" field below need to be provided
   stringOptions?: string[],
   numberOptions?: number[],
   booleanOptions?: boolean[]
