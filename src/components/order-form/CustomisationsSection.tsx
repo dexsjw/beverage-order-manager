@@ -16,7 +16,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     }
   })
 
-  const [customisationsValues, setCustomisationsValues] = useState<Customisations | null>(initialCustomisationsValues);
+  const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
   const [customisationsInputValues, setCustomisationsInputValues] = useState<Customisations>();
 
   return (
