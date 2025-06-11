@@ -11,8 +11,8 @@ export type CommonCustomisations = {
 
 export type CustomisationsOption = {
   id: keyof Customisations & string,
-  name: string,
   label: string,
+  name?: string,
   placeholder?: string,
   // if dropdown for options is required, any of the "*Options" field below need to be provided
   stringOptions?: string[],
