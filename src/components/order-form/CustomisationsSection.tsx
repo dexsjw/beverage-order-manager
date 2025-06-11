@@ -78,6 +78,25 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               )}
             />
           }
+          {customisationsOption.numberOptions && 
+            <Autocomplete 
+              id={customisationsOption.id}
+              options={customisationsOption.numberOptions} 
+              getOptionLabel={(option: number) => option.toString()} 
+              // TODO: add value and inputValue
+              value={customisationsValues ? customisationsValues[customisationsOption.id] as number : null}
+
+              renderInput={(params) => (
+                <TextField 
+                  {...params}
+                  required
+                  variant="filled"
+                  label={customisationsOption.label}
+                  placeholder={customisationsOption.placeholder}
+                />
+              )}
+            />
+          }
         </Stack>
       ))}
       <Typography 
