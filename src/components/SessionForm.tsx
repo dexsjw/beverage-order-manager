@@ -1,9 +1,9 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { SessionFormProps } from "../type-interface/props/SessionFormProps";
-import { Session } from "../type-interface/Session";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionContext } from "../context/SessionContext";
+import { SessionFormProps } from "../type-interface/props/SessionFormProps";
+import { Session } from "../type-interface/Session";
 
 function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
   const newSession: Session = {
@@ -26,14 +26,14 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isPasswordsMatch, setIsPasswordsMatch] = useState<boolean>(true);
 
-  const handleSessionFieldsChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (event.target.name === "password") {
-      setIsPasswordsMatch(event.target.value === confirmPassword);
+  const handleSessionFieldsChange = (fieldName: string, fieldValue: string) => {
+    if (fieldName === "password") {
+      setIsPasswordsMatch(fieldValue === confirmPassword);
     }
     setSession(prevSession => {
       return {
         ...prevSession,
-        [event.target.name]: event.target.value
+        [fieldName]: fieldValue
       }
     })
   }
@@ -60,7 +60,7 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
         name="name"
         label="Session Name"
         value={session.name}
-        onChange={(event) => handleSessionFieldsChange(event)}
+        onChange={(event) => handleSessionFieldsChange(event.target.name, event.target.value)}
       />
       <TextField 
         required 
@@ -69,7 +69,7 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
         name="password"
         label="Password"
         value={session.password}
-        onChange={(event) => handleSessionFieldsChange(event)}
+        onChange={(event) => handleSessionFieldsChange(event.target.name, event.target.value)}
       />
       <TextField 
         required 
