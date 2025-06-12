@@ -3,18 +3,50 @@ import { CustomisationsSectionProps } from "../../type-interface/props/Customisa
 import { Customisations } from "../../type-interface/Customisations";
 import { useState } from "react";
 
+const initialCustomisationsValues: Customisations = {
+  isTakeAway: false,
+  thicknessLevel: "",
+  sweetnessLevel: "",
+  others: null
+};
+
 function CustomisationsSection({ customisationsOptions, handleCustomisationsChange }: Readonly<CustomisationsSectionProps>) {
 
-  const initialCustomisationsValues: Customisations = {};
   customisationsOptions.forEach(customisationsOption => {
-    if (customisationsOption.stringOptions) {
-      initialCustomisationsValues[customisationsOption.id] = customisationsOption.stringOptions[0];
-    } else if (customisationsOption.numberOptions) {
-      initialCustomisationsValues[customisationsOption.id] = customisationsOption.numberOptions[0];
-    } else if (customisationsOption.booleanOptions) {
-      initialCustomisationsValues[customisationsOption.id] = customisationsOption.booleanOptions[0];
+    switch (customisationsOption.id) {
+      // For boolean options
+      case "isTakeAway": {
+        if (customisationsOption.booleanOptions) {
+          initialCustomisationsValues[customisationsOption.id] = customisationsOption.booleanOptions[0];
+        } else {
+          console.error(`For ${customisationsOption.id}, booleanOptions cannot be null or empty.`);
+          if (customisationsOption.stringOptions || customisationsOption.numberOptions) {
+            console.warn("stringOptions or numberOptions was wrongly provided instead");
+          }
+        }
+        break;
+      }
+
+      // For string options
+      case "thicknessLevel":
+      case "sweetnessLevel": {
+        if (customisationsOption.stringOptions) {
+          initialCustomisationsValues[customisationsOption.id] = customisationsOption.stringOptions[0];
+        } else {
+          console.error(`For ${customisationsOption.id}, stringOptions cannot be null or empty.`);
+          if (customisationsOption.stringOptions || customisationsOption.numberOptions) {
+            console.warn("booleanOptions or numberOptions was wrongly provided instead")
+          }
+        }
+        break;
+      }
+      
+      default: {
+        console.error(`${customisationsOption.id} does not exist in Customisations type!`)
+        break;
+      }
     }
-  })
+  });
 
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
   // const [customisationsInputValues, setCustomisationsInputValues] = useState<Customisations>();
@@ -45,31 +77,14 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
           key={customisationsOption.id}
           spacing={1}
         >
-          <Typography 
-            variant="body2" 
-            component="div"
-            align="left" 
-          >
-            {customisationsOption.name}*:
-          </Typography>
-          {customisationsOption.stringOptions &&
-            <Autocomplete 
-              id={customisationsOption.id}
-              options={customisationsOption.stringOptions} 
-              getOptionLabel={(option: string) => option} 
-              // TODO: add value and inputValue
-              value={customisationsValues ? customisationsValues[customisationsOption.id] as string : null}
-              onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
-              renderInput={(params) => (
-                <TextField 
-                  {...params}
-                  required
-                  variant="filled"
-                  label={customisationsOption.label}
-                  placeholder={customisationsOption.placeholder} 
-                />
-              )}
-            />
+          {customisationsOption.name && 
+            <Typography 
+              variant="body2" 
+              component="div"
+              align="left" 
+            >
+              {customisationsOption.name}*:
+            </Typography>
           }
           {customisationsOption.booleanOptions && 
             <Autocomplete 
@@ -90,13 +105,13 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               )}
             />
           }
-          {customisationsOption.numberOptions && 
+          {customisationsOption.stringOptions &&
             <Autocomplete 
               id={customisationsOption.id}
-              options={customisationsOption.numberOptions} 
-              getOptionLabel={(option: number) => option.toString()} 
+              options={customisationsOption.stringOptions} 
+              getOptionLabel={(option: string) => option} 
               // TODO: add value and inputValue
-              value={customisationsValues ? customisationsValues[customisationsOption.id] as number : null}
+              value={customisationsValues ? customisationsValues[customisationsOption.id] as string : null}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -104,7 +119,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
                   required
                   variant="filled"
                   label={customisationsOption.label}
-                  placeholder={customisationsOption.placeholder}
+                  placeholder={customisationsOption.placeholder} 
                 />
               )}
             />
