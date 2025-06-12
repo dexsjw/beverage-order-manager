@@ -27,7 +27,7 @@ function OrderForm({
     brand,
     sessionUser: { id: crypto.randomUUID(), name: "" },
     beverage: brandBeverageMenu[0],
-    customisations: {},
+    customisations: { isTakeAway: false, thicknessLevel: "", sweetnessLevel: "", others: null},
     quantity: 1
   }
 
