@@ -35,7 +35,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         } else {
           console.error(`For ${customisationsOption.id}, stringOptions cannot be null or empty.`);
           if (customisationsOption.stringOptions || customisationsOption.numberOptions) {
-            console.warn("booleanOptions or numberOptions was wrongly provided instead")
+            console.warn("booleanOptions or numberOptions was wrongly provided instead");
           }
         }
         break;
