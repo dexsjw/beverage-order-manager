@@ -1,16 +1,12 @@
-export interface Customisations extends CommonCustomisations {
-  [key: string]: string | string[] | boolean | boolean[] | number | number[] | undefined | null
-}
-
-export type CommonCustomisations = {
-  isTakeAway?: boolean,
-  thicknessLevel?: string,
-  sweetnessLevel?: string,
-  others?: string
+export type Customisations = {
+  isTakeAway: boolean,
+  thicknessLevel: string,
+  sweetnessLevel: string,
+  others: string | null
 }
 
 export type CustomisationsOption = {
-  id: keyof Customisations & string,
+  id: keyof Customisations,
   label: string,
   name?: string,
   placeholder?: string,
