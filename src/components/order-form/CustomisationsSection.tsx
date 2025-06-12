@@ -1,7 +1,7 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
-import { Customisations } from "../../type-interface/Customisations";
 import { useState } from "react";
+import { Customisations } from "../../type-interface/Customisations";
+import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
 const initialCustomisationsValues: Customisations = {
   isTakeAway: false,
@@ -49,18 +49,17 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   });
 
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
-  // const [customisationsInputValues, setCustomisationsInputValues] = useState<Customisations>();
 
   const handleCustomisationsValuesChange = (customisationId: string, customisationValue: string | boolean | number | null) => {
-    setCustomisationsValues(prevCustomisations => {
-      const newCustomisations = {
-        ...prevCustomisations,
-        [customisationId]: customisationValue
-      }
+    const newCustomisations = {
+      ...customisationsValues,
+      [customisationId]: customisationValue
+    }
+    setCustomisationsValues(() => {
       console.log(newCustomisations);
-      handleCustomisationsChange(newCustomisations);
       return newCustomisations;
-    })
+    });
+    handleCustomisationsChange(newCustomisations);
   }
 
   return (
@@ -92,7 +91,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               options={customisationsOption.booleanOptions} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
               // TODO: add value and inputValue
-              value={customisationsValues ? customisationsValues[customisationsOption.id] as boolean : null}
+              value={customisationsValues[customisationsOption.id] as boolean}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -111,7 +110,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               options={customisationsOption.stringOptions} 
               getOptionLabel={(option: string) => option} 
               // TODO: add value and inputValue
-              value={customisationsValues ? customisationsValues[customisationsOption.id] as string : null}
+              value={customisationsValues[customisationsOption.id] as string}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -134,10 +133,14 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         Other customisations:
       </Typography>
         <TextField 
-          id="other-customisations"
-          variant="filled"
-          placeholder="Less ice etc" 
           multiline
+          variant="filled"
+          id="other-customisations"
+          name="others"
+          label="Others"
+          placeholder="Less ice etc."
+          value={customisationsValues.others ?? ""}
+          onChange={(event) => handleCustomisationsValuesChange(event.target.name, event.target.value)}
         />
     </Stack>
   )
