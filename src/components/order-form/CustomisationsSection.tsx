@@ -55,10 +55,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       ...customisationsValues,
       [customisationId]: customisationValue
     }
-    setCustomisationsValues(() => {
-      console.log(newCustomisations);
-      return newCustomisations;
-    });
+    setCustomisationsValues(newCustomisations);
     handleCustomisationsChange(newCustomisations);
   }
 
