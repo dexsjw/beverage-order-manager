@@ -129,16 +129,17 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       >
         Other customisations:
       </Typography>
-        <TextField 
-          multiline
-          variant="filled"
-          id="other-customisations"
-          name="others"
-          label="Others"
-          placeholder="Less ice etc."
-          value={customisationsValues.others ?? ""}
-          onChange={(event) => handleCustomisationsValuesChange(event.target.name, event.target.value)}
-        />
+      <TextField 
+        multiline
+        variant="filled"
+        id="other-customisations"
+        name="others"
+        label="Others"
+        placeholder="Less ice etc."
+        value={customisationsValues.others ?? ""}
+        onChange={(event) => handleCustomisationsValuesChange(event.target.name, event.target.value)}
+      />
+
     </Stack>
   )
 }
