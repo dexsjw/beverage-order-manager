@@ -49,12 +49,18 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   });
 
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
+  const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
+  const [customisationsNullErrorMessage, setCustomisationsNullErrorMessage] = useState("");
+
+  const getNullCustomisationName = (customisations: Customisations) => {
+
+  }
 
   const handleCustomisationsValuesChange = (customisationId: string, customisationValue: string | boolean | number | null) => {
-    const newCustomisations = {
+    const newCustomisations: Customisations = {
       ...customisationsValues,
       [customisationId]: customisationValue
-    }
+    };
     setCustomisationsValues(newCustomisations);
     handleCustomisationsChange(newCustomisations);
   }
@@ -139,7 +145,16 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         value={customisationsValues.others ?? ""}
         onChange={(event) => handleCustomisationsValuesChange(event.target.name, event.target.value)}
       />
-
+      {isRequiredCustomisationsNull && 
+        <Typography 
+          variant="body1" 
+          component="div"
+          align="left"
+          color="error"
+        >
+          {`${customisationsNullErrorMessage} is required!`}
+        </Typography>
+      }
     </Stack>
   )
 }
