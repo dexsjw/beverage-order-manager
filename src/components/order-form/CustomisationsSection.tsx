@@ -13,16 +13,14 @@ const initialCustomisationsValues: Customisations = {
 function CustomisationsSection({ customisationsOptions, handleCustomisationsChange }: Readonly<CustomisationsSectionProps>) {
 
   customisationsOptions.forEach(customisationsOption => {
+    let errMsg = "";
     switch (customisationsOption.id) {
       // For boolean options
       case "isTakeAway": {
         if (customisationsOption.booleanOptions) {
           initialCustomisationsValues[customisationsOption.id] = customisationsOption.booleanOptions[0];
         } else {
-          console.error(`For ${customisationsOption.id}, booleanOptions cannot be null or empty.`);
-          if (customisationsOption.stringOptions || customisationsOption.numberOptions) {
-            console.warn("stringOptions or numberOptions was wrongly provided instead");
-          }
+          errMsg = `For ${customisationsOption.id}, booleanOptions must be provided. \n`;
         }
         break;
       }
@@ -33,18 +31,20 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         if (customisationsOption.stringOptions) {
           initialCustomisationsValues[customisationsOption.id] = customisationsOption.stringOptions[0];
         } else {
-          console.error(`For ${customisationsOption.id}, stringOptions cannot be null or empty.`);
-          if (customisationsOption.stringOptions || customisationsOption.numberOptions) {
-            console.warn("booleanOptions or numberOptions was wrongly provided instead");
-          }
+          errMsg = `For ${customisationsOption.id}, stringOptions must be provided. \n`;
         }
         break;
       }
       
       default: {
-        console.error(`${customisationsOption.id} does not exist in Customisations type!`)
+        errMsg = `${customisationsOption.id} does not exist in Customisations type! \n`;
         break;
       }
+    }
+
+    // errMsg = errMsg + customisationsOption.stringOptions ? "" : "stringOptions";
+    if (errMsg) {
+      console.error(errMsg);
     }
   });
 
