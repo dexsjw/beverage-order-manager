@@ -22,12 +22,12 @@ function BeverageSection({
 
   const handleBeverageValueChange = (beverage: Beverage | null) => {
     setBeverageValue(beverage);
-    if (beverage !== null) {
-      handleBeverageChange(beverage);
-      setIsBeverageNull(false);
-    } else {
-      handleBeverageChange(emptyBeverage);
+    if (beverage === null) {
       setIsBeverageNull(true);
+      handleBeverageChange(emptyBeverage);
+    } else {
+      setIsBeverageNull(false);
+      handleBeverageChange(beverage);
     }
   }
 
