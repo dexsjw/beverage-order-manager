@@ -62,7 +62,8 @@ export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
     name: "Take Away?",
     label: "Yes / No",
     placeholder:"Yes", 
-    booleanOptions: [true, false]
+    // booleanOptions: [true, false],
+    stringOptions: ["true", "false"]
   },
   {
     id: "thicknessLevel",
