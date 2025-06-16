@@ -88,10 +88,10 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               {customisationsOption.name}*:
             </Typography>
           }
-          {customisationsOption.booleanOptions && 
+          {customisationsOption.type === "boolean" && 
             <Autocomplete 
               id={customisationsOption.id}
-              options={customisationsOption.booleanOptions} 
+              options={customisationsOption.options} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
               // TODO: add value and inputValue
               value={customisationsValues[customisationsOption.id] as boolean}
@@ -107,10 +107,10 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               )}
             />
           }
-          {customisationsOption.stringOptions &&
+          {customisationsOption.type === "string" &&
             <Autocomplete 
               id={customisationsOption.id}
-              options={customisationsOption.stringOptions} 
+              options={customisationsOption.options} 
               getOptionLabel={(option: string) => option} 
               // TODO: add value and inputValue
               value={customisationsValues[customisationsOption.id] as string}
@@ -128,19 +128,19 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
           }
         </Stack>
       ))}
-      <Typography 
+      {/* <Typography 
         variant="body2" 
         component="div"
         align="left" 
       >
         Other customisations:
-      </Typography>
+      </Typography> */}
       <TextField 
         multiline
         variant="filled"
         id="other-customisations"
         name="others"
-        label="Others"
+        label="Other customisations"
         placeholder="Less ice etc."
         value={customisationsValues.others ?? ""}
         onChange={(event) => handleCustomisationsValuesChange(event.target.name, event.target.value)}
