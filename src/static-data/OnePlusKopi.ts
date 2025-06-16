@@ -59,24 +59,24 @@ export const OnePlusKopiMenu: Beverage[] = [
 export const OnePlusKopiCustomisationsOptions: CustomisationsOption[] = [
   {
     id: "isTakeAway",
-    name: "Take Away?",
-    label: "Yes / No",
+    label: "Take Away?",
+    // name: "Take Away?",
     placeholder: "Yes",
     type: "boolean",
     options: [true, false]
   },
   {
     id: "thicknessLevel",
-    name: "Thickness Level",
-    label: "Thickness",
+    label: "Thickness Level",
+    // name: "Thickness Level",
     placeholder: "Normal",
     type: "string",
     options: ["Normal", "Po (Thinner)", "Gao (Thicker)", "Di Lo (Thickest)"]
   },
   {
     id: "sweetnessLevel",
-    name: "Sweetness Level",
-    label: "Sweetness",
+    label: "Sweetness Level",
+    // name: "Sweetness Level",
     placeholder: "Normal",
     type: "string",
     options: ["Normal", "Kosong (No sugar)", "Siu Siu Dai (Less Less Sweet)", "Siu Dai (Less Sweet)", "Ga Dai (Sweeter)"]
