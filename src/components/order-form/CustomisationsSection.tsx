@@ -45,19 +45,23 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
 
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
   const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
-  const [customisationsNullErrorMessage, setCustomisationsNullErrorMessage] = useState("");
+  const [customisationsNullFields, setCustomisationsNullErrorMessage] = useState("");
 
   const getNullCustomisationName = (customisations: Customisations) => {
 
   }
 
-  const handleCustomisationsValuesChange = (customisationId: string, customisationValue: string | boolean | number | null) => {
-    const newCustomisations: Customisations = {
-      ...customisationsValues,
-      [customisationId]: customisationValue
-    };
-    setCustomisationsValues(newCustomisations);
-    handleCustomisationsChange(newCustomisations);
+  const handleCustomisationsValuesChange = (customisationId: keyof Customisations, customisationValue: string | boolean | number | null) => {
+    if (customisationId !== "others" && customisationValue === null) {
+      setIsRequiredCustomisationsNull(true);
+    } else {
+      const newCustomisations: Customisations = {
+        ...customisationsValues,
+        [customisationId]: customisationValue
+      };
+      setCustomisationsValues(newCustomisations);
+      handleCustomisationsChange(newCustomisations);
+    }
   }
 
   return (
@@ -138,7 +142,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         label="Other customisations"
         placeholder="Less ice etc."
         value={customisationsValues.others ?? ""}
-        onChange={(event) => handleCustomisationsValuesChange(event.target.name, event.target.value)}
+        onChange={(event) => handleCustomisationsValuesChange(event.target.name as "others", event.target.value)}
       />
       {isRequiredCustomisationsNull && 
         <Typography 
@@ -147,7 +151,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
           align="left"
           color="error"
         >
-          {`${customisationsNullErrorMessage} is required!`}
+          {`${customisationsNullFields} is required!`}
         </Typography>
       }
     </Stack>
