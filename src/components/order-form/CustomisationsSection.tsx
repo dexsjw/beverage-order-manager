@@ -1,6 +1,6 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Customisations } from "../../type-interface/Customisations";
+import { Customisations, CustomisationsKeysOfType } from "../../type-interface/Customisations";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
 const initialCustomisationsValues: Customisations = {
@@ -10,41 +10,36 @@ const initialCustomisationsValues: Customisations = {
   others: null
 };
 
+const isCustomisationsKeyofType = <T,>(
+  customisations: Customisations,
+  customisationsKey: keyof Customisations, 
+  type: string
+): customisationsKey is CustomisationsKeysOfType<T> => {
+  return customisationsKey in customisations && typeof customisations[customisationsKey] === type;
+}
+
 function CustomisationsSection({ customisationsOptions, handleCustomisationsChange }: Readonly<CustomisationsSectionProps>) {
 
   customisationsOptions.forEach(customisationsOption => {
-    let errMsg = "";
-    switch (customisationsOption.id) {
-      // For boolean options
-      case "isTakeAway": {
-        if (customisationsOption.booleanOptions) {
-          initialCustomisationsValues[customisationsOption.id] = customisationsOption.booleanOptions[0];
-        } else {
-          errMsg = `For ${customisationsOption.id}, booleanOptions must be provided. \n`;
+    switch (customisationsOption.type) {
+      case "boolean": {
+        if (isCustomisationsKeyofType<boolean>(initialCustomisationsValues, customisationsOption.id, customisationsOption.type)) {
+          initialCustomisationsValues[customisationsOption.id] = customisationsOption.options[0];
         }
         break;
       }
 
-      // For string options
-      case "thicknessLevel":
-      case "sweetnessLevel": {
-        if (customisationsOption.stringOptions) {
-          initialCustomisationsValues[customisationsOption.id] = customisationsOption.stringOptions[0];
-        } else {
-          errMsg = `For ${customisationsOption.id}, stringOptions must be provided. \n`;
+      case "string": {
+        if (isCustomisationsKeyofType<string>(initialCustomisationsValues, customisationsOption.id, customisationsOption.type)) {
+          initialCustomisationsValues[customisationsOption.id] = customisationsOption.options[0];
         }
         break;
       }
-      
+        
       default: {
-        errMsg = `${customisationsOption.id} does not exist in Customisations type! \n`;
+        console.error("There are errors in customisations options provided. Check if 'id' or 'options' fields are provided correctly.")
         break;
       }
-    }
-
-    // errMsg = errMsg + customisationsOption.stringOptions ? "" : "stringOptions";
-    if (errMsg) {
-      console.error(errMsg);
     }
   });
 
