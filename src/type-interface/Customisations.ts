@@ -1,7 +1,7 @@
 export type Customisations = {
   isTakeAway: boolean,
   thicknessLevel: string,
-  sweetnessLevel: string | number,
+  sweetnessLevel: string,
   others: string | null
 }
 
@@ -25,6 +25,11 @@ export type CustomisationsOption =
     options: number[]
   }
 )
+
+export type CustomisationsKeysOfType<T> = {
+  [K in keyof Customisations]: Customisations[K] extends T ? K : never
+}[keyof Customisations];
+
 // export type CustomisationsOption = {
 //   id: keyof Customisations,
 //   label: string,
