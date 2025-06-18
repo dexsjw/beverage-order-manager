@@ -28,7 +28,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         }
         break;
       }
-
+      
       case "string": {
         if (isCustomisationsKeyofType<string>(initialCustomisationsValues, customisationsOption.id, customisationsOption.type)) {
           initialCustomisationsValues[customisationsOption.id] = customisationsOption.options[0];
@@ -37,7 +37,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       }
         
       default: {
-        console.error("There are errors in customisations options provided. Check if 'id' or 'options' fields are provided correctly.")
+        console.error("There are errors in customisations options provided. Check if 'id', 'type' or 'options' fields are provided correctly.")
         break;
       }
     }
