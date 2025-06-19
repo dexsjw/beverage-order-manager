@@ -45,22 +45,47 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
 
   const [customisationsValues, setCustomisationsValues] = useState<Customisations>(initialCustomisationsValues);
   const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
-  const [customisationsNullFields, setCustomisationsNullErrorMessage] = useState("");
+  const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
-  const getNullCustomisationName = (customisations: Customisations) => {
-
+  const isRequiredCustomisationsValuesNull = (): boolean => {
+    let isNullValue = false;
+    for (const [key, value] of Object.entries(customisationsValues)) {
+      if (key !== "others" && value === null) {
+        isNullValue = true
+      }
+    }
+    return isNullValue;
   }
 
   const handleCustomisationsValuesChange = (customisationId: keyof Customisations, customisationValue: string | boolean | number | null) => {
+    const newCustomisations: Customisations = {
+      ...customisationsValues,
+      [customisationId]: customisationValue
+    };
+    setCustomisationsValues(newCustomisations);
+
     if (customisationId !== "others" && customisationValue === null) {
       setIsRequiredCustomisationsNull(true);
+      setCustomisationsNullFields(prevFields => {
+        const customisationsOption = customisationsOptions.find(customisation => customisation.id === customisationId);
+        return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label)) 
+        ? [ ...prevFields, customisationsOption.label ]
+        : prevFields;
+      });
     } else {
-      const newCustomisations: Customisations = {
-        ...customisationsValues,
-        [customisationId]: customisationValue
-      };
-      setCustomisationsValues(newCustomisations);
-      handleCustomisationsChange(newCustomisations);
+      setCustomisationsNullFields(prevFields => {
+        const customisationsOption = customisationsOptions.find(customisation => customisation.id === customisationId);
+        return customisationsOption 
+        ? customisationsNullFields.filter(label => label !== customisationsOption.label)
+        : prevFields;
+      });
+
+      if (isRequiredCustomisationsValuesNull()) {
+        setIsRequiredCustomisationsNull(true);
+      } else {
+        setIsRequiredCustomisationsNull(false);
+        handleCustomisationsChange(newCustomisations);
+      }
     }
   }
 
@@ -151,7 +176,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
           align="left"
           color="error"
         >
-          {`${customisationsNullFields} is required!`}
+          {`${customisationsNullFields.join(", ")} is required!`}
         </Typography>
       }
     </Stack>
