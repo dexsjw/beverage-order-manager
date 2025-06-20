@@ -56,6 +56,40 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
   const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
+  const createInvalidCustomisations = (newCustomisations: Customisations, customisationKey: keyof Customisations): Customisations => {
+    let invalidCustomisations: Customisations = { ...newCustomisations };
+    // TODO: switch-case not working as intended
+    console.log(typeof customisationKey);
+    if (newCustomisations[customisationKey] === null) {
+      switch (typeof newCustomisations[customisationKey]) {
+        case "boolean": {
+          console.log("boolean case");
+          invalidCustomisations = {
+            ...invalidCustomisations,
+            [customisationKey]: false
+          }
+          break;
+        }
+        
+        case "string": {
+          console.log("string case");
+          invalidCustomisations = {
+            ...invalidCustomisations,
+            [customisationKey]: ""
+          }
+          break;
+        }
+      
+        default: {
+          console.error(`Invalid Customisations object passed into createInvalidCustomisations(): ${JSON.stringify(newCustomisations)}.`)
+          console.error(`Or invalid customisation key passed into createInvalidCustomisations(): ${customisationKey}.`)
+          break;
+        }
+      }
+    }
+    return invalidCustomisations;
+  }
+
   const isAnyRequiredCustomisationsNull = (customisations: Customisations): boolean => {
     let isAnyNullValue = false;
     for (const [key, value] of Object.entries(customisations)) {
