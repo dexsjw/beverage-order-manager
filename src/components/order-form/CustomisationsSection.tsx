@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Customisations, CustomisationsKeysOfType } from "../../type-interface/Customisations";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
-const OTHERS_FIELD = "others";
+const CUSTOMISATIONS_OTHERS_FIELD = "others";
 const initialCustomisationsValues: Customisations = {
   isTakeAway: false,
   thicknessLevel: "",
@@ -59,7 +59,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   const isRequiredCustomisationsValuesNull = (customisations: Customisations): boolean => {
     let isAnyNullValue = false;
     for (const [key, value] of Object.entries(customisations)) {
-      if (key !== OTHERS_FIELD && value === null) {
+      if (key !== CUSTOMISATIONS_OTHERS_FIELD && value === null) {
         isAnyNullValue = true
       }
     }
@@ -73,7 +73,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     };
     setCustomisationsValues(newCustomisations);
 
-    if (customisationId !== OTHERS_FIELD && customisationValue === null) {
+    if (customisationId !== CUSTOMISATIONS_OTHERS_FIELD && customisationValue === null) {
       setIsRequiredCustomisationsNull(true);
       setCustomisationsNullFields(prevFields => {
         const customisationsOption = customisationsOptions.find(customisation => customisation.id === customisationId);
@@ -170,7 +170,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         multiline
         variant="filled"
         id="other-customisations"
-        name={OTHERS_FIELD}
+        name={CUSTOMISATIONS_OTHERS_FIELD}
         label="Other customisations"
         placeholder="Less ice etc."
         value={customisationsValues.others ?? ""}
