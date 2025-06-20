@@ -56,7 +56,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
   const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
-  const isRequiredCustomisationsValuesNull = (customisations: Customisations): boolean => {
+  const isAnyRequiredCustomisationsNull = (customisations: Customisations): boolean => {
     let isAnyNullValue = false;
     for (const [key, value] of Object.entries(customisations)) {
       if (key !== CUSTOMISATIONS_OTHERS_FIELD && value === null) {
@@ -91,7 +91,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         : prevFields;
       });
 
-      if (isRequiredCustomisationsValuesNull(newCustomisations)) {
+      if (isAnyRequiredCustomisationsNull(newCustomisations)) {
         setIsRequiredCustomisationsNull(true);
         handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
       } else {
