@@ -7,7 +7,7 @@ const initialCustomisationsValues: Customisations = {
   isTakeAway: false,
   thicknessLevel: "",
   sweetnessLevel: "",
-  others: null
+  others: ""
 };
 
 const isCustomisationsKeyofType = <T,>(
@@ -117,7 +117,6 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               id={customisationsOption.id}
               options={customisationsOption.options} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-              // TODO: add value and inputValue
               value={customisationsValues[customisationsOption.id] as boolean}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (
@@ -136,7 +135,6 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               id={customisationsOption.id}
               options={customisationsOption.options} 
               getOptionLabel={(option: string) => option} 
-              // TODO: add value and inputValue
               value={customisationsValues[customisationsOption.id] as string}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.id, newValue)}
               renderInput={(params) => (

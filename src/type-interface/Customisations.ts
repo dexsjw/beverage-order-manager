@@ -2,7 +2,7 @@ export type Customisations = {
   isTakeAway: boolean,
   thicknessLevel: string,
   sweetnessLevel: string,
-  others: string | null
+  others: string
 }
 
 export type CustomisationsOption = 
