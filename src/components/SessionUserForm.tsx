@@ -34,7 +34,7 @@ function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<Sess
       </FlexBoxRowGap>
       <TextField 
         required 
-        id="session-username"
+        id="session-user-name"
         name="name"
         label="User Name"
         value={sessionUser.name}
