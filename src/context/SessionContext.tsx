@@ -73,7 +73,8 @@ export const testSessions: Session[] = [
           customisations: {
             isTakeAway: true,
             thicknessLevel: "Di Lo (Thickest)",
-            sweetnessLevel: "Siu Dai (Less Sweet)"
+            sweetnessLevel: "Siu Dai (Less Sweet)",
+            others: ""
           },
           quantity: 1
         }
@@ -125,7 +126,8 @@ export const testSessions: Session[] = [
           customisations: {
             isTakeAway: true,
             thicknessLevel: "Di Lo (Thickest)",
-            sweetnessLevel: "Siu Dai (Less Sweet)"
+            sweetnessLevel: "Siu Dai (Less Sweet)",
+            others: ""
           },
           quantity: 1
         }
