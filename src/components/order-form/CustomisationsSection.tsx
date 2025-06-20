@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Customisations, CustomisationsKeysOfType } from "../../type-interface/Customisations";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
+const OTHERS_FIELD = "others";
 const initialCustomisationsValues: Customisations = {
   isTakeAway: false,
   thicknessLevel: "",
@@ -21,10 +22,13 @@ const isCustomisationsKeyofType = <T,>(
 function CustomisationsSection({ customisationsOptions, handleCustomisationsChange }: Readonly<CustomisationsSectionProps>) {
 
   customisationsOptions.forEach(customisationsOption => {
+    let errMsg = "";
     switch (customisationsOption.type) {
       case "boolean": {
         if (isCustomisationsKeyofType<boolean>(initialCustomisationsValues, customisationsOption.id, customisationsOption.type)) {
           initialCustomisationsValues[customisationsOption.id] = customisationsOption.options[0];
+        } else {
+          errMsg = `${customisationsOption.id} field has error. Check if customisations options provided correctly.`;
         }
         break;
       }
@@ -32,14 +36,19 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       case "string": {
         if (isCustomisationsKeyofType<string>(initialCustomisationsValues, customisationsOption.id, customisationsOption.type)) {
           initialCustomisationsValues[customisationsOption.id] = customisationsOption.options[0];
+        } else {
+          errMsg = `${customisationsOption.id} field has error. Check if customisations options provided correctly.`;
         }
         break;
       }
         
       default: {
-        console.error("There are errors in customisations options provided. Check if 'id', 'type' or 'options' fields are provided correctly.")
+        errMsg = "There are errors in customisations options provided. Check if 'id', 'type' or 'options' fields are provided correctly.";
         break;
       }
+    }
+    if (errMsg) {
+      console.error(errMsg);
     }
   });
 
@@ -47,14 +56,14 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
   const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
-  const isRequiredCustomisationsValuesNull = (): boolean => {
-    let isNullValue = false;
-    for (const [key, value] of Object.entries(customisationsValues)) {
-      if (key !== "others" && value === null) {
-        isNullValue = true
+  const isRequiredCustomisationsValuesNull = (customisations: Customisations): boolean => {
+    let isAnyNullValue = false;
+    for (const [key, value] of Object.entries(customisations)) {
+      if (key !== OTHERS_FIELD && value === null) {
+        isAnyNullValue = true
       }
     }
-    return isNullValue;
+    return isAnyNullValue;
   }
 
   const handleCustomisationsValuesChange = (customisationId: keyof Customisations, customisationValue: string | boolean | number | null) => {
@@ -64,7 +73,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     };
     setCustomisationsValues(newCustomisations);
 
-    if (customisationId !== "others" && customisationValue === null) {
+    if (customisationId !== OTHERS_FIELD && customisationValue === null) {
       setIsRequiredCustomisationsNull(true);
       setCustomisationsNullFields(prevFields => {
         const customisationsOption = customisationsOptions.find(customisation => customisation.id === customisationId);
@@ -80,7 +89,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         : prevFields;
       });
 
-      if (isRequiredCustomisationsValuesNull()) {
+      if (isRequiredCustomisationsValuesNull(newCustomisations)) {
         setIsRequiredCustomisationsNull(true);
       } else {
         setIsRequiredCustomisationsNull(false);
@@ -161,7 +170,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         multiline
         variant="filled"
         id="other-customisations"
-        name="others"
+        name={OTHERS_FIELD}
         label="Other customisations"
         placeholder="Less ice etc."
         value={customisationsValues.others ?? ""}
