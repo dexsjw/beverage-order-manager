@@ -66,6 +66,35 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     return isAnyNullValue;
   }
 
+  const handleNullCustomisationValue = (newCustomisations: Customisations, customisationKey: keyof Customisations) => {
+    setCustomisationsNullFields(prevFields => {
+      const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
+      return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label)) 
+      ? [ ...prevFields, customisationsOption.label ]
+      : prevFields;
+    });
+
+    setIsRequiredCustomisationsNull(true);
+    handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
+  }
+
+  const handleNonNullCustomisationValue = (newCustomisations: Customisations, customisationKey: keyof Customisations) => {
+    setCustomisationsNullFields(prevFields => {
+      const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
+      return customisationsOption 
+      ? customisationsNullFields.filter(label => label !== customisationsOption.label)
+      : prevFields;
+    });
+
+    if (isAnyRequiredCustomisationsNull(newCustomisations)) {
+      setIsRequiredCustomisationsNull(true);
+      handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
+    } else {
+      setIsRequiredCustomisationsNull(false);
+      handleCustomisationsChange(newCustomisations);
+    }
+  }
+
   const handleCustomisationsValuesChange = (customisationKey: keyof Customisations, customisationValue: string | boolean | number | null) => {
     const newCustomisations: Customisations = {
       ...customisations,
@@ -74,30 +103,9 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     setCustomisations(newCustomisations);
 
     if (customisationKey !== CUSTOMISATIONS_OTHERS_FIELD && customisationValue === null) {
-      setCustomisationsNullFields(prevFields => {
-        const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
-        return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label)) 
-        ? [ ...prevFields, customisationsOption.label ]
-        : prevFields;
-      });
-
-      setIsRequiredCustomisationsNull(true);
-      handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
+      handleNullCustomisationValue(newCustomisations, customisationKey);
     } else {
-      setCustomisationsNullFields(prevFields => {
-        const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
-        return customisationsOption 
-        ? customisationsNullFields.filter(label => label !== customisationsOption.label)
-        : prevFields;
-      });
-
-      if (isAnyRequiredCustomisationsNull(newCustomisations)) {
-        setIsRequiredCustomisationsNull(true);
-        handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
-      } else {
-        setIsRequiredCustomisationsNull(false);
-        handleCustomisationsChange(newCustomisations);
-      }
+      handleNonNullCustomisationValue(newCustomisations, customisationKey);
     }
   }
 
