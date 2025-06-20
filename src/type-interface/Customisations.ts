@@ -7,7 +7,7 @@ export type Customisations = {
 
 export type CustomisationsOption = 
 {
-  id: keyof Customisations
+  key: keyof Customisations
   label: string,
   name?: string,
   placeholder?: string,
