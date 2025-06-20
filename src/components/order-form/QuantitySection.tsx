@@ -1,6 +1,9 @@
 import { Stack, TextField, Typography } from "@mui/material";
+import { QuantitySectionProps } from "../../type-interface/props/QuantitySectionProps";
 
-function QuantitySection() {
+const initialQuantity = 1;
+
+function QuantitySection({ handleQuantityChange }: Readonly<QuantitySectionProps>) {
   return (
     <Stack spacing={1}>
     <Typography 
@@ -11,11 +14,13 @@ function QuantitySection() {
       Quantity
     </Typography>
       <TextField 
-        id="quantity"
         required
         type="number"
         variant="filled"
-        defaultValue={1} 
+        id="quantity"
+        name="quantity"
+        label="Quantity"
+        defaultValue={1}
       />
   </Stack>
   )

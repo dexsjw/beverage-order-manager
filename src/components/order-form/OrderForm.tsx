@@ -77,7 +77,9 @@ function OrderForm({
         customisationsOptions={brandCustomisationsOptions}
         handleCustomisationsChange={handleCustomisationsChange}
       />
-      <QuantitySection />
+      <QuantitySection 
+        handleQuantityChange={handleQuantityChange}
+      />
       {!isEditMode &&
         <Button
           variant="contained"
