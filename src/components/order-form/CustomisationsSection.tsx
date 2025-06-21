@@ -11,7 +11,7 @@ const initialCustomisations: Customisations = {
   others: ""
 };
 
-const isCustomisationsKeyofType = <T,>(
+const isCustomisationsKeyOfType = <T,>(
   customisations: Customisations,
   customisationsKey: keyof Customisations, 
   type: string
@@ -25,7 +25,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     let errMsg = "";
     switch (customisationsOption.type) {
       case "boolean": {
-        if (isCustomisationsKeyofType<boolean>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
+        if (isCustomisationsKeyOfType<boolean>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
           initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
         } else {
           errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
@@ -34,7 +34,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       }
       
       case "string": {
-        if (isCustomisationsKeyofType<string>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
+        if (isCustomisationsKeyOfType<string>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
           initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
         } else {
           errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
