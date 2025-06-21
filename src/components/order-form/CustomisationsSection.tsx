@@ -53,6 +53,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   });
 
   const [customisations, setCustomisations] = useState<Customisations>(initialCustomisations);
+  const [nullableCustomisations, setNullableCustomisations] = useState<Customisations>(initialCustomisations);
   const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
   const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
@@ -100,7 +101,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     return isAnyNullValue;
   }
 
-  const handleNullCustomisationValue = (newCustomisations: Customisations, customisationKey: keyof Customisations) => {
+  const handleNullCustomisationValue = (newNullableCustomisations: Customisations, customisationKey: keyof Customisations) => {
     setCustomisationsNullFields(prevFields => {
       const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
       return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label)) 
@@ -109,10 +110,10 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
     });
 
     setIsRequiredCustomisationsNull(true);
-    handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
+    // handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
   }
 
-  const handleNonNullCustomisationValue = (newCustomisations: Customisations, customisationKey: keyof Customisations) => {
+  const handleNonNullCustomisationValue = (newNullableCustomisations: Customisations, customisationKey: keyof Customisations) => {
     setCustomisationsNullFields(prevFields => {
       const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
       return customisationsOption 
@@ -120,26 +121,26 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       : prevFields;
     });
 
-    if (isAnyRequiredCustomisationsNull(newCustomisations)) {
+    if (isAnyRequiredCustomisationsNull(newNullableCustomisations)) {
       setIsRequiredCustomisationsNull(true);
-      handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
+      // handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
     } else {
       setIsRequiredCustomisationsNull(false);
-      handleCustomisationsChange(newCustomisations);
+      handleCustomisationsChange(newNullableCustomisations);
     }
   }
 
   const handleCustomisationsValuesChange = (customisationKey: keyof Customisations, customisationValue: string | boolean | number | null) => {
-    const newCustomisations: Customisations = {
-      ...customisations,
+    const newNullableCustomisations: Customisations = {
+      ...nullableCustomisations,
       [customisationKey]: customisationValue
     };
-    setCustomisations(newCustomisations);
+    setNullableCustomisations(newNullableCustomisations);
 
     if (customisationKey !== CUSTOMISATIONS_OTHERS_FIELD && customisationValue === null) {
-      handleNullCustomisationValue(newCustomisations, customisationKey);
+      handleNullCustomisationValue(newNullableCustomisations, customisationKey);
     } else {
-      handleNonNullCustomisationValue(newCustomisations, customisationKey);
+      handleNonNullCustomisationValue(newNullableCustomisations, customisationKey);
     }
   }
 
@@ -171,7 +172,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               id={customisationsOption.key}
               options={customisationsOption.options} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-              value={customisations[customisationsOption.key] as boolean}
+              value={nullableCustomisations[customisationsOption.key] as boolean}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -189,7 +190,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
               id={customisationsOption.key}
               options={customisationsOption.options} 
               getOptionLabel={(option: string) => option} 
-              value={customisations[customisationsOption.key] as string}
+              value={nullableCustomisations[customisationsOption.key] as string}
               onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -218,7 +219,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         name={CUSTOMISATIONS_OTHERS_FIELD}
         label="Other customisations"
         placeholder="Less ice etc."
-        value={customisations.others ?? ""}
+        value={nullableCustomisations.others ?? ""}
         onChange={(event) => handleCustomisationsValuesChange(event.target.name as "others", event.target.value)}
       />
       {isRequiredCustomisationsNull && 
