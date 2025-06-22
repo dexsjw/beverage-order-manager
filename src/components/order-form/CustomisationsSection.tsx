@@ -54,80 +54,47 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
 
   const [customisations, setCustomisations] = useState<Customisations>(initialCustomisations);
   const [nullableCustomisations, setNullableCustomisations] = useState<Customisations>(initialCustomisations);
-  const [isRequiredCustomisationsNull, setIsRequiredCustomisationsNull] = useState(false);
   const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
-  const createInvalidCustomisations = (newCustomisations: Customisations, customisationKey: keyof Customisations): Customisations => {
-    let invalidCustomisations: Customisations = { ...newCustomisations };
+  const updateCustomisations = (
+    customisationKey: keyof Customisations,
+    customisationValue: string | boolean | number | null
+  ): Customisations => {
     // TODO: switch-case not working as intended
-    console.log(typeof customisationKey);
-    if (newCustomisations[customisationKey] === null) {
+    // FIXED: because newCustomisations[customisationKey] value was null which is an "object" type
+    let newCustomisations: Customisations = { ...customisations };
+    if (customisationValue === null) {
       switch (typeof newCustomisations[customisationKey]) {
         case "boolean": {
-          console.log("boolean case");
-          invalidCustomisations = {
-            ...invalidCustomisations,
+          newCustomisations = {
+            ...newCustomisations,
             [customisationKey]: false
           }
           break;
         }
         
         case "string": {
-          console.log("string case");
-          invalidCustomisations = {
-            ...invalidCustomisations,
+          newCustomisations = {
+            ...newCustomisations,
             [customisationKey]: ""
           }
           break;
         }
       
         default: {
-          console.error(`Invalid Customisations object passed into createInvalidCustomisations(): ${JSON.stringify(newCustomisations)}.`)
-          console.error(`Or invalid customisation key passed into createInvalidCustomisations(): ${customisationKey}.`)
+          console.error(`Invalid Customisations key: ${customisationKey}.`);
+          console.error(`Customisations value: ${customisationValue}.`);
           break;
         }
       }
-    }
-    return invalidCustomisations;
-  }
-
-  const isAnyRequiredCustomisationsNull = (customisations: Customisations): boolean => {
-    let isAnyNullValue = false;
-    for (const [key, value] of Object.entries(customisations)) {
-      if (key !== CUSTOMISATIONS_OTHERS_FIELD && value === null) {
-        isAnyNullValue = true
+    } else {
+      newCustomisations = {
+         ...newCustomisations,
+         [customisationKey]: customisationValue
       }
     }
-    return isAnyNullValue;
-  }
-
-  const handleNullCustomisationValue = (newNullableCustomisations: Customisations, customisationKey: keyof Customisations) => {
-    setCustomisationsNullFields(prevFields => {
-      const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
-      return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label)) 
-      ? [ ...prevFields, customisationsOption.label ]
-      : prevFields;
-    });
-
-    setIsRequiredCustomisationsNull(true);
-    // handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
-  }
-
-  const handleNonNullCustomisationValue = (newNullableCustomisations: Customisations, customisationKey: keyof Customisations) => {
-    setCustomisationsNullFields(prevFields => {
-      const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
-      return customisationsOption 
-      ? customisationsNullFields.filter(label => label !== customisationsOption.label)
-      : prevFields;
-    });
-
-    if (isAnyRequiredCustomisationsNull(newNullableCustomisations)) {
-      setIsRequiredCustomisationsNull(true);
-      // handleCustomisationsChange(createInvalidCustomisations(newCustomisations, customisationKey));
-    } else {
-      setIsRequiredCustomisationsNull(false);
-      handleCustomisationsChange(newNullableCustomisations);
-    }
+    setCustomisations(newCustomisations);
+    return newCustomisations;
   }
 
   const handleCustomisationsValuesChange = (customisationKey: keyof Customisations, customisationValue: string | boolean | number | null) => {
@@ -136,12 +103,22 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       [customisationKey]: customisationValue
     };
     setNullableCustomisations(newNullableCustomisations);
+    
+    const newCustomisations = updateCustomisations(customisationKey, customisationValue);
+    handleCustomisationsChange(newCustomisations);
 
-    if (customisationKey !== CUSTOMISATIONS_OTHERS_FIELD && customisationValue === null) {
-      handleNullCustomisationValue(newNullableCustomisations, customisationKey);
-    } else {
-      handleNonNullCustomisationValue(newNullableCustomisations, customisationKey);
-    }
+    const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
+    setCustomisationsNullFields(prevFields => {
+      if (customisationKey !== CUSTOMISATIONS_OTHERS_FIELD && customisationValue === null) {
+        return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label))
+          ? [ ...prevFields, customisationsOption.label ]
+          : prevFields;
+      } else {
+        return (customisationsOption && customisationsNullFields.includes(customisationsOption.label)) 
+          ? customisationsNullFields.filter(label => label !== customisationsOption.label)
+          : prevFields;
+      }
+    });
   }
 
   return (
@@ -222,7 +199,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
         value={nullableCustomisations.others ?? ""}
         onChange={(event) => handleCustomisationsValuesChange(event.target.name as "others", event.target.value)}
       />
-      {isRequiredCustomisationsNull && 
+      {customisationsNullFields.length > 0 && 
         <Typography 
           variant="body1" 
           component="div"
