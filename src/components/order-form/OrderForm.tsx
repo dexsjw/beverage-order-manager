@@ -45,15 +45,16 @@ function OrderForm({
     setOrder(prevOrder => {
       const newOrder = structuredClone(prevOrder);
       newOrder.customisations = customisations;
-      console.log("Order: ", newOrder)
+      // console.log("Order: ", newOrder);
       return newOrder;
     })
   }
-
+  
   const handleQuantityChange = (quantity: number) => {
     setOrder(prevOrder => {
       const newOrder = structuredClone(prevOrder);
       newOrder.quantity = quantity;
+      console.log("Order: ", newOrder);
       return newOrder;
     })
   }
