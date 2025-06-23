@@ -59,7 +59,7 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
   const updateCustomisations = (
     customisationKey: keyof Customisations,
     customisationValue: string | boolean | number | null
-  ): Customisations => {
+  ) => {
     // TODO: switch-case not working as intended
     // FIXED: because newCustomisations[customisationKey] value was null which is an "object" type
     let newCustomisations: Customisations = { ...customisations };
@@ -94,18 +94,19 @@ function CustomisationsSection({ customisationsOptions, handleCustomisationsChan
       }
     }
     setCustomisations(newCustomisations);
-    return newCustomisations;
+    handleCustomisationsChange(newCustomisations);
   }
 
-  const handleCustomisationsValuesChange = (customisationKey: keyof Customisations, customisationValue: string | boolean | number | null) => {
+  const handleCustomisationsValuesChange = (
+    customisationKey: keyof Customisations,
+    customisationValue: string | boolean | number | null
+  ) => {
     const newNullableCustomisations: Customisations = {
       ...nullableCustomisations,
       [customisationKey]: customisationValue
     };
     setNullableCustomisations(newNullableCustomisations);
-    
-    const newCustomisations = updateCustomisations(customisationKey, customisationValue);
-    handleCustomisationsChange(newCustomisations);
+    updateCustomisations(customisationKey, customisationValue);
 
     const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
     setCustomisationsNullFields(prevFields => {
