@@ -1,9 +1,19 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import { QuantitySectionProps } from "../../type-interface/props/QuantitySectionProps";
+import { useState } from "react";
 
 const initialQuantity = 1;
 
 function QuantitySection({ handleQuantityChange }: Readonly<QuantitySectionProps>) {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityValueChange = (quantityValue: string) => {
+    if (false) {
+
+    }
+    parseInt(quantityValue);
+  }
+
   return (
     <Stack spacing={1}>
     <Typography 
@@ -15,12 +25,13 @@ function QuantitySection({ handleQuantityChange }: Readonly<QuantitySectionProps
     </Typography>
       <TextField 
         required
-        type="number"
+        // type="number"
         variant="filled"
         id="quantity"
         name="quantity"
         label="Quantity"
-        defaultValue={1}
+        value={quantity}
+        onChange={(event) => handleQuantityValueChange(event.target.value)}
       />
   </Stack>
   )
