@@ -1,6 +1,6 @@
 import { Button, Stack } from "@mui/material";
 import { useState } from "react";
-import { AvailableBrands, AvailableBrandsData } from "../../static-data/AvailableBrandsData";
+import { Brands, BrandsData } from "../../static-data/BrandsData";
 import { Beverage } from "../../type-interface/Beverage";
 import { Customisations, CustomisationsOption } from "../../type-interface/Customisations";
 import { Order } from "../../type-interface/Order";
@@ -18,9 +18,9 @@ function OrderForm({
   handleRemoveOrder 
 }: Readonly<OrderFormProps>) {
 
-  const brand = AvailableBrands[selectedBrandIndex];
-  const brandBeverageMenu: Beverage[] = AvailableBrandsData[AvailableBrands[selectedBrandIndex]].menu;
-  const brandCustomisationsOptions: CustomisationsOption[] = AvailableBrandsData[AvailableBrands[selectedBrandIndex]].customisationsOptions;
+  const brand = Brands[selectedBrandIndex];
+  const brandBeverageMenu: Beverage[] = BrandsData[brand].menu;
+  const brandCustomisationsOptions: CustomisationsOption[] = BrandsData[brand].customisationsOptions;
 
   const newOrder: Order = {
     id: crypto.randomUUID(),

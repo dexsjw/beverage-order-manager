@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import MainSessionData from "../components/MainSessionData";
-import { AvailableBrands } from "../static-data/AvailableBrandsData";
+import { Brands } from "../static-data/BrandsData";
 
 function MainSession() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -19,7 +19,7 @@ function MainSession() {
         scrollButtons
         allowScrollButtonsMobile
       >
-        {AvailableBrands.map(brand => (
+        {Brands.map(brand => (
           <Tab 
             key={brand}
             label={brand} 
