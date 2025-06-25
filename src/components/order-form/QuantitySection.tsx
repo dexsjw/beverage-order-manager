@@ -12,9 +12,7 @@ function QuantitySection({ handleQuantityChange }: Readonly<QuantitySectionProps
     if (numbersOnlyRegex.test(quantityStrValue.trim())) {
       const quantityValue = quantityStrValue === "" ? 0 : parseInt(quantityStrValue);
       setQuantity(quantityValue);
-      if (quantityValue >= 1) {
-        handleQuantityChange(quantityValue);
-      }
+      handleQuantityChange(quantityValue);
     }
   }
 
