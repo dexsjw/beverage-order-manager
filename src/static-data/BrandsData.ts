@@ -12,4 +12,4 @@ export const BrandsData: {[key: string]: BrandData} = {
   custom: {menu: [{ id: 101, category: "Traditional Coffee", name: "Custom Coffee", price: 1.2 }], customisationsOptions: []}
 }
 
-export const AvailableBrands = Object.keys(BrandsData);
+export const Brands = Object.keys(BrandsData);
