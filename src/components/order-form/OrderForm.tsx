@@ -34,29 +34,21 @@ function OrderForm({
   const [order, setOrder] = useState<Order>(newOrder);
 
   const handleBeverageChange = (beverage: Beverage) => {
-    setOrder(prevOrder => {
-      const newOrder = structuredClone(prevOrder);
-      newOrder.beverage = beverage;
-      return newOrder;
-    })
+    const newOrder: Order = { ...order, beverage };
+    console.log("New Order: ", newOrder);
+    setOrder(newOrder);
   }
 
   const handleCustomisationsChange = (customisations: Customisations) => {
-    setOrder(prevOrder => {
-      const newOrder = structuredClone(prevOrder);
-      newOrder.customisations = customisations;
-      // console.log("Order: ", newOrder);
-      return newOrder;
-    })
+    const newOrder: Order = { ...order, customisations };
+    console.log("New Order: ", newOrder);
+    setOrder(newOrder);
   }
   
   const handleQuantityChange = (quantity: number) => {
-    setOrder(prevOrder => {
-      const newOrder = structuredClone(prevOrder);
-      newOrder.quantity = quantity;
-      console.log("Order: ", newOrder);
-      return newOrder;
-    })
+    const newOrder: Order = { ...order, quantity };
+    console.log("New Order: ", newOrder);
+    setOrder(newOrder);
   }
 
   const handleAddOrderClick = () => {
