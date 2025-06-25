@@ -7,9 +7,9 @@ type BrandData = {
   customisationsOptions: CustomisationsOption[]
 }
 
-export const AvailableBrandsData: {[key: string]: BrandData} = {
+export const BrandsData: {[key: string]: BrandData} = {
   [BRAND_ONE_PLUS_KOPI]: { menu: OnePlusKopiMenu, customisationsOptions: OnePlusKopiCustomisationsOptions },
   custom: {menu: [{ id: 101, category: "Traditional Coffee", name: "Custom Coffee", price: 1.2 }], customisationsOptions: []}
 }
 
-export const AvailableBrands = Object.keys(AvailableBrandsData);
+export const AvailableBrands = Object.keys(BrandsData);
