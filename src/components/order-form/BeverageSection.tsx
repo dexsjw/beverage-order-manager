@@ -18,15 +18,12 @@ function BeverageSection({
 
   const [beverageValue, setBeverageValue] = useState<Beverage | null>(orderBeverage);
   const [beverageInputValue, setBeverageInputValue] = useState(orderBeverage.name);
-  const [isBeverageNull, setIsBeverageNull] = useState(false);
 
   const handleBeverageValueChange = (beverage: Beverage | null) => {
     setBeverageValue(beverage);
     if (beverage === null) {
-      setIsBeverageNull(true);
       handleBeverageChange(emptyBeverage);
     } else {
-      setIsBeverageNull(false);
       handleBeverageChange(beverage);
     }
   }
@@ -62,7 +59,7 @@ function BeverageSection({
           />
         )}
       />
-      {isBeverageNull && 
+      {beverageValue === null && 
         <Typography 
           variant="body1" 
           component="div"
