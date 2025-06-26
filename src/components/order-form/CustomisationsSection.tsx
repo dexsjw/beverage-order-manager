@@ -1,56 +1,15 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Customisations, CustomisationsKeysOfType } from "../../type-interface/Customisations";
+import { Customisations } from "../../type-interface/Customisations";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
 const CUSTOMISATIONS_OTHERS_FIELD = "others";
-const initialCustomisations: Customisations = {
-  isTakeAway: false,
-  thicknessLevel: "",
-  sweetnessLevel: "",
-  others: ""
-};
 
-const isCustomisationsKeyOfType = <T,>(
-  customisations: Customisations,
-  customisationsKey: keyof Customisations, 
-  type: string
-): customisationsKey is CustomisationsKeysOfType<T> => {
-  return customisationsKey in customisations && typeof customisations[customisationsKey] === type;
-}
-
-function CustomisationsSection({ customisationsOptions, handleCustomisationsChange }: Readonly<CustomisationsSectionProps>) {
-
-  customisationsOptions.forEach(customisationsOption => {
-    let errMsg = "";
-    switch (customisationsOption.type) {
-      case "boolean": {
-        if (isCustomisationsKeyOfType<boolean>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
-          initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
-        } else {
-          errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
-        }
-        break;
-      }
-      
-      case "string": {
-        if (isCustomisationsKeyOfType<string>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
-          initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
-        } else {
-          errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
-        }
-        break;
-      }
-        
-      default: {
-        errMsg = "There are errors in customisations options provided. Check if 'id', 'type' or 'options' fields are provided correctly.";
-        break;
-      }
-    }
-    if (errMsg) {
-      console.error(errMsg);
-    }
-  });
+function CustomisationsSection({
+  initialCustomisations,
+  customisationsOptions,
+  handleCustomisationsChange
+}: Readonly<CustomisationsSectionProps>) {
 
   const [customisations, setCustomisations] = useState<Customisations>(initialCustomisations);
   const [nullableCustomisations, setNullableCustomisations] = useState<Customisations>(initialCustomisations);

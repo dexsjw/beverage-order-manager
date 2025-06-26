@@ -2,7 +2,7 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { Brands, BrandsData } from "../../static-data/BrandsData";
 import { Beverage } from "../../type-interface/Beverage";
-import { Customisations, CustomisationsOption } from "../../type-interface/Customisations";
+import { Customisations, CustomisationsKeysOfType, CustomisationsOption } from "../../type-interface/Customisations";
 import { Order } from "../../type-interface/Order";
 import { OrderFormProps } from "../../type-interface/props/OrderFormProps";
 import { FlexBoxColumnGap } from "../styled/FlexBox";
@@ -18,6 +18,14 @@ const initialCustomisations: Customisations = {
 };
 const initialQuantity = 1;
 
+const isCustomisationsKeyOfType = <T,>(
+  customisations: Customisations,
+  customisationsKey: keyof Customisations, 
+  type: string
+): customisationsKey is CustomisationsKeysOfType<T> => {
+  return customisationsKey in customisations && typeof customisations[customisationsKey] === type;
+}
+
 function OrderForm({ 
   selectedBrandIndex,
   isEditMode,
@@ -32,12 +40,43 @@ function OrderForm({
 
   const initialBeverage = brandBeverageMenu[0];
 
+  brandCustomisationsOptions.forEach(customisationsOption => {
+    let errMsg = "";
+    switch (customisationsOption.type) {
+      case "boolean": {
+        if (isCustomisationsKeyOfType<boolean>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
+          initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
+        } else {
+          errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
+        }
+        break;
+      }
+      
+      case "string": {
+        if (isCustomisationsKeyOfType<string>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
+          initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
+        } else {
+          errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
+        }
+        break;
+      }
+        
+      default: {
+        errMsg = "There are errors in customisations options provided. Check if 'id', 'type' or 'options' fields are provided correctly.";
+        break;
+      }
+    }
+    if (errMsg) {
+      console.error(errMsg);
+    }
+  });
+
   const initialOrder: Order = {
     id: crypto.randomUUID(),
     brand,
     sessionUser: { id: crypto.randomUUID(), name: "" },
     beverage: initialBeverage,
-    customisations: { isTakeAway: false, thicknessLevel: "", sweetnessLevel: "", others: ""},
+    customisations: initialCustomisations,
     quantity: 1
   }
 
@@ -77,6 +116,7 @@ function OrderForm({
         handleBeverageChange={handleBeverageChange}
       />
       <CustomisationsSection 
+        initialCustomisations={initialCustomisations}
         customisationsOptions={brandCustomisationsOptions}
         handleCustomisationsChange={handleCustomisationsChange}
       />
