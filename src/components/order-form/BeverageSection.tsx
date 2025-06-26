@@ -12,12 +12,12 @@ const emptyBeverage: Beverage = {
 
 function BeverageSection({
    beverageMenu, 
-   orderBeverage,
+   initialBeverage,
    handleBeverageChange 
 }: Readonly<BeverageSectionProps>) {
 
-  const [beverageValue, setBeverageValue] = useState<Beverage | null>(orderBeverage);
-  const [beverageInputValue, setBeverageInputValue] = useState(orderBeverage.name);
+  const [beverageValue, setBeverageValue] = useState<Beverage | null>(initialBeverage);
+  const [beverageInputValue, setBeverageInputValue] = useState(initialBeverage.name);
 
   const handleBeverageValueChange = (beverage: Beverage | null) => {
     setBeverageValue(beverage);
