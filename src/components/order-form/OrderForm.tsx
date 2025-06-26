@@ -10,6 +10,14 @@ import BeverageOrderSection from "./BeverageSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
 
+const initialCustomisations: Customisations = {
+  isTakeAway: false,
+  thicknessLevel: "",
+  sweetnessLevel: "",
+  others: ""
+};
+const initialQuantity = 1;
+
 function OrderForm({ 
   selectedBrandIndex,
   isEditMode,
@@ -22,11 +30,13 @@ function OrderForm({
   const brandBeverageMenu: Beverage[] = BrandsData[brand].menu;
   const brandCustomisationsOptions: CustomisationsOption[] = BrandsData[brand].customisationsOptions;
 
+  const initialBeverage = brandBeverageMenu[0];
+
   const initialOrder: Order = {
     id: crypto.randomUUID(),
     brand,
     sessionUser: { id: crypto.randomUUID(), name: "" },
-    beverage: brandBeverageMenu[0],
+    beverage: initialBeverage,
     customisations: { isTakeAway: false, thicknessLevel: "", sweetnessLevel: "", others: ""},
     quantity: 1
   }
@@ -63,7 +73,7 @@ function OrderForm({
     <Stack spacing={3}>
       <BeverageOrderSection 
         beverageMenu={brandBeverageMenu}
-        initialBeverage={order.beverage}
+        initialBeverage={initialBeverage}
         handleBeverageChange={handleBeverageChange}
       />
       <CustomisationsSection 
