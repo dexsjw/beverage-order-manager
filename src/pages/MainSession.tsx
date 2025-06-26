@@ -22,7 +22,8 @@ function MainSession() {
         {Brands.map(brand => (
           <Tab 
             key={brand}
-            label={brand} 
+            // .replaceAll() is recommended to be used for target library 'es2021' or later
+            label={brand.replace(/_/g, " ")} 
           />
         ))}
       </Tabs>
