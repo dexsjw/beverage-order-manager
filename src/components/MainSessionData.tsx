@@ -24,6 +24,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   //   password: ""
   // }
 
+  // This will be a post call to backend to retrieve the selected session
   const selectedSession = sessions.find(session => session.id === sessionId);
   if (selectedSession === undefined) {
     console.error(`Unable to find Session with id: ${sessionId}`);
@@ -77,6 +78,13 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     setSessionOrders(prevOrders => [...prevOrders, order]);
   }
 
+  const handleUpdateOrder = (order: Order) => {
+    setSessionOrders(prevOrders => prevOrders.map(currentOrder => {
+      return currentOrder.id === order.id ? order : currentOrder;
+    }));
+    handleExitOrderEditMode();
+  }
+
   const handleRemoveOrder = (orderId: string) => {
     setSessionOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     handleExitOrderEditMode();
@@ -112,8 +120,9 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             key={Brands[selectedBrandIndex]}
             selectedBrandIndex={selectedBrandIndex}
             isEditMode={isOrderEditMode}
-            handleExitEditMode={handleExitOrderEditMode}
+            // handleExitEditMode={handleExitOrderEditMode}
             handleAddOrder={handleAddOrder}
+            handleUpdateOrder={handleUpdateOrder}
             handleRemoveOrder={handleRemoveOrder}
           />
         </AccordionDetails>

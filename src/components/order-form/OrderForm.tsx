@@ -29,9 +29,9 @@ const isCustomisationsKeyOfType = <T,>(
 function OrderForm({ 
   selectedBrandIndex,
   isEditMode,
-  handleExitEditMode,
-  handleAddOrder, 
-  handleRemoveOrder 
+  handleAddOrder,
+  handleUpdateOrder,
+  handleRemoveOrder
 }: Readonly<OrderFormProps>) {
 
   const brand = Brands[selectedBrandIndex];
@@ -104,6 +104,10 @@ function OrderForm({
     handleAddOrder(order);
   }
 
+  const handleUpdateOrderClick = () => {
+    handleUpdateOrder(order);
+  }
+
   const handleRemoveOrderClick = () => {
     handleRemoveOrder(order.id);
   }
@@ -137,7 +141,7 @@ function OrderForm({
         <FlexBoxColumnGap>
           <Button
             variant="contained"
-            onClick={handleExitEditMode}
+            onClick={handleUpdateOrderClick}
           >
             Done
           </Button>
