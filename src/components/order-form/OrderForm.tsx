@@ -77,7 +77,7 @@ function OrderForm({
     sessionUser: { id: crypto.randomUUID(), name: "" },
     beverage: initialBeverage,
     customisations: initialCustomisations,
-    quantity: 1
+    quantity: initialQuantity
   }
 
   const [order, setOrder] = useState<Order>(initialOrder);
