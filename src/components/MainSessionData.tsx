@@ -9,6 +9,7 @@ import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
 import { Session } from "../type-interface/Session";
 import JoinSessionDialog from "./JoinSessionDialog";
+import { Brands } from "../static-data/BrandsData";
 
 function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
   const { sessions } = useSessionContext();
@@ -108,6 +109,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
         </AccordionSummary>
         <AccordionDetails>
           <OrderForm 
+            key={Brands[selectedBrandIndex]}
             selectedBrandIndex={selectedBrandIndex}
             isEditMode={isOrderEditMode}
             handleExitEditMode={handleExitOrderEditMode}
