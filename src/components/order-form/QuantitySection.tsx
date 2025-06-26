@@ -3,9 +3,8 @@ import { QuantitySectionProps } from "../../type-interface/props/QuantitySection
 import { useState } from "react";
 
 const numbersOnlyRegex = /^\d{0,3}$/;
-const initialQuantity = 1;
 
-function QuantitySection({ handleQuantityChange }: Readonly<QuantitySectionProps>) {
+function QuantitySection({ initialQuantity, handleQuantityChange }: Readonly<QuantitySectionProps>) {
   const [quantity, setQuantity] = useState(initialQuantity);
 
   const handleQuantityValueChange = (quantityStrValue: string) => {

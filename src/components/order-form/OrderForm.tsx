@@ -81,6 +81,7 @@ function OrderForm({
         handleCustomisationsChange={handleCustomisationsChange}
       />
       <QuantitySection 
+        initialQuantity={initialQuantity}
         handleQuantityChange={handleQuantityChange}
       />
       {!isEditMode &&
