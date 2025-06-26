@@ -100,6 +100,14 @@ function OrderForm({
     setOrder(newOrder);
   }
 
+  const handleResetOrderForm = () => {
+    // TODO: to reset order form after order has been submitted
+  }
+
+  const handleEditOrderForm = () => {
+    // TODO: to update the fields with the existing Order when selected
+  }
+
   const handleAddOrderClick = () => {
     handleAddOrder(order);
   }
