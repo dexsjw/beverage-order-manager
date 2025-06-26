@@ -22,7 +22,7 @@ function OrderForm({
   const brandBeverageMenu: Beverage[] = BrandsData[brand].menu;
   const brandCustomisationsOptions: CustomisationsOption[] = BrandsData[brand].customisationsOptions;
 
-  const newOrder: Order = {
+  const initialOrder: Order = {
     id: crypto.randomUUID(),
     brand,
     sessionUser: { id: crypto.randomUUID(), name: "" },
@@ -31,7 +31,7 @@ function OrderForm({
     quantity: 1
   }
 
-  const [order, setOrder] = useState<Order>(newOrder);
+  const [order, setOrder] = useState<Order>(initialOrder);
 
   const handleBeverageChange = (beverage: Beverage) => {
     const newOrder: Order = { ...order, beverage };
