@@ -22,8 +22,8 @@ function BeverageSection({
         Beverage Order
       </Typography>
       <Autocomplete 
-        id="beverage-order"
         disableClearable
+        id="beverage-order"
         options={beverageMenu}
         getOptionLabel={(option: Beverage) => option.name}
         value={beverage}
