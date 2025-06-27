@@ -56,7 +56,7 @@ function CustomisationsSection({
     handleCustomisationsChange(newCustomisations);
   }
 
-  const handleCustomisationsValuesChange = (
+  const handleCustomisationsValueChange = (
     customisationKey: keyof Customisations,
     customisationValue: string | boolean | number | null
   ) => {
@@ -110,7 +110,7 @@ function CustomisationsSection({
               options={customisationsOption.options} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
               value={nullableCustomisations[customisationsOption.key] as boolean}
-              onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.key, newValue)}
+              onChange={(event, newValue) => handleCustomisationsValueChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
                   {...params}
@@ -128,7 +128,7 @@ function CustomisationsSection({
               options={customisationsOption.options} 
               getOptionLabel={(option: string) => option} 
               value={nullableCustomisations[customisationsOption.key] as string}
-              onChange={(event, newValue) => handleCustomisationsValuesChange(customisationsOption.key, newValue)}
+              onChange={(event, newValue) => handleCustomisationsValueChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
                   {...params}
@@ -157,7 +157,7 @@ function CustomisationsSection({
         label="Other customisations"
         placeholder="Less ice etc."
         value={nullableCustomisations.others ?? ""}
-        onChange={(event) => handleCustomisationsValuesChange(event.target.name as "others", event.target.value)}
+        onChange={(event) => handleCustomisationsValueChange(event.target.name as "others", event.target.value)}
       />
       {customisationsNullFields.length > 0 && 
         <Typography 
