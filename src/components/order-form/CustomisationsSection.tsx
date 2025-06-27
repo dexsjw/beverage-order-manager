@@ -1,5 +1,4 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
 import { Customisations } from "../../type-interface/Customisations";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
@@ -11,74 +10,15 @@ function CustomisationsSection({
   handleCustomisationsChange
 }: Readonly<CustomisationsSectionProps>) {
 
-  // const [customisations, setCustomisations] = useState<Customisations>(customisations);
-  const [nullableCustomisations, setNullableCustomisations] = useState<Customisations>(customisations);
-  const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
-
-  const updateCustomisations = (
-    customisationKey: keyof Customisations,
-    customisationValue: string | boolean | number | null
-  ) => {
-    // TODO: switch-case not working as intended
-    // FIXED: because newCustomisations[customisationKey] value was null which is an "object" type
-    let newCustomisations: Customisations = { ...customisations };
-    if (customisationValue === null) {
-      switch (typeof newCustomisations[customisationKey]) {
-        case "boolean": {
-          newCustomisations = {
-            ...newCustomisations,
-            [customisationKey]: false
-          }
-          break;
-        }
-        
-        case "string": {
-          newCustomisations = {
-            ...newCustomisations,
-            [customisationKey]: ""
-          }
-          break;
-        }
-      
-        default: {
-          console.error(`Invalid Customisations key: ${customisationKey}.`);
-          console.error(`Customisations value: ${customisationValue}.`);
-          break;
-        }
-      }
-    } else {
-      newCustomisations = {
-         ...newCustomisations,
-         [customisationKey]: customisationValue
-      }
-    }
-    // setCustomisations(newCustomisations);
-    handleCustomisationsChange(newCustomisations);
-  }
-
   const handleCustomisationsValueChange = (
     customisationKey: keyof Customisations,
-    customisationValue: string | boolean | number | null
+    customisationValue: boolean | string | number
   ) => {
-    const newNullableCustomisations: Customisations = {
-      ...nullableCustomisations,
+    const newCustomisations: Customisations = {
+      ...customisations,
       [customisationKey]: customisationValue
-    };
-    setNullableCustomisations(newNullableCustomisations);
-    updateCustomisations(customisationKey, customisationValue);
-
-    const customisationsOption = customisationsOptions.find(customisation => customisation.key === customisationKey);
-    setCustomisationsNullFields(prevFields => {
-      if (customisationKey !== CUSTOMISATIONS_OTHERS_FIELD && customisationValue === null) {
-        return (customisationsOption && !customisationsNullFields.includes(customisationsOption.label))
-          ? [ ...prevFields, customisationsOption.label ]
-          : prevFields;
-      } else {
-        return (customisationsOption && customisationsNullFields.includes(customisationsOption.label)) 
-          ? customisationsNullFields.filter(label => label !== customisationsOption.label)
-          : prevFields;
-      }
-    });
+    }
+    handleCustomisationsChange(newCustomisations);
   }
 
   return (
@@ -105,11 +45,12 @@ function CustomisationsSection({
             </Typography>
           }
           {customisationsOption.type === "boolean" && 
-            <Autocomplete 
+            <Autocomplete
+              disableClearable
               id={customisationsOption.key}
               options={customisationsOption.options} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-              value={nullableCustomisations[customisationsOption.key] as boolean}
+              value={customisations[customisationsOption.key] as boolean}
               onChange={(event, newValue) => handleCustomisationsValueChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -123,11 +64,12 @@ function CustomisationsSection({
             />
           }
           {customisationsOption.type === "string" &&
-            <Autocomplete 
+            <Autocomplete
+              disableClearable
               id={customisationsOption.key}
               options={customisationsOption.options} 
               getOptionLabel={(option: string) => option} 
-              value={nullableCustomisations[customisationsOption.key] as string}
+              value={customisations[customisationsOption.key] as string}
               onChange={(event, newValue) => handleCustomisationsValueChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -156,10 +98,10 @@ function CustomisationsSection({
         name={CUSTOMISATIONS_OTHERS_FIELD}
         label="Other customisations"
         placeholder="Less ice etc."
-        value={nullableCustomisations.others ?? ""}
-        onChange={(event) => handleCustomisationsValueChange(event.target.name as "others", event.target.value)}
+        value={customisations.others ?? ""}
+        onChange={(event) => handleCustomisationsValueChange(event.target.name as typeof CUSTOMISATIONS_OTHERS_FIELD, event.target.value)}
       />
-      {customisationsNullFields.length > 0 && 
+      {/* {customisationsNullFields.length > 0 && 
         <Typography 
           variant="body1" 
           component="div"
@@ -168,7 +110,7 @@ function CustomisationsSection({
         >
           {`${customisationsNullFields.join(", ")} is required!`}
         </Typography>
-      }
+      } */}
     </Stack>
   )
 }
