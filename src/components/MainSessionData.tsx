@@ -120,7 +120,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             key={Brands[selectedBrandIndex]}
             selectedBrandIndex={selectedBrandIndex}
             isEditMode={isOrderEditMode}
-            // handleExitEditMode={handleExitOrderEditMode}
             handleAddOrder={handleAddOrder}
             handleUpdateOrder={handleUpdateOrder}
             handleRemoveOrder={handleRemoveOrder}
