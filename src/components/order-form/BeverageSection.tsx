@@ -38,16 +38,6 @@ function BeverageSection({
           />
         )}
       />
-      {/* {beverage.id === 0 && 
-        <Typography 
-          variant="body1" 
-          component="div"
-          align="left"
-          color="error"
-        >
-          A beverage has to be selected!
-        </Typography>
-      } */}
     </Stack>
   )
 }

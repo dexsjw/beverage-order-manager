@@ -103,16 +103,6 @@ function CustomisationsSection({
         value={customisations.others ?? ""}
         onChange={(event) => handleCustomisationsValueChange(event.target.name as typeof CUSTOMISATIONS_OTHERS_FIELD, event.target.value)}
       />
-      {/* {customisationsNullFields.length > 0 && 
-        <Typography 
-          variant="body1" 
-          component="div"
-          align="left"
-          color="error"
-        >
-          {`${customisationsNullFields.join(", ")} is required!`}
-        </Typography>
-      } */}
     </Stack>
   )
 }
