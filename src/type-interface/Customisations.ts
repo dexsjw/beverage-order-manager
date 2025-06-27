@@ -26,7 +26,15 @@ export type CustomisationsOption =
   }
 )
 
-export type CustomisationsKeysOfType<T> = {
+export const isCustomisationsKeyOfType = <T,>(
+  customisations: Customisations,
+  customisationsKey: keyof Customisations, 
+  type: string
+): customisationsKey is CustomisationsKeysOfType<T> => {
+  return customisationsKey in customisations && typeof customisations[customisationsKey] === type;
+}
+
+type CustomisationsKeysOfType<T> = {
   [K in keyof Customisations]: Customisations[K] extends T ? K : never
 }[keyof Customisations];
 

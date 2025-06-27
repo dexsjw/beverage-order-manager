@@ -2,21 +2,13 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { Brands, BrandsData } from "../../static-data/BrandsData";
 import { Beverage } from "../../type-interface/Beverage";
-import { Customisations, CustomisationsKeysOfType, CustomisationsOption } from "../../type-interface/Customisations";
+import { Customisations, CustomisationsOption, isCustomisationsKeyOfType } from "../../type-interface/Customisations";
 import { Order } from "../../type-interface/Order";
 import { OrderFormProps } from "../../type-interface/props/OrderFormProps";
 import { FlexBoxColumnGap } from "../styled/FlexBox";
 import BeverageOrderSection from "./BeverageSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
-
-const isCustomisationsKeyOfType = <T,>(
-  customisations: Customisations,
-  customisationsKey: keyof Customisations, 
-  type: string
-): customisationsKey is CustomisationsKeysOfType<T> => {
-  return customisationsKey in customisations && typeof customisations[customisationsKey] === type;
-}
 
 function OrderForm({ 
   selectedBrandIndex,
