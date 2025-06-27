@@ -124,7 +124,7 @@ function OrderForm({
         handleCustomisationsChange={handleCustomisationsChange}
       />
       <QuantitySection 
-        initialQuantity={initialQuantity}
+        quantity={order.quantity}
         handleQuantityChange={handleQuantityChange}
       />
       {!isEditMode &&

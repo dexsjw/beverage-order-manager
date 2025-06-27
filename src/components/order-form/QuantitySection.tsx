@@ -1,16 +1,15 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import { QuantitySectionProps } from "../../type-interface/props/QuantitySectionProps";
-import { useState } from "react";
 
 const numbersOnlyRegex = /^\d{0,3}$/;
 
-function QuantitySection({ initialQuantity, handleQuantityChange }: Readonly<QuantitySectionProps>) {
-  const [quantity, setQuantity] = useState(initialQuantity);
+function QuantitySection({ quantity, handleQuantityChange }: Readonly<QuantitySectionProps>) {
+  // const [quantity, setQuantity] = useState(initialQuantity);
 
   const handleQuantityValueChange = (quantityStrValue: string) => {
     if (numbersOnlyRegex.test(quantityStrValue.trim())) {
       const quantityValue = quantityStrValue === "" ? 0 : parseInt(quantityStrValue);
-      setQuantity(quantityValue);
+      // setQuantity(quantityValue);
       handleQuantityChange(quantityValue);
     }
   }

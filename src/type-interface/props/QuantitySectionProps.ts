@@ -1,4 +1,4 @@
 export type QuantitySectionProps = {
-  initialQuantity: number,
+  quantity: number,
   handleQuantityChange: (quantity: number) => void
 }
