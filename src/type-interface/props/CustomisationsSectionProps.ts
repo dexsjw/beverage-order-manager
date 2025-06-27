@@ -1,7 +1,7 @@
 import { Customisations, CustomisationsOption } from "../Customisations";
 
 export type CustomisationsSectionProps = {
-  initialCustomisations: Customisations,
+  customisations: Customisations,
   customisationsOptions: CustomisationsOption[],
   handleCustomisationsChange: (customisations: Customisations) => void
 }

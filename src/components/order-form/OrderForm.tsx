@@ -127,7 +127,7 @@ function OrderForm({
         handleBeverageChange={handleBeverageChange}
       />
       <CustomisationsSection 
-        initialCustomisations={initialCustomisations}
+        customisations={order.customisations}
         customisationsOptions={brandCustomisationsOptions}
         handleCustomisationsChange={handleCustomisationsChange}
       />

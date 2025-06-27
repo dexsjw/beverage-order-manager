@@ -6,13 +6,13 @@ import { CustomisationsSectionProps } from "../../type-interface/props/Customisa
 const CUSTOMISATIONS_OTHERS_FIELD = "others";
 
 function CustomisationsSection({
-  initialCustomisations,
+  customisations,
   customisationsOptions,
   handleCustomisationsChange
 }: Readonly<CustomisationsSectionProps>) {
 
-  const [customisations, setCustomisations] = useState<Customisations>(initialCustomisations);
-  const [nullableCustomisations, setNullableCustomisations] = useState<Customisations>(initialCustomisations);
+  // const [customisations, setCustomisations] = useState<Customisations>(customisations);
+  const [nullableCustomisations, setNullableCustomisations] = useState<Customisations>(customisations);
   const [customisationsNullFields, setCustomisationsNullFields] = useState<string[]>([]);
 
   const updateCustomisations = (
@@ -52,7 +52,7 @@ function CustomisationsSection({
          [customisationKey]: customisationValue
       }
     }
-    setCustomisations(newCustomisations);
+    // setCustomisations(newCustomisations);
     handleCustomisationsChange(newCustomisations);
   }
 
