@@ -2,26 +2,14 @@ import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { Beverage } from "../../type-interface/Beverage";
 import { BeverageSectionProps } from "../../type-interface/props/BeverageSectionProps";
 
-const emptyBeverage: Beverage = {
-  id: 0,
-  category: "",
-  name: "",
-  price: 0
-}
-
 function BeverageSection({
-   beverageMenu, 
-   beverage,
-   handleBeverageChange 
+  beverage,
+  beverageMenu,
+  handleBeverageChange 
 }: Readonly<BeverageSectionProps>) {
 
-  const handleBeverageValueChange = (beverage: Beverage | null) => {
-    // setBeverageValue(beverage);
-    if (beverage === null) {
-      handleBeverageChange(emptyBeverage);
-    } else {
-      handleBeverageChange(beverage);
-    }
+  const handleBeverageValueChange = (beverage: Beverage) => {
+    handleBeverageChange(beverage);
   }
 
   return (
@@ -34,10 +22,11 @@ function BeverageSection({
         Beverage Order
       </Typography>
       <Autocomplete 
-        id="beverage-order" 
-        options={beverageMenu} 
+        id="beverage-order"
+        disableClearable
+        options={beverageMenu}
         getOptionLabel={(option: Beverage) => option.name}
-        value={beverage.id === 0 ? null : beverage}
+        value={beverage}
         onChange={(event, newValue) => handleBeverageValueChange(newValue)}
         renderInput={(params) => (
           <TextField 
@@ -49,7 +38,7 @@ function BeverageSection({
           />
         )}
       />
-      {beverage.id === 0 && 
+      {/* {beverage.id === 0 && 
         <Typography 
           variant="body1" 
           component="div"
@@ -58,7 +47,7 @@ function BeverageSection({
         >
           A beverage has to be selected!
         </Typography>
-      }
+      } */}
     </Stack>
   )
 }

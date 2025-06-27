@@ -122,8 +122,8 @@ function OrderForm({
   return (
     <Stack spacing={3}>
       <BeverageOrderSection 
-        beverageMenu={brandBeverageMenu}
         beverage={order.beverage}
+        beverageMenu={brandBeverageMenu}
         handleBeverageChange={handleBeverageChange}
       />
       <CustomisationsSection 
