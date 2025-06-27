@@ -1,5 +1,5 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
-import { Customisations } from "../../type-interface/Customisations";
+import { Customisations, isCustomisationsKeyOfType } from "../../type-interface/Customisations";
 import { CustomisationsSectionProps } from "../../type-interface/props/CustomisationsSectionProps";
 
 const CUSTOMISATIONS_OTHERS_FIELD = "others";
@@ -44,13 +44,14 @@ function CustomisationsSection({
               {customisationsOption.name}*:
             </Typography>
           }
-          {customisationsOption.type === "boolean" && 
+          {isCustomisationsKeyOfType<boolean>(customisations, customisationsOption.key, customisationsOption.type) &&
+            customisationsOption.type === "boolean" &&
             <Autocomplete
               disableClearable
               id={customisationsOption.key}
               options={customisationsOption.options} 
               getOptionLabel={(option: boolean) => option ? "Yes" : "No"} 
-              value={customisations[customisationsOption.key] as boolean}
+              value={customisations[customisationsOption.key]}
               onChange={(event, newValue) => handleCustomisationsValueChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
@@ -63,13 +64,14 @@ function CustomisationsSection({
               )}
             />
           }
-          {customisationsOption.type === "string" &&
+          {isCustomisationsKeyOfType<string>(customisations, customisationsOption.key, customisationsOption.type) &&
+            customisationsOption.type === "string" &&
             <Autocomplete
               disableClearable
               id={customisationsOption.key}
               options={customisationsOption.options} 
               getOptionLabel={(option: string) => option} 
-              value={customisations[customisationsOption.key] as string}
+              value={customisations[customisationsOption.key]}
               onChange={(event, newValue) => handleCustomisationsValueChange(customisationsOption.key, newValue)}
               renderInput={(params) => (
                 <TextField 
