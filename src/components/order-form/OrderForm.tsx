@@ -123,7 +123,7 @@ function OrderForm({
     <Stack spacing={3}>
       <BeverageOrderSection 
         beverageMenu={brandBeverageMenu}
-        initialBeverage={initialBeverage}
+        beverage={order.beverage}
         handleBeverageChange={handleBeverageChange}
       />
       <CustomisationsSection 

@@ -1,7 +1,6 @@
 import { Autocomplete, Stack, TextField, Typography } from "@mui/material";
 import { Beverage } from "../../type-interface/Beverage";
 import { BeverageSectionProps } from "../../type-interface/props/BeverageSectionProps";
-import { useState } from "react";
 
 const emptyBeverage: Beverage = {
   id: 0,
@@ -12,24 +11,17 @@ const emptyBeverage: Beverage = {
 
 function BeverageSection({
    beverageMenu, 
-   initialBeverage,
+   beverage,
    handleBeverageChange 
 }: Readonly<BeverageSectionProps>) {
 
-  const [beverageValue, setBeverageValue] = useState<Beverage | null>(initialBeverage);
-  const [beverageInputValue, setBeverageInputValue] = useState(initialBeverage.name);
-
   const handleBeverageValueChange = (beverage: Beverage | null) => {
-    setBeverageValue(beverage);
+    // setBeverageValue(beverage);
     if (beverage === null) {
       handleBeverageChange(emptyBeverage);
     } else {
       handleBeverageChange(beverage);
     }
-  }
-
-  const handleBeverageInputValueChange = (beverageName: string) => {
-    setBeverageInputValue(beverageName);
   }
 
   return (
@@ -45,10 +37,8 @@ function BeverageSection({
         id="beverage-order" 
         options={beverageMenu} 
         getOptionLabel={(option: Beverage) => option.name}
-        value={beverageValue}
+        value={beverage.id === 0 ? null : beverage}
         onChange={(event, newValue) => handleBeverageValueChange(newValue)}
-        inputValue={beverageInputValue}
-        onInputChange={(event, newInputValue) => handleBeverageInputValueChange(newInputValue)}
         renderInput={(params) => (
           <TextField 
             {...params}
@@ -59,7 +49,7 @@ function BeverageSection({
           />
         )}
       />
-      {beverageValue === null && 
+      {beverage.id === 0 && 
         <Typography 
           variant="body1" 
           component="div"

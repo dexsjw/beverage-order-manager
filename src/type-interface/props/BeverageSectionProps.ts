@@ -2,6 +2,6 @@ import { Beverage } from "../Beverage"
 
 export type BeverageSectionProps = {
   beverageMenu: Beverage[],
-  initialBeverage: Beverage,
+  beverage: Beverage,
   handleBeverageChange: (beverage: Beverage) => void
 }
