@@ -10,14 +10,6 @@ import BeverageOrderSection from "./BeverageSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
 
-const initialCustomisations: Customisations = {
-  isTakeAway: false,
-  thicknessLevel: "",
-  sweetnessLevel: "",
-  others: ""
-};
-const initialQuantity = 1;
-
 const isCustomisationsKeyOfType = <T,>(
   customisations: Customisations,
   customisationsKey: keyof Customisations, 
@@ -39,6 +31,13 @@ function OrderForm({
   const brandCustomisationsOptions: CustomisationsOption[] = BrandsData[brand].customisationsOptions;
 
   const initialBeverage = brandBeverageMenu[0];
+  const initialCustomisations: Customisations = {
+    isTakeAway: false,
+    thicknessLevel: "",
+    sweetnessLevel: "",
+    others: ""
+  };
+  const initialQuantity = 1;
 
   brandCustomisationsOptions.forEach(customisationsOption => {
     let errMsg = "";
