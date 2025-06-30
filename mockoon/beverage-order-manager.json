@@ -1,0 +1,179 @@
+{
+  "uuid": "f55c6ae3-ac6b-40cb-98f3-de68f4634295",
+  "lastMigration": 33,
+  "name": "Beverage order manager",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3003,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "9d549275-20f5-4819-af33-23d869a38cfc",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "583ec722-5513-4fc3-ac2e-4e6b5d2cebc8",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "34cc7611-e1e5-4456-a816-4d39c1ffa1e8",
+      "type": "crud",
+      "documentation": "Perform CRUD operations on \"Sessions\" data bucket",
+      "method": "",
+      "endpoint": "sessions",
+      "responses": [
+        {
+          "uuid": "22d86fe2-cb39-47b5-9eaf-8588bef2b246",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Perform CRUD operations on \"Sessions\" data bucket (\"Data\" tab at the top)",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "18gj",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "169655d6-6675-445e-8c0c-a877eb0608f6",
+      "type": "crud",
+      "documentation": "Perform CRUD operations on \"Orders\" data bucket",
+      "method": "",
+      "endpoint": "orders",
+      "responses": [
+        {
+          "uuid": "6a0e65da-ccdb-4d58-b7c8-e72f7d7065af",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Perform CRUD operations on \"Orders\" data bucket (\"Data\" tab at the top)",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "76k9",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "34cc7611-e1e5-4456-a816-4d39c1ffa1e8"
+    },
+    {
+      "type": "route",
+      "uuid": "169655d6-6675-445e-8c0c-a877eb0608f6"
+    },
+    {
+      "type": "route",
+      "uuid": "9d549275-20f5-4819-af33-23d869a38cfc"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "148f0a5e-5acb-4fa7-a88c-872c10c6a3be",
+      "id": "18gj",
+      "name": "Sessions",
+      "documentation": "",
+      "value": "[\n]"
+    },
+    {
+      "uuid": "73afbe1d-10e8-4fe6-842f-726074eead46",
+      "id": "76k9",
+      "name": "Orders",
+      "documentation": "",
+      "value": "[\n]"
+    }
+  ],
+  "callbacks": []
+}
