@@ -105,11 +105,11 @@
   "rootChildren": [
     {
       "type": "route",
-      "uuid": "34cc7611-e1e5-4456-a816-4d39c1ffa1e8"
+      "uuid": "169655d6-6675-445e-8c0c-a877eb0608f6"
     },
     {
       "type": "route",
-      "uuid": "169655d6-6675-445e-8c0c-a877eb0608f6"
+      "uuid": "34cc7611-e1e5-4456-a816-4d39c1ffa1e8"
     },
     {
       "type": "route",
@@ -161,18 +161,18 @@
   ],
   "data": [
     {
-      "uuid": "148f0a5e-5acb-4fa7-a88c-872c10c6a3be",
-      "id": "18gj",
-      "name": "Sessions",
-      "documentation": "",
-      "value": "[\n]"
-    },
-    {
       "uuid": "73afbe1d-10e8-4fe6-842f-726074eead46",
       "id": "76k9",
       "name": "Orders",
       "documentation": "",
-      "value": "[\n]"
+      "value": "[\n    {\n      \"id\": \"{{uuid}}\",\n      \"brand\": \"One_Plus_Kopi\",\n      \"sessionUser\": {\n        \"id\": \"{{uuid}}\",\n        \"name\": \"Dexter\",\n      },\n      \"beverage\": {\n        \"id\": 105,\n        \"category\": \"Hot Traditional Coffee\",\n        \"name\": \"(Hot) Kopi\",\n        \"price\": 1.3\n      },\n      \"customisations\": {\n        \"isTakeAway\": {{boolean}},\n        \"thicknessLevel\": \"Di Lo (Thickest)\",\n        \"sweetnessLevel\": \"Siu Dai (Less Sweet)\",\n        \"others\": \"\"\n      },\n      \"quantity\": 1\n    },\n    {\n      \"id\": \"{{uuid}}\",\n      \"brand\": \"One_Plus_Kopi\",\n      \"sessionUser\": {\n        \"id\": \"{{uuid}}\",\n        \"name\": \"{{firstName}}\",\n      },\n      \"beverage\": {\n        \"id\": 101,\n        \"category\": \"Hot Traditional Coffee\",\n        \"name\": \"(Hot) Kopi O\",\n        \"price\": 1.2\n      },\n      \"customisations\": {\n        \"isTakeAway\": {{boolean}},\n        \"thicknessLevel\": \"Normal\",\n        \"sweetnessLevel\": \"Normal\",\n        \"others\": \"\"\n      },\n      \"quantity\": 1\n    },\n    {\n      \"id\": \"{{uuid}}\",\n      \"brand\": \"One_Plus_Kopi\",\n      \"sessionUser\": {\n        \"id\": \"{{uuid}}\",\n        \"name\": \"{{firstName}}\",\n      },\n      \"beverage\": {\n        \"id\": 201,\n        \"category\": \"Ice Blended\",\n        \"name\": \"Coffee / Mocha\",\n        \"price\": 4.5\n      },\n      \"customisations\": {\n        \"isTakeAway\": {{boolean}},\n        \"thicknessLevel\": \"Normal\",\n        \"sweetnessLevel\": \"Normal\",\n        \"others\": \"\"\n      },\n      \"quantity\": 1\n    },\n    {\n      \"id\": \"{{uuid}}\",\n      \"brand\": \"One_Plus_Kopi\",\n      \"sessionUser\": {\n        \"id\": \"{{uuid}}\",\n        \"name\": \"{{firstName}}\",\n      },\n      \"beverage\": {\n        \"id\": 301,\n        \"category\": \"Hot Flower Tea\",\n        \"name\": \"Chrysanthemum Goji\",\n        \"price\": 1.6\n      },\n      \"customisations\": {\n        \"isTakeAway\": {{boolean}},\n        \"thicknessLevel\": \"Normal\",\n        \"sweetnessLevel\": \"Normal\",\n        \"others\": \"\"\n      },\n      \"quantity\": 1\n    },\n    {\n      \"id\": \"{{uuid}}\",\n      \"brand\": \"One_Plus_Kopi\",\n      \"sessionUser\": {\n        \"id\": \"{{uuid}}\",\n        \"name\": \"{{firstName}}\",\n      },\n      \"beverage\": {\n        \"id\": 401,\n        \"category\": \"Specialty Iced Drinks\",\n        \"name\": \"Lychee Tea\",\n        \"price\": 2.8\n      },\n      \"customisations\": {\n        \"isTakeAway\": {{boolean}},\n        \"thicknessLevel\": \"Normal\",\n        \"sweetnessLevel\": \"Normal\",\n        \"others\": \"\"\n      },\n      \"quantity\": 1\n    }\n]"
+    },
+    {
+      "uuid": "148f0a5e-5acb-4fa7-a88c-872c10c6a3be",
+      "id": "18gj",
+      "name": "Sessions",
+      "documentation": "",
+      "value": "[\n  \"id\": {{uuid}},\n  \"name\": string,\n  \"password\": string,\n  \"owner\": SessionUser,\n  \"timestamp\": string,\n  \"isActive\": boolean,\n  \"data\": SessionData\n]"
     }
   ],
   "callbacks": []
