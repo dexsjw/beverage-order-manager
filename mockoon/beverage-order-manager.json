@@ -214,7 +214,7 @@
       "id": "1xiq",
       "name": "Sessions",
       "documentation": "",
-      "value": "[\n  {{#repeat 3 5}}\n    {\n      \"id\": \"{{uuid}}\",\n      \"name\": \"test{{@index}}\",\n      \"password\": \"test{{@index}}\",\n      \"owner\": {\n        \"id\": \"a494d7fd-6990-43d7-8293-e0d50b739466\",\n        \"name\": \"Dexter\"\n      },\n      \"timestamp\": \"{{date '01/01/2025' '01/12/2025' 'dd/MM/yyyy'}}\",\n      \"isActive\": true\n    }\n  {{/repeat}}\n]"
+      "value": "[\n  {{#each (dataRaw '18gj')}}\n    {\n      \"id\": \"{{id}}\",\n      \"name\": \"{{name}}\",\n      \"password\": \"{{password}}\",\n      \"owner\": {\n        \"id\": \"a494d7fd-6990-43d7-8293-e0d50b739466\",\n        \"name\": \"Dexter\"\n      },\n      \"timestamp\": \"{{timestamp}}\",\n      \"isActive\": {{isActive}}\n    }{{#unless @last}},{{/unless}}\n  {{/each}}\n]"
     }
   ],
   "callbacks": []
