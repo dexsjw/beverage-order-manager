@@ -6,11 +6,12 @@ import Home from './pages/Home'
 import MainSession from './pages/MainSession'
 import DefaultPage from './pages/DefaultPage'
 import { SessionProvider } from './context/SessionContext'
+import { SessionUserProvider } from './context/SessionUserContext'
 
 function App() {
 
   return (
-    <SessionProvider>
+    <SessionUserProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<BaseLayout />}>
@@ -21,7 +22,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </SessionProvider>
+    </SessionUserProvider>
   )
 }
 
