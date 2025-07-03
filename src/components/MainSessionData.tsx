@@ -1,47 +1,20 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSessionContext } from "../context/SessionContext";
+import { getSession } from "../api-service/mock-service";
+import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
-import { Session } from "../type-interface/Session";
-import JoinSessionDialog from "./JoinSessionDialog";
-import { Brands } from "../static-data/BrandsData";
-import { getSession } from "../api-service/mock-service";
 
 function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
-  // const { sessions } = useSessionContext();
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  // let orders: Order[] = [];
   let sessionTimestamp: string = "";
-  // let credentials: Pick<Session, "id" | "name" | "password"> = {
-  //   id: "",
-  //   name: "",
-  //   password: ""
-  // }
 
-  // This will be a post call to backend to retrieve the selected session
-  // const selectedSession = sessions.find(session => session.id === sessionId);
-  // if (selectedSession === undefined) {
-  //   console.error(`Unable to find Session with id: ${sessionId}`);
-  //   navigate("/");
-  // } else {
-  //   orders = selectedSession.data.orders;
-  //   sessionTimestamp = selectedSession.timestamp;
-  //   // credentials = {
-  //   //   id: selectedSession.id,
-  //   //   name: selectedSession.name,
-  //   //   password: selectedSession.password
-  //   // };
-  // }
-
-  // const [sessionCredentials, setSessionCredentials] = useState(credentials);
-  // const [isDialogOpen, setIsDialogOpen] = useState(true);
   const [sessionOrders, setSessionOrders] = useState<Order[]>([]);
   const [isOrderEditMode, setIsOrderEditMode] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
@@ -68,11 +41,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     { id: "quantity", name: "Quantity" },
     { id: "price", name: "Price" }
   ];
-
-  // const handleDialogClose = () => {
-  //   setSessionCredentials(credentials);
-  //   setIsDialogOpen(false);
-  // }
 
   const retrieveSessionData = async () => {
     if (sessionId) {
