@@ -16,3 +16,13 @@ export const getAllSessions = async () => {
     console.error(error);
   }
 }
+
+export const getSession = async (sessionId: string) => {
+  try {
+    const response: AxiosResponse<Session> = await mockApi.get(URL_SESSION_DETAILS + sessionId);
+    const session: Session = response.data;
+    return session;
+  } catch (error) {
+    console.error(error);
+  }
+}
