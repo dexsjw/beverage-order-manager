@@ -1,5 +1,5 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSessionContext } from "../context/SessionContext";
 import { Order, OrderTableData } from "../type-interface/Order";
@@ -10,13 +10,14 @@ import SortableTable from "./SortableTable";
 import { Session } from "../type-interface/Session";
 import JoinSessionDialog from "./JoinSessionDialog";
 import { Brands } from "../static-data/BrandsData";
+import { getSession } from "../api-service/mock-service";
 
 function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
-  const { sessions } = useSessionContext();
+  // const { sessions } = useSessionContext();
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  let orders: Order[] = [];
+  // let orders: Order[] = [];
   let sessionTimestamp: string = "";
   // let credentials: Pick<Session, "id" | "name" | "password"> = {
   //   id: "",
@@ -25,25 +26,29 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   // }
 
   // This will be a post call to backend to retrieve the selected session
-  const selectedSession = sessions.find(session => session.id === sessionId);
-  if (selectedSession === undefined) {
-    console.error(`Unable to find Session with id: ${sessionId}`);
-    navigate("/");
-  } else {
-    orders = selectedSession.data.orders;
-    sessionTimestamp = selectedSession.timestamp;
-    // credentials = {
-    //   id: selectedSession.id,
-    //   name: selectedSession.name,
-    //   password: selectedSession.password
-    // };
-  }
+  // const selectedSession = sessions.find(session => session.id === sessionId);
+  // if (selectedSession === undefined) {
+  //   console.error(`Unable to find Session with id: ${sessionId}`);
+  //   navigate("/");
+  // } else {
+  //   orders = selectedSession.data.orders;
+  //   sessionTimestamp = selectedSession.timestamp;
+  //   // credentials = {
+  //   //   id: selectedSession.id,
+  //   //   name: selectedSession.name,
+  //   //   password: selectedSession.password
+  //   // };
+  // }
 
   // const [sessionCredentials, setSessionCredentials] = useState(credentials);
   // const [isDialogOpen, setIsDialogOpen] = useState(true);
-  const [sessionOrders, setSessionOrders] = useState(orders);
+  const [sessionOrders, setSessionOrders] = useState<Order[]>([]);
   const [isOrderEditMode, setIsOrderEditMode] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
+
+  useEffect(() => {
+    retrieveSessionData();
+  }, [])
 
   const orderTableData: OrderTableData[] = sessionOrders.map(order => ({
     id: order.id,
@@ -68,6 +73,22 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   //   setSessionCredentials(credentials);
   //   setIsDialogOpen(false);
   // }
+
+  const retrieveSessionData = async () => {
+    if (sessionId) {
+      const session = await getSession(sessionId);
+      if (session) {
+        sessionTimestamp = session.timestamp;
+        setSessionOrders(session.data.orders);
+      } else {
+        console.error(`Unable to find Session with id: ${sessionId}`);
+        navigate("/");
+      }
+    } else {
+      console.error(`Session ID is undefined: ${sessionId}`);
+      navigate("/");
+    }
+  }
 
   const handleExitOrderEditMode = () => {
     setSelectedOrderId("");
