@@ -7,11 +7,11 @@ const URL_SESSIONS = "/sessions/";
 const URL_SESSION_DETAILS = "/session-details/";
 const URL_ORDERS = "/orders/";
 
-export const getAllSessions = async (setStateFunction: Dispatch<SetStateAction<Session[]>>) => {
+export const getAllSessions = async () => {
   try {
     const response: AxiosResponse<Session[]> = await mockApi.get(URL_SESSIONS);
     const sessions: Session[] = response.data;
-    setStateFunction(sessions);
+    return sessions;
   } catch (error) {
     console.error(error);
   }
