@@ -1,7 +1,6 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSessionContext } from "../context/SessionContext";
 import { SessionFormProps } from "../type-interface/props/SessionFormProps";
 import { Session } from "../type-interface/Session";
 
@@ -19,7 +18,7 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
     }
   }
 
-  const { handleCreateSession } = useSessionContext();
+  // const { handleCreateSession } = useSessionContext();
   const navigate = useNavigate();
 
   const [session, setSession] = useState(newSession);
@@ -47,7 +46,7 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
     if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
       const updatedSession = structuredClone(session);
       setSession(updatedSession);
-      handleCreateSession(updatedSession);
+      // handleCreateSession(updatedSession);
       navigate(`main-session/${updatedSession.id}`);
     }
   }
