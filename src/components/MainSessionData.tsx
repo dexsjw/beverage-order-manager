@@ -13,8 +13,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  let sessionTimestamp: string = "";
-
+  const [sessionTimestamp, setSessionTimestamp] = useState("");
   const [sessionOrders, setSessionOrders] = useState<Order[]>([]);
   const [isOrderEditMode, setIsOrderEditMode] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
@@ -46,7 +45,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     if (sessionId) {
       const session = await getSession(sessionId);
       if (session) {
-        sessionTimestamp = session.timestamp;
+        setSessionTimestamp(session.timestamp);
         setSessionOrders(session.data.orders);
       } else {
         console.error(`Unable to find Session with id: ${sessionId}`);
