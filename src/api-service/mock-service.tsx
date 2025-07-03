@@ -1,7 +1,6 @@
 import { AxiosResponse } from "axios";
 import { Session } from "../type-interface/Session";
 import mockApi from "./mock-api";
-import { Dispatch, SetStateAction } from "react";
 
 const URL_SESSIONS = "/sessions/";
 const URL_SESSION_DETAILS = "/session-details/";
