@@ -41,8 +41,17 @@ function Home() {
   const [sessions, setSessions] = useState<Session[]>([]);
 
   useEffect(() => {
-    getAllSessions(setSessions);
+    retrieveAllSessions();
   }, []);
+
+  const retrieveAllSessions = async () => {
+    const allSessions = await getAllSessions();
+    if (allSessions) {
+      setSessions(allSessions);
+    } else {
+      console.error("Error retrieving all Sessions");
+    }
+  }
 
   const sessionTableData: SessionTableData[] = sessions.map(session => ({
     id: session.id,
