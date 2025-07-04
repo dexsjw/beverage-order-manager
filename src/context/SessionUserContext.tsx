@@ -33,10 +33,12 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
   const [sessionUser, setSessionUser] = useState<SessionUser>(currentSessionUser);
 
   const handleSessionUserChange = (sessionUserKey: string, sessionUserValue: string) => {
+    // TODO: add a check if sessionUserValue is ""?
     const updatedSessionUser: SessionUser = {
       ...sessionUser,
       [sessionUserKey]: sessionUserValue
     };
+    console.log(updatedSessionUser);
     setSessionUser(updatedSessionUser);
     localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(updatedSessionUser));
   }
