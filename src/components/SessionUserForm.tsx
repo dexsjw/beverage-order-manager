@@ -4,8 +4,11 @@ import { IconButton, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { SessionUserFormProps } from '../type-interface/props/SessionUserFormProps';
 import { FlexBoxRowGap } from "./styled/FlexBox";
+import { useSessionUserContext } from '../context/SessionUserContext';
 
-function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<SessionUserFormProps>) {
+// function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<SessionUserFormProps>) {
+function SessionUserForm() {
+  const { sessionUser, handleSessionUserChange } = useSessionUserContext();
   const [isIdFieldDisabled, setIsIdFieldDisabled] = useState(true);
 
   return (
@@ -19,7 +22,7 @@ function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<Sess
           name="id"
           label="User ID"
           value={sessionUser.id}
-          onChange={(event) => handleSessionUserChange(event)}
+          onChange={(event) => handleSessionUserChange(event.target.name, event.target.value)}
         />
         {isIdFieldDisabled && 
           <IconButton onClick={() => setIsIdFieldDisabled(prevState => !prevState)}>
@@ -38,7 +41,7 @@ function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<Sess
         name="name"
         label="User Name"
         value={sessionUser.name}
-        onChange={(event) => handleSessionUserChange(event)}
+        onChange={(event) => handleSessionUserChange(event.target.name, event.target.value)}
       />
     </Stack>
   )

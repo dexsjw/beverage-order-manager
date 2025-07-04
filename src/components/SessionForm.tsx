@@ -3,8 +3,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SessionFormProps } from "../type-interface/props/SessionFormProps";
 import { Session } from "../type-interface/Session";
+import { useSessionUserContext } from "../context/SessionUserContext";
 
-function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
+// function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
+function SessionForm() {
+  const { sessionUser } = useSessionUserContext();
+
   const newSession: Session = {
     id: crypto.randomUUID(),
     name: "",
@@ -17,6 +21,7 @@ function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
       transactions: []
     }
   }
+  console.log(newSession);
 
   // const { handleCreateSession } = useSessionContext();
   const navigate = useNavigate();
