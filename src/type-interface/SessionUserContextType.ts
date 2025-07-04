@@ -1,5 +1,6 @@
 import { SessionUser } from "./SessionUser"
 
 export type SessionUserContextType = {
-  sessionUser: SessionUser
+  sessionUser: SessionUser,
+  handleSessionUserChange: (sessionUserKey: string, sessionUserValue: string) => void
 }
