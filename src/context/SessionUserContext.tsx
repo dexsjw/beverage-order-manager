@@ -33,7 +33,6 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
   const [sessionUser, setSessionUser] = useState<SessionUser>(currentSessionUser);
 
   const handleSessionUserChange = (sessionUserKey: string, sessionUserValue: string) => {
-    // TODO: add a check if sessionUserValue is ""?
     const updatedSessionUser: SessionUser = {
       ...sessionUser,
       [sessionUserKey]: sessionUserValue
