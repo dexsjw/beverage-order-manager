@@ -19,9 +19,7 @@ function SessionForm() {
       transactions: []
     }
   }
-  console.log(newSession);
 
-  // const { handleCreateSession } = useSessionContext();
   const navigate = useNavigate();
 
   const [session, setSession] = useState(newSession);
@@ -49,7 +47,6 @@ function SessionForm() {
     if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
       const updatedSession = structuredClone(session);
       setSession(updatedSession);
-      // handleCreateSession(updatedSession);
       navigate(`main-session/${updatedSession.id}`);
     }
   }
