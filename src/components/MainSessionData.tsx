@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSession } from "../api-service/mock-service";
+import { mockGetSession } from "../api-service/mock-service";
 import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
@@ -43,7 +43,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
 
   const retrieveSessionData = async () => {
     if (sessionId) {
-      const session = await getSession(sessionId);
+      const session = await mockGetSession(sessionId);
       if (session) {
         setSessionTimestamp(session.timestamp);
         setSessionOrders(session.data.orders);

@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import { Key, useEffect, useState } from "react";
-import { getAllSessions } from "../api-service/mock-service";
+import { mockGetAllSessions } from "../api-service/mock-service";
 import JoinSessionDialog from "../components/JoinSessionDialog";
 import SessionForm from "../components/SessionForm";
 import SessionUserForm from "../components/SessionUserForm";
@@ -24,7 +24,7 @@ function Home() {
   }, []);
 
   const retrieveAllSessions = async () => {
-    const allSessions = await getAllSessions();
+    const allSessions = await mockGetAllSessions();
     if (allSessions) {
       setSessions(allSessions);
     } else {

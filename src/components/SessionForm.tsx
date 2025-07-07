@@ -1,9 +1,9 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { mockPostSession, mockPostSessionDetails } from "../api-service/mock-service";
 import { useSessionUserContext } from "../context/SessionUserContext";
 import { Session } from "../type-interface/Session";
-import { postSession, postSessionDetails } from "../api-service/mock-service";
 
 function SessionForm() {
   const { sessionUser } = useSessionUserContext();
@@ -46,8 +46,8 @@ function SessionForm() {
 
   const handleCreateSessionClick = async () => {
     if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
-      await postSession(session);
-      await postSessionDetails(session);
+      await mockPostSession(session);
+      await mockPostSessionDetails(session);
       navigate(`main-session/${session.id}`);
     }
   }
