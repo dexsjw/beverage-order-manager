@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { mockGetSession, mockPostOrder, mockPostSessionDetails, mockPutSessionDetails } from "../api-service/mock-service";
+import { mockGetSession, mockPostOrder, mockPostSessionDetails, mockPutOrder, mockPutSessionDetails } from "../api-service/mock-service";
 import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
@@ -36,7 +36,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     }
   }
   const [session, setSession] = useState(newSession);
-  console.log(newSession);
   // End #mock
 
   useEffect(() => {
@@ -84,19 +83,26 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     setIsOrderEditMode(false);
   }
 
-  const handleAddOrder = (order: Order) => {
-    const updatedOrders = [...sessionOrders, order];
+  // Start #mock
+  // TODO: mock session updates
+  const mockUpdateSessionOrder = (updatedOrders: Order[]) => {
     const updatedSession: Session = {
       ...session,
       data: {
         ...session.data,
         orders: updatedOrders
       }
-    } // #mock
+    };
+    setSession(updatedSession);
+    mockPutSessionDetails(sessionId ?? "testId", updatedSession);
+  }
+  // End #mock
+
+  const handleAddOrder = (order: Order) => {
+    const updatedOrders = [...sessionOrders, order];
     setSessionOrders(updatedOrders);
-    setSession(updatedSession); // #mock
     mockPostOrder(order);
-    mockPutSessionDetails(sessionId ?? "testId", updatedSession); // #mock
+    mockUpdateSessionOrder(updatedOrders); // #mock
   }
 
   const handleUpdateOrder = (order: Order) => {
