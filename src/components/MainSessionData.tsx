@@ -106,9 +106,12 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   }
 
   const handleUpdateOrder = (order: Order) => {
-    setSessionOrders(prevOrders => prevOrders.map(currentOrder => {
+    const updatedOrders = sessionOrders.map(currentOrder => {
       return currentOrder.id === order.id ? order : currentOrder;
-    }));
+    });
+    setSessionOrders(updatedOrders);
+    mockPutOrder(order.id, order);
+    mockUpdateSessionOrder(updatedOrders); // #mock
     handleExitOrderEditMode();
   }
 
