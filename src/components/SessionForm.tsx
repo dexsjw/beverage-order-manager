@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSessionUserContext } from "../context/SessionUserContext";
 import { Session } from "../type-interface/Session";
+import { postSession, postSessionDetails } from "../api-service/mock-service";
 
 function SessionForm() {
   const { sessionUser } = useSessionUserContext();
@@ -43,11 +44,11 @@ function SessionForm() {
     setIsPasswordsMatch(session.password === confirmPassword);
   }
 
-  const handleCreateSessionClick = () => {
+  const handleCreateSessionClick = async () => {
     if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
-      const updatedSession = structuredClone(session);
-      setSession(updatedSession);
-      navigate(`main-session/${updatedSession.id}`);
+      await postSession(session);
+      await postSessionDetails(session);
+      navigate(`main-session/${session.id}`);
     }
   }
 
