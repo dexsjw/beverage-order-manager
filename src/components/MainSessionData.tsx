@@ -16,7 +16,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   const navigate = useNavigate();
 
   const [sessionTimestamp, setSessionTimestamp] = useState("");
-  const [sessionOrders, setSessionOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [isOrderEditMode, setIsOrderEditMode] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
 
@@ -42,7 +42,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     retrieveSessionData();
   }, [])
 
-  const orderTableData: OrderTableData[] = sessionOrders.map(order => ({
+  const orderTableData: OrderTableData[] = orders.map(order => ({
     id: order.id,
     sessionUser: order.sessionUser.name,
     takeAway: order.customisations.isTakeAway ? "Yes" : "No",
@@ -66,7 +66,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
       const session = await mockGetSession(sessionId);
       if (session) {
         setSessionTimestamp(session.timestamp);
-        setSessionOrders(session.data.orders);
+        setOrders(session.data.orders);
         setSession(session); // #mock
       } else {
         console.error(`Unable to find Session with id: ${sessionId}`);
@@ -99,29 +99,29 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   // End #mock
 
   const handleAddOrder = (order: Order) => {
-    const updatedOrders = [...sessionOrders, order];
-    setSessionOrders(updatedOrders);
+    const updatedOrders = [...orders, order];
+    setOrders(updatedOrders);
     mockPostOrder(order);
     mockUpdateSessionOrder(updatedOrders); // #mock
   }
 
   const handleUpdateOrder = (order: Order) => {
-    const updatedOrders = sessionOrders.map(currentOrder => {
+    const updatedOrders = orders.map(currentOrder => {
       return currentOrder.id === order.id ? order : currentOrder;
     });
-    setSessionOrders(updatedOrders);
+    setOrders(updatedOrders);
     mockPutOrder(order.id, order);
     mockUpdateSessionOrder(updatedOrders); // #mock
     handleExitOrderEditMode();
   }
 
   const handleRemoveOrder = (orderId: string) => {
-    setSessionOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
+    setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId));
     handleExitOrderEditMode();
   }
 
   const handleOrderSelect = (orderId: Key) => {
-    const order = sessionOrders.find(order => order.id === orderId);
+    const order = orders.find(order => order.id === orderId);
     if (order !== undefined) {
       setSelectedOrderId(order.id);
       setIsOrderEditMode(true);
