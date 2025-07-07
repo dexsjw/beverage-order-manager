@@ -1,10 +1,9 @@
-import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
-import { IconButton, Stack, TextField } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { SessionUserFormProps } from '../type-interface/props/SessionUserFormProps';
-import { FlexBoxRowGap } from "./styled/FlexBox";
 import { useSessionUserContext } from '../context/SessionUserContext';
+import { FlexBoxRowGap } from "./styled/FlexBox";
 
 // function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<SessionUserFormProps>) {
 function SessionUserForm() {
@@ -43,6 +42,16 @@ function SessionUserForm() {
         value={sessionUser.name}
         onChange={(event) => handleSessionUserChange(event.target.name, event.target.value)}
       />
+      {(!sessionUser.id || !sessionUser.name) && 
+        <Typography
+          variant="body1" 
+          component="div"
+          align="left"
+          color="error"
+        >
+          User ID or Name cannot be blank!
+        </Typography>
+      }
     </Stack>
   )
 }
