@@ -4,12 +4,10 @@ import { QuantitySectionProps } from "../../type-interface/props/QuantitySection
 const numbersOnlyRegex = /^\d{0,3}$/;
 
 function QuantitySection({ quantity, handleQuantityChange }: Readonly<QuantitySectionProps>) {
-  // const [quantity, setQuantity] = useState(initialQuantity);
 
   const handleQuantityValueChange = (quantityStrValue: string) => {
     if (numbersOnlyRegex.test(quantityStrValue.trim())) {
       const quantityValue = quantityStrValue === "" ? 0 : parseInt(quantityStrValue);
-      // setQuantity(quantityValue);
       handleQuantityChange(quantityValue);
     }
   }

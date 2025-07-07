@@ -1,11 +1,9 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SessionFormProps } from "../type-interface/props/SessionFormProps";
-import { Session } from "../type-interface/Session";
 import { useSessionUserContext } from "../context/SessionUserContext";
+import { Session } from "../type-interface/Session";
 
-// function SessionForm({ sessionUser }: Readonly<SessionFormProps>) {
 function SessionForm() {
   const { sessionUser } = useSessionUserContext();
 

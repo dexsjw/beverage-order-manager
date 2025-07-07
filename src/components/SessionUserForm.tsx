@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useSessionUserContext } from '../context/SessionUserContext';
 import { FlexBoxRowGap } from "./styled/FlexBox";
 
-// function SessionUserForm({ sessionUser, handleSessionUserChange }: Readonly<SessionUserFormProps>) {
 function SessionUserForm() {
   const { sessionUser, handleSessionUserChange } = useSessionUserContext();
   const [isIdFieldDisabled, setIsIdFieldDisabled] = useState(true);
