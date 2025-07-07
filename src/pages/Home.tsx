@@ -1,12 +1,11 @@
 import { Stack } from "@mui/material";
-import { ChangeEvent, Key, useEffect, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { getAllSessions } from "../api-service/mock-service";
 import JoinSessionDialog from "../components/JoinSessionDialog";
 import SessionForm from "../components/SessionForm";
 import SessionUserForm from "../components/SessionUserForm";
 import SortableTable from "../components/SortableTable";
 import { Session, SessionTableData } from "../type-interface/Session";
-import { SessionUser } from "../type-interface/SessionUser";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 
 const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
