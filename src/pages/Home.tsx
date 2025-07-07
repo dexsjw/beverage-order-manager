@@ -9,8 +9,6 @@ import { Session, SessionTableData } from "../type-interface/Session";
 import { SessionUser } from "../type-interface/SessionUser";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 
-// const BOM_SESSION_USER_KEY = "bomSessionUserKey";
-// let currentSessionUser: SessionUser = { id: "", name: "" };
 const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
   id: "",
   name: "",
@@ -18,24 +16,6 @@ const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
 }
 
 function Home() {
-  // const existingSessionUser = localStorage.getItem(BOM_SESSION_USER_KEY);
-  // const newSessionUser: SessionUser = { id: crypto.randomUUID(), name: "" };
-
-  // try {
-  //   currentSessionUser = existingSessionUser
-  //     ? JSON.parse(existingSessionUser)
-  //     : newSessionUser;
-  //   if (!currentSessionUser.id || currentSessionUser.id.trim() === "") {
-  //     console.warn("Removing key...");
-  //     localStorage.removeItem(BOM_SESSION_USER_KEY);
-  //     currentSessionUser = newSessionUser;
-  //   }
-  // } catch (error) {
-  //   console.error(error);
-  //   localStorage.removeItem(BOM_SESSION_USER_KEY);
-  // }
-  
-  // const [sessionUser, setSessionUser] = useState(currentSessionUser);
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -66,17 +46,6 @@ function Home() {
     { id: "isActive", name: "Status" }
   ];
 
-  // const handleSessionUserChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   setSessionUser(prevSessionUser => {
-  //     const newSessionUser: SessionUser = {
-  //       ...prevSessionUser,
-  //       [event.target.name]: event.target.value
-  //     };
-  //     localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(newSessionUser));
-  //     return newSessionUser;
-  //   })
-  // }
-
   const handleSessionSelect = (sessionId: Key) => {
     const session = sessions.find(session => session.id === sessionId);
     if (session !== undefined) {
@@ -96,13 +65,8 @@ function Home() {
 
   return (
     <Stack spacing={5}>
-      <SessionUserForm 
-        // sessionUser={sessionUser}
-        // handleSessionUserChange={handleSessionUserChange}
-      />
-      <SessionForm 
-        // sessionUser={sessionUser}
-      />
+      <SessionUserForm />
+      <SessionForm />
       <SortableTable<SessionTableData> 
         tableTitle="Join A Session: " 
         tableHeaders={sessionTableHeaders}
