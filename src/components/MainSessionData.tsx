@@ -1,13 +1,15 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { mockGetSession } from "../api-service/mock-service";
+import { mockGetSession, mockPostOrder, mockPostSessionDetails, mockPutSessionDetails } from "../api-service/mock-service";
 import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
+import { Session } from "../type-interface/Session";
+import { useSessionUserContext } from "../context/SessionUserContext";
 
 function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
   const { sessionId } = useParams();
@@ -17,6 +19,25 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   const [sessionOrders, setSessionOrders] = useState<Order[]>([]);
   const [isOrderEditMode, setIsOrderEditMode] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
+
+  // Start #mock
+  // Session state is for mocking purpose only
+  const { sessionUser } = useSessionUserContext();
+  const newSession: Session = {
+    id: sessionId ?? "testId",
+    name: "",
+    password: "",
+    owner: sessionUser,
+    timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+    isActive: true,
+    data: {
+      orders: [],
+      transactions: []
+    }
+  }
+  const [session, setSession] = useState(newSession);
+  console.log(newSession);
+  // End #mock
 
   useEffect(() => {
     retrieveSessionData();
@@ -47,6 +68,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
       if (session) {
         setSessionTimestamp(session.timestamp);
         setSessionOrders(session.data.orders);
+        setSession(session); // #mock
       } else {
         console.error(`Unable to find Session with id: ${sessionId}`);
         navigate("/");
