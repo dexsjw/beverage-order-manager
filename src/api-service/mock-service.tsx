@@ -6,6 +6,7 @@ const URL_SESSIONS = "/sessions/";
 const URL_SESSION_DETAILS = "/session-details/";
 const URL_ORDERS = "/orders/";
 
+/*      URL_SESSIONS     */
 export const getAllSessions = async () => {
   try {
     const response: AxiosResponse<Session[]> = await mockApi.get(URL_SESSIONS);
@@ -16,11 +17,32 @@ export const getAllSessions = async () => {
   }
 }
 
+export const postSession = async (session: Session) => {
+  try {
+    const response: AxiosResponse<Session> = await mockApi.post(URL_SESSIONS, session);
+    const mockSession: Session = response.data;
+    return mockSession;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/*      URL_SESSION_DETAILS     */
 export const getSession = async (sessionId: string) => {
   try {
     const response: AxiosResponse<Session> = await mockApi.get(URL_SESSION_DETAILS + sessionId);
-    const session: Session = response.data;
-    return session;
+    const sessionDetails: Session = response.data;
+    return sessionDetails;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const postSessionDetails = async (session: Session) => {
+  try {
+    const response: AxiosResponse<Session> = await mockApi.post(URL_SESSION_DETAILS, session);
+    const sessionDetails: Session = response.data;
+    return sessionDetails;
   } catch (error) {
     console.error(error);
   }
