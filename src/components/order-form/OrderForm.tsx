@@ -9,6 +9,7 @@ import { FlexBoxColumnGap } from "../styled/FlexBox";
 import BeverageOrderSection from "./BeverageSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
+import { useSessionUserContext } from "../../context/SessionUserContext";
 
 function OrderForm({ 
   selectedBrandIndex,
@@ -17,6 +18,8 @@ function OrderForm({
   handleUpdateOrder,
   handleRemoveOrder
 }: Readonly<OrderFormProps>) {
+
+  const { sessionUser } = useSessionUserContext();
 
   const brand = Brands[selectedBrandIndex];
   const brandBeverageMenu: Beverage[] = BrandsData[brand].menu;
@@ -65,7 +68,7 @@ function OrderForm({
   const initialOrder: Order = {
     id: crypto.randomUUID(),
     brand,
-    sessionUser: { id: crypto.randomUUID(), name: "" },
+    sessionUser: sessionUser,
     beverage: initialBeverage,
     customisations: initialCustomisations,
     quantity: initialQuantity
