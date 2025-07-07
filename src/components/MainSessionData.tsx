@@ -61,6 +61,8 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     { id: "price", name: "Price" }
   ];
 
+  // This should be retrieve Orders by sessionId from backend 
+  // instead of retrieving the whole session for Orders
   const retrieveSessionData = async () => {
     if (sessionId) {
       const session = await mockGetSession(sessionId);
