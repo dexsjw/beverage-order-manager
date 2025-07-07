@@ -1,15 +1,15 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { mockGetSession, mockPostOrder, mockPostSessionDetails, mockPutOrder, mockPutSessionDetails } from "../api-service/mock-service";
+import { mockGetSession, mockPostOrder, mockPutOrder, mockPutSessionDetails } from "../api-service/mock-service";
+import { useSessionUserContext } from "../context/SessionUserContext";
 import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
+import { Session } from "../type-interface/Session";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
-import { Session } from "../type-interface/Session";
-import { useSessionUserContext } from "../context/SessionUserContext";
 
 function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
   const { sessionId } = useParams();
