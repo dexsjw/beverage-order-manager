@@ -7,7 +7,7 @@ const URL_SESSION_DETAILS = "/session-details/";
 const URL_ORDERS = "/orders/";
 
 /*      URL_SESSIONS     */
-export const getAllSessions = async () => {
+export const mockGetAllSessions = async () => {
   try {
     const response: AxiosResponse<Session[]> = await mockApi.get(URL_SESSIONS);
     const sessions: Session[] = response.data;
@@ -17,7 +17,7 @@ export const getAllSessions = async () => {
   }
 }
 
-export const postSession = async (session: Session) => {
+export const mockPostSession = async (session: Session) => {
   try {
     const response: AxiosResponse<Session> = await mockApi.post(URL_SESSIONS, session);
     const mockSession: Session = response.data;
@@ -28,7 +28,7 @@ export const postSession = async (session: Session) => {
 }
 
 /*      URL_SESSION_DETAILS     */
-export const getSession = async (sessionId: string) => {
+export const mockGetSession = async (sessionId: string) => {
   try {
     const response: AxiosResponse<Session> = await mockApi.get(URL_SESSION_DETAILS + sessionId);
     const sessionDetails: Session = response.data;
@@ -38,7 +38,7 @@ export const getSession = async (sessionId: string) => {
   }
 }
 
-export const postSessionDetails = async (session: Session) => {
+export const mockPostSessionDetails = async (session: Session) => {
   try {
     const response: AxiosResponse<Session> = await mockApi.post(URL_SESSION_DETAILS, session);
     const sessionDetails: Session = response.data;
