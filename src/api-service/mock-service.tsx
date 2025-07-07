@@ -69,3 +69,13 @@ export const mockPostOrder = async (order: Order) => {
     console.error(error);
   }
 }
+
+export const mockPutOrder = async (orderId: string, order: Order) => {
+  try {
+    const response: AxiosResponse<Order> = await mockApi.put(URL_ORDERS + orderId, order);
+    const mockOrder: Order = response.data;
+    return mockOrder;
+  } catch (error) {
+    console.error(error);
+  }
+}
