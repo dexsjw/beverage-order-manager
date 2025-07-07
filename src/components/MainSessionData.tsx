@@ -85,7 +85,18 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   }
 
   const handleAddOrder = (order: Order) => {
-    setSessionOrders(prevOrders => [...prevOrders, order]);
+    const updatedOrders = [...sessionOrders, order];
+    const updatedSession: Session = {
+      ...session,
+      data: {
+        ...session.data,
+        orders: updatedOrders
+      }
+    } // #mock
+    setSessionOrders(updatedOrders);
+    setSession(updatedSession); // #mock
+    mockPostOrder(order);
+    mockPutSessionDetails(sessionId ?? "testId", updatedSession); // #mock
   }
 
   const handleUpdateOrder = (order: Order) => {
