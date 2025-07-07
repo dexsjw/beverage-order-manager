@@ -76,6 +76,9 @@ function OrderForm({
 
   const [order, setOrder] = useState<Order>(initialOrder);
 
+  // TODO: useEffect()
+  // editObject -> if editObject.orderId !== "", getOrderId
+
   const handleBeverageChange = (beverage: Beverage) => {
     const newOrder: Order = { ...order, beverage };
     console.log("New Order: ", newOrder);

@@ -17,6 +17,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
 
   const [sessionTimestamp, setSessionTimestamp] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
+  // TODO: combine editMode and orderId into an object
   const [isOrderEditMode, setIsOrderEditMode] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState("");
 
