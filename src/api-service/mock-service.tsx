@@ -79,3 +79,13 @@ export const mockPutOrder = async (orderId: string, order: Order) => {
     console.error(error);
   }
 }
+
+export const mockDeleteOrder = async (orderId: string) => {
+  try {
+    const response: AxiosResponse<Order> = await mockApi.delete(URL_ORDERS + orderId);
+    const mockOrder: Order = response.data;
+    return mockOrder;
+  } catch (error) {
+    console.error(error);
+  }
+}
