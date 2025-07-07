@@ -37,7 +37,6 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
       ...sessionUser,
       [sessionUserKey]: sessionUserValue
     };
-    console.log(updatedSessionUser);
     setSessionUser(updatedSessionUser);
     localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(updatedSessionUser));
   }
