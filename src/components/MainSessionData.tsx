@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { mockDeleteOrder, mockGetSession, mockPostOrder, mockPutOrder, mockPutSessionDetails } from "../api-service/mock-service";
+import { mockDeleteOrder, mockGetSession, mockPostOrder, mockPutOrder, mockPutSession } from "../api-service/mock-service";
 import { useSessionUserContext } from "../context/SessionUserContext";
 import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
@@ -97,7 +97,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
       }
     };
     setSession(updatedSession);
-    mockPutSessionDetails(sessionId ?? "testId", updatedSession);
+    mockPutSession(sessionId ?? "testId", updatedSession);
   }
   // End #mock
 
