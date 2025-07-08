@@ -125,7 +125,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     const updatedOrders = orders.filter(order => order.id !== orderId);
     setOrders(updatedOrders);
     mockDeleteOrder(orderId);
-    mockUpdateSessionOrders(updatedOrders);
+    mockUpdateSessionOrders(updatedOrders); // #mock
     exitOrderEditMode();
   }
 
