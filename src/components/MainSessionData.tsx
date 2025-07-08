@@ -17,9 +17,10 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
 
   const [sessionTimestamp, setSessionTimestamp] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
-  // TODO: combine editMode and orderId into an object
-  const [isOrderEditMode, setIsOrderEditMode] = useState(false);
-  const [selectedOrderId, setSelectedOrderId] = useState("");
+  const [orderEditMode, setOrderEditMode] = useState<{isEdit: boolean, selectedOrderId: string}>({
+    isEdit: false,
+    selectedOrderId: ""
+  })
 
   // Start #mock
   // Session state is for mocking purpose only
@@ -82,8 +83,10 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   }
 
   const handleExitOrderEditMode = () => {
-    setSelectedOrderId("");
-    setIsOrderEditMode(false);
+    setOrderEditMode({
+      isEdit: false,
+      selectedOrderId: ""
+    })
   }
 
   // Start #mock
@@ -129,8 +132,10 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   const handleOrderSelect = (orderId: Key) => {
     const order = orders.find(order => order.id === orderId);
     if (order !== undefined) {
-      setSelectedOrderId(order.id);
-      setIsOrderEditMode(true);
+      setOrderEditMode({
+        isEdit: true,
+        selectedOrderId: order.id
+      });
     }
   }
 
@@ -155,7 +160,8 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
           <OrderForm 
             key={Brands[selectedBrandIndex]}
             selectedBrandIndex={selectedBrandIndex}
-            isEditMode={isOrderEditMode}
+            editMode={orderEditMode}
+            exitEditMode={handleExitOrderEditMode}
             handleAddOrder={handleAddOrder}
             handleUpdateOrder={handleUpdateOrder}
             handleRemoveOrder={handleRemoveOrder}
@@ -177,7 +183,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
-            selectedRowId={selectedOrderId}
+            selectedRowId={orderEditMode.selectedOrderId}
             handleRowSelect={handleOrderSelect}
           />
         </AccordionDetails>
@@ -197,7 +203,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
-            selectedRowId={selectedOrderId}
+            selectedRowId={orderEditMode.selectedOrderId}
             handleRowSelect={handleOrderSelect}
           />
         </AccordionDetails>
