@@ -87,7 +87,6 @@ function OrderForm({
   const enterEditMode = async () => {
     const orderToEdit = await mockGetOrder(editMode.selectedOrderId);
     if (orderToEdit) {
-      console.log(orderToEdit);
       setOrder(orderToEdit);
     } else {
       console.error(`Unable to find Order with id: ${editMode.selectedOrderId}`);
@@ -125,6 +124,7 @@ function OrderForm({
 
   const handleRemoveOrderClick = () => {
     handleRemoveOrder(order.id);
+    setOrder(initialOrder);
   }
 
   return (
