@@ -42,16 +42,16 @@
     {
       "uuid": "34cc7611-e1e5-4456-a816-4d39c1ffa1e8",
       "type": "crud",
-      "documentation": "Perform CRUD operations on \"Session Details\" data bucket",
+      "documentation": "Perform CRUD operations on \"Sessions\" data bucket",
       "method": "",
-      "endpoint": "session-details",
+      "endpoint": "sessions",
       "responses": [
         {
           "uuid": "22d86fe2-cb39-47b5-9eaf-8588bef2b246",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
-          "label": "Perform CRUD operations on \"Session Details\" data bucket (\"Data\" tab at the top)",
+          "label": "Perform CRUD operations on \"Sessions\" data bucket (\"Data\" tab at the top)",
           "headers": [],
           "bodyType": "DATABUCKET",
           "filePath": "",
@@ -104,16 +104,16 @@
     {
       "uuid": "ad3891cb-8e6c-401f-ba7e-d3548817fd26",
       "type": "crud",
-      "documentation": "Perform CRUD operations on \"Sessions\" data bucket",
+      "documentation": "Perform CRUD operations on \"Sessions Only\" data bucket",
       "method": "",
-      "endpoint": "sessions",
+      "endpoint": "sessions-only",
       "responses": [
         {
           "uuid": "ae06ea02-48f2-43b5-aa69-c1d69ce27efb",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
-          "label": "Perform CRUD operations on \"Sessions\" data bucket (\"Data\" tab at the top)",
+          "label": "Perform CRUD operations on \"Sessions Only\" data bucket (\"Data\" tab at the top)",
           "headers": [],
           "bodyType": "DATABUCKET",
           "filePath": "",
@@ -205,14 +205,14 @@
     {
       "uuid": "148f0a5e-5acb-4fa7-a88c-872c10c6a3be",
       "id": "18gj",
-      "name": "Session Details",
+      "name": "Sessions",
       "documentation": "",
       "value": "[\n  {{#repeat 3 5}}\n    {\n      \"id\": \"{{uuid}}\",\n      \"name\": \"test{{@index}}\",\n      \"password\": \"test{{@index}}\",\n      \"owner\": {\n        \"id\": \"a494d7fd-6990-43d7-8293-e0d50b739466\",\n        \"name\": \"Dexter\"\n      },\n      \"timestamp\": \"{{date '01/01/2025' '01/12/2025' 'dd/MM/yyyy'}}\",\n      \"isActive\": true,\n      \"data\": {\n        \"orders\": [\n          {{#each (dataRaw '76k9')}}\n            {         \n              \"id\": \"{{id}}\",\n              \"brand\": \"{{brand}}\",\n              \"sessionUser\": {\n                \"id\": \"{{sessionUser.id}}\",\n                \"name\": \"{{sessionUser.name}}\"\n              },\n              \"beverage\": {\n                \"id\": {{beverage.id}},\n                \"category\": \"{{beverage.category}}\",\n                \"name\": \"{{beverage.name}}\",\n                \"price\": {{beverage.price}}\n              },\n              \"customisations\": {\n                \"isTakeAway\": {{customisations.isTakeAway}},\n                \"thicknessLevel\": \"{{customisations.thicknessLevel}}\",\n                \"sweetnessLevel\": \"{{customisations.sweetnessLevel}}\",\n                \"others\": \"{{customisations.others}}\"\n              },\n              \"quantity\": {{quantity}}\n            }{{#unless @last}},{{/unless}}\n          {{/each}}\n        ],\n        \"transactions\": []\n      }\n    }\n  {{/repeat}}\n]"
     },
     {
       "uuid": "062e8620-be59-4a15-8df3-b5d63e19b9fc",
       "id": "1xiq",
-      "name": "Sessions",
+      "name": "Sessions Only",
       "documentation": "",
       "value": "[\n  {{#each (dataRaw '18gj')}}\n    {\n      \"id\": \"{{id}}\",\n      \"name\": \"{{name}}\",\n      \"password\": \"{{password}}\",\n      \"owner\": {\n        \"id\": \"a494d7fd-6990-43d7-8293-e0d50b739466\",\n        \"name\": \"Dexter\"\n      },\n      \"timestamp\": \"{{timestamp}}\",\n      \"isActive\": {{isActive}}\n    }{{#unless @last}},{{/unless}}\n  {{/each}}\n]"
     }
