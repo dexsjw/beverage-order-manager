@@ -1,6 +1,9 @@
+import { JoinedSessions } from "./JoinedSessions"
 import { SessionUser } from "./SessionUser"
 
 export type SessionUserContextType = {
   sessionUser: SessionUser,
-  handleSessionUserChange: (sessionUserKey: string, sessionUserValue: string) => void
+  joinedSessions: JoinedSessions,
+  handleSessionUserChange: (sessionUserKey: string, sessionUserValue: string) => void,
+  handleAddSessionId: (sessionId: string) => void
 }
