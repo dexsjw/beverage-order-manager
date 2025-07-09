@@ -90,7 +90,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   }
 
   // Start #mock
-  // TODO: mock session updates
   const mockUpdateSessionOrders = (updatedOrders: Order[]) => {
     const updatedSession: Session = {
       ...session,
@@ -141,11 +140,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
 
   return (
     <Box>
-      {/* <JoinSessionDialog 
-        sessionCredentials={}
-        isDialogOpen={}
-        handleDialogClose={}
-      /> */}
       <Accordion defaultExpanded>
         <AccordionSummary>
           <Typography 
