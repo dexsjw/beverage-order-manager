@@ -21,6 +21,7 @@ function JoinSessionDialog({
   
   const handleJoinSession = () => {
     if (password === sessionCredentials.password) {
+      // TODO: add SessionUserContext.handleAddSessionId()
       navigate(`main-session/${sessionCredentials.id}`);
     } else {
       setIsDisplayErrorMessage(true);

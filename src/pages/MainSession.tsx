@@ -4,6 +4,7 @@ import MainSessionData from "../components/MainSessionData";
 import { Brands } from "../static-data/BrandsData";
 
 function MainSession() {
+  // TODO: add JoinSessionDialog to check if session has been joined before
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (tabIndex: number) => {
