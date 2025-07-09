@@ -15,9 +15,9 @@ const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
 }
 
 function Home() {
+  const [sessions, setSessions] = useState<Session[]>([]);
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [sessions, setSessions] = useState<Session[]>([]);
 
   useEffect(() => {
     retrieveAllSessions();
