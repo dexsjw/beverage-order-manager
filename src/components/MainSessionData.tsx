@@ -9,7 +9,7 @@ import SortableTable from "./SortableTable";
 
 function MainSessionData({
   selectedBrandIndex,
-  timestamp,
+  sessionTimestamp,
   sessionOrders,
   mockUpdateSessionOrders
 }: Readonly<MainSessionDataProps>) {
@@ -99,7 +99,7 @@ function MainSessionData({
             component="div" 
             color="primary"
           >
-            {`Order Form (${timestamp})`}
+            Order Form
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -125,7 +125,7 @@ function MainSessionData({
         </AccordionSummary>
         <AccordionDetails>
           <SortableTable<OrderTableData>
-            tableTitle={"Date: " + timestamp} 
+            tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
             selectedRowId={orderToEdit ? orderToEdit.id : ""}
@@ -145,7 +145,7 @@ function MainSessionData({
         </AccordionSummary>
         <AccordionDetails>
           <SortableTable<OrderTableData>
-            tableTitle={"Date: " + timestamp} 
+            tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
             selectedRowId={orderToEdit ? orderToEdit.id : ""}
