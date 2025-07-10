@@ -7,10 +7,17 @@ import { useSessionUserContext } from "../context/SessionUserContext";
 import { Brands } from "../static-data/BrandsData";
 import { Order } from "../type-interface/Order";
 import { Session } from "../type-interface/Session";
+import JoinSessionDialog from "../components/JoinSessionDialog";
+
+const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
+  id: "",
+  name: "",
+  password: ""
+}
 
 function MainSession() {
   // TODO: add JoinSessionDialog to check if session has been joined before
-  const { sessionUser } = useSessionUserContext();
+  const { sessionUser, joinedSessions } = useSessionUserContext();
   const { sessionId } = useParams();
   const navigate = useNavigate();
   
@@ -27,6 +34,7 @@ function MainSession() {
     }
   }
 
+  const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [session, setSession] = useState(newSession);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -38,6 +46,7 @@ function MainSession() {
     if (sessionId) {
       const foundSession = await mockGetSession(sessionId);
       if (foundSession) {
+        populateDialogDetails(foundSession);
         setSession(foundSession);
       } else {
         console.error(`Unable to find Session with id: ${sessionId}`);
@@ -47,6 +56,14 @@ function MainSession() {
       console.error(`Session ID is undefined or empty: ${sessionId}`);
       navigate("/");
     }
+  }
+
+  const populateDialogDetails = (foundSession: Session) => {
+    setSessionCredentials({
+      id: foundSession.id,
+      name: foundSession.name,
+      password: foundSession.password
+    });
   }
 
   // Start #mock
@@ -67,34 +84,49 @@ function MainSession() {
   }
   // End #mock
 
+  const handleDialogClose = () => {
+    navigate("/");
+  }
+
   const handleTabChange = (tabIndex: number) => {
     setTabIndex(tabIndex);
   }
 
   return (
     <Box component="section" sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs
-        value={tabIndex}
-        onChange={(event, tabIndex) => handleTabChange(tabIndex)}
-        variant="scrollable"
-        scrollButtons
-        allowScrollButtonsMobile
-      >
-        {Brands.map(brand => (
-          <Tab 
-            key={brand}
-            // .replaceAll() is recommended to be used for target library 'es2021' or later
-            label={brand.replace(/_/g, " ")} 
+      {!joinedSessions.sessionIds.includes(session.id) &&
+        <JoinSessionDialog
+          sessionCredentials={sessionCredentials}
+          isDialogOpen={true}
+          handleDialogClose={handleDialogClose}
+        />
+      }
+      {joinedSessions.sessionIds.includes(session.id) &&
+        <Box>
+          <Tabs
+            value={tabIndex}
+            onChange={(event, tabIndex) => handleTabChange(tabIndex)}
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
+          >
+            {Brands.map(brand => (
+              <Tab 
+                key={brand}
+                // .replaceAll() is recommended to be used for target library 'es2021' or later
+                label={brand.replace(/_/g, " ")} 
+              />
+            ))}
+          </Tabs>
+          <MainSessionData
+            key={tabIndex}
+            selectedBrandIndex={tabIndex}
+            timestamp={session.timestamp}
+            sessionOrders={session.data.orders}
+            mockUpdateSessionOrders={mockUpdateSessionOrders}
           />
-        ))}
-      </Tabs>
-      <MainSessionData
-        key={tabIndex}
-        selectedBrandIndex={tabIndex}
-        timestamp={session.timestamp}
-        sessionOrders={session.data.orders}
-        mockUpdateSessionOrders={mockUpdateSessionOrders}
-      />
+        </Box>
+      }
     </Box>
   )
 }
