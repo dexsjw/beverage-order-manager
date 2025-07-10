@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
-import { SessionUserContextType } from "../type-interface/SessionUserContextType";
-import { SessionUser } from "../type-interface/SessionUser";
+import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { JoinedSessions } from "../type-interface/JoinedSessions";
+import { SessionUser } from "../type-interface/SessionUser";
+import { SessionUserContextType } from "../type-interface/SessionUserContextType";
 
 const BOM_SESSION_USER_KEY = "bomSessionUserKey";
 const BOM_JOINED_SESSIONS_KEY = "bomJoinedSessionsKey";
@@ -58,7 +58,7 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
 
   useEffect(() => {
     const checkExpiryTimestampInterval = setInterval(() => {
-      if (Date.parse(joinedSessions.expiryTimestamp) < Date.now()) {
+      if (Date.parse(joinedSessions.expiryTimestamp) <= Date.now()) {
         setJoinedSessions({
           sessionIds: [],
           expiryTimestamp: new Date(Date.now() + 1.8e6).toLocaleString("en-GB")
@@ -72,23 +72,23 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
     };
   }, []);
 
-  const handleSessionUserChange = (sessionUserKey: string, sessionUserValue: string) => {
+  const handleSessionUserChange = useCallback((sessionUserKey: string, sessionUserValue: string) => {
     const updatedSessionUser: SessionUser = {
       ...sessionUser,
       [sessionUserKey]: sessionUserValue
     };
     setSessionUser(updatedSessionUser);
     localStorage.setItem(BOM_SESSION_USER_KEY, JSON.stringify(updatedSessionUser));
-  }
+  }, [sessionUser]);
 
-  const handleAddSessionId = (sessionId: string) => {
+  const handleAddSessionId = useCallback((sessionId: string) => {
     const updatedJoinedSessions: JoinedSessions = {
       ...joinedSessions,
       sessionIds: [...joinedSessions.sessionIds, sessionId]
     };
     setJoinedSessions(updatedJoinedSessions);
     localStorage.setItem(BOM_JOINED_SESSIONS_KEY, JSON.stringify(updatedJoinedSessions));
-  }
+  }, [joinedSessions]);
 
   const contextValue: SessionUserContextType = useMemo(() => {
     return {
@@ -97,7 +97,12 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
       handleSessionUserChange,
       handleAddSessionId
     }
-  }, [sessionUser, joinedSessions]);
+  }, [
+    sessionUser,
+    joinedSessions,
+    handleSessionUserChange,
+    handleAddSessionId
+  ]);
 
   return (
     <SessionUserContext.Provider value={contextValue}>
