@@ -36,12 +36,13 @@ function OrderForm({
 
   brandCustomisationsOptions.forEach(customisationsOption => {
     let errMsg = "";
+    const invalidCustomisationsOptionsErrMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
     switch (customisationsOption.type) {
       case "boolean": {
         if (isCustomisationsKeyOfType<boolean>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
           initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
         } else {
-          errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
+          errMsg = invalidCustomisationsOptionsErrMsg;
         }
         break;
       }
@@ -50,7 +51,7 @@ function OrderForm({
         if (isCustomisationsKeyOfType<string>(initialCustomisations, customisationsOption.key, customisationsOption.type)) {
           initialCustomisations[customisationsOption.key] = customisationsOption.options[0];
         } else {
-          errMsg = `${customisationsOption.key} field has error. Check if customisations options provided correctly.`;
+          errMsg = invalidCustomisationsOptionsErrMsg;
         }
         break;
       }
