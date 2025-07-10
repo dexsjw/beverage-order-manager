@@ -1,7 +1,8 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
-import { JoinSessionDialogProps } from "../type-interface/props/JoinSessionDialogProps";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSessionUserContext } from "../context/SessionUserContext";
+import { JoinSessionDialogProps } from "../type-interface/props/JoinSessionDialogProps";
 
 function JoinSessionDialog({
   sessionCredentials,
@@ -9,6 +10,7 @@ function JoinSessionDialog({
   handleDialogClose
 }: Readonly<JoinSessionDialogProps>) {
 
+  const { handleAddSessionId } = useSessionUserContext();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [isDisplayErrorMessage, setIsDisplayErrorMessage] = useState(false);
@@ -19,10 +21,12 @@ function JoinSessionDialog({
     handleDialogClose();
   }
   
+  // This should be a post call to backend
   const handleJoinSession = () => {
     if (password === sessionCredentials.password) {
       // TODO: add SessionUserContext.handleAddSessionId()
-      navigate(`main-session/${sessionCredentials.id}`);
+      handleAddSessionId(sessionCredentials.id);
+      navigate(`/main-session/${sessionCredentials.id}`);
     } else {
       setIsDisplayErrorMessage(true);
     }
