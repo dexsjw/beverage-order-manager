@@ -48,15 +48,15 @@ export const mockPutSession = async (sessionId: string, session: Session) => {
 }
 
 /*      URL_ORDERS     */
-export const mockGetOrder = async (orderId: string) => {
-  try {
-    const response: AxiosResponse<Order> = await mockApi.get(URL_ORDERS + orderId);
-    const mockOrder: Order = response.data;
-    return mockOrder;
-  } catch (error) {
-    console.error(error);
-  }
-}
+// export const mockGetOrder = async (orderId: string) => {
+//   try {
+//     const response: AxiosResponse<Order> = await mockApi.get(URL_ORDERS + orderId);
+//     const mockOrder: Order = response.data;
+//     return mockOrder;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
 export const mockPostOrder = async (order: Order) => {
   try {
