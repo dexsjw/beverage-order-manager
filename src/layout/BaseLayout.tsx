@@ -17,7 +17,7 @@ function BaseLayout() {
               <CoffeeIcon />
             </IconButton>
           </Box>
-          <Typography variant="h5" component="div" sx={{flexGrow: "1"}}>
+          <Typography variant="h4" component="div" sx={{flexGrow: "1"}}>
             Beverage Order Manager
           </Typography>
           <IconButton
