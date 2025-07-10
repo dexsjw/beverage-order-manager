@@ -42,29 +42,41 @@ function MainSessionData({
 
   // When post/put/delete Order, Session should be updated as well
   // Hence, mockUpdateSessionOrders() should not be needed
-  const handleAddOrder = (order: Order) => {
+  const handleAddOrder = async (order: Order) => {
     const updatedOrders = [...orders, order];
-    setOrders(updatedOrders);
-    mockPostOrder(order);
-    mockUpdateSessionOrders(updatedOrders); // #mock
+    const orderResponse = await mockPostOrder(order);
+    if (orderResponse) {
+      setOrders(updatedOrders);
+      mockUpdateSessionOrders(updatedOrders); // #mock
+    } else {
+      console.error("Failed to add Order for ID: " + order.id);
+    }
   }
 
-  const handleUpdateOrder = (order: Order) => {
+  const handleUpdateOrder = async (order: Order) => {
     const updatedOrders = orders.map(currentOrder => {
       return currentOrder.id === order.id ? order : currentOrder;
     });
-    setOrders(updatedOrders);
-    mockPutOrder(order.id, order);
-    mockUpdateSessionOrders(updatedOrders); // #mock
-    setOrderToEdit(null);
+    const orderResponse = await mockPutOrder(order.id, order);
+    if (orderResponse) {
+      setOrders(updatedOrders);
+      mockUpdateSessionOrders(updatedOrders); // #mock
+      setOrderToEdit(null);
+    } else {
+      console.error("Failed to update Order for ID: " + order.id);
+    }
   }
 
-  const handleRemoveOrder = (orderId: string) => {
+  const handleRemoveOrder = async (orderId: string) => {
     const updatedOrders = orders.filter(order => order.id !== orderId);
-    setOrders(updatedOrders);
-    mockDeleteOrder(orderId);
-    mockUpdateSessionOrders(updatedOrders); // #mock
-    setOrderToEdit(null);
+    const orderResponse = await mockDeleteOrder(orderId);
+    if (orderResponse) {
+      setOrders(updatedOrders);
+      mockUpdateSessionOrders(updatedOrders); // #mock
+      setOrderToEdit(null);
+    } else {
+      console.error("Failed to remove Order for ID: " + orderId);
+    }
   }
 
   const handleOrderSelect = (orderId: Key) => {
