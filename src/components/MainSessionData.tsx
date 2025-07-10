@@ -1,44 +1,25 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
-import { Key, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { mockDeleteOrder, mockGetSession, mockPostOrder, mockPutOrder, mockPutSession } from "../api-service/mock-service";
-import { useSessionUserContext } from "../context/SessionUserContext";
+import { Key, useState } from "react";
+import { mockDeleteOrder, mockPostOrder, mockPutOrder } from "../api-service/mock-service";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
-import { Session } from "../type-interface/Session";
 import OrderForm from "./order-form/OrderForm";
 import SortableTable from "./SortableTable";
 
-function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>) {
-  const { sessionId } = useParams();
-  const navigate = useNavigate();
+function MainSessionData({
+  selectedBrandIndex,
+  timestamp,
+  sessionOrders,
+  mockUpdateSessionOrders
+}: Readonly<MainSessionDataProps>) {
 
-  const [sessionTimestamp, setSessionTimestamp] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderToEdit, setOrderToEdit] = useState<Order | null>(null);
 
-  // Start #mock
-  // Session state is for mocking purpose only
-  const { sessionUser } = useSessionUserContext();
-  const newSession: Session = {
-    id: sessionId ?? "testId",
-    name: "",
-    password: "",
-    owner: sessionUser,
-    timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
-    isActive: true,
-    data: {
-      orders: [],
-      transactions: []
-    }
+  if (sessionOrders.length !== orders.length) {
+    setOrders(sessionOrders); 
   }
-  const [session, setSession] = useState(newSession);
-  // End #mock
-
-  useEffect(() => {
-    retrieveSessionData();
-  }, [])
 
   const orderTableData: OrderTableData[] = orders.map(order => ({
     id: order.id,
@@ -59,39 +40,8 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     { id: "price", name: "Price" }
   ];
 
-  // This should be retrieve Orders by sessionId from backend 
-  // instead of retrieving the whole session for Orders
-  const retrieveSessionData = async () => {
-    if (sessionId) {
-      const session = await mockGetSession(sessionId);
-      if (session) {
-        setSessionTimestamp(session.timestamp);
-        setOrders(session.data.orders);
-        setSession(session); // #mock
-      } else {
-        console.error(`Unable to find Session with id: ${sessionId}`);
-        navigate("/");
-      }
-    } else {
-      console.error(`Session ID is undefined: ${sessionId}`);
-      navigate("/");
-    }
-  }
-
-  // Start #mock
-  const mockUpdateSessionOrders = (updatedOrders: Order[]) => {
-    const updatedSession: Session = {
-      ...session,
-      data: {
-        ...session.data,
-        orders: updatedOrders
-      }
-    };
-    setSession(updatedSession);
-    mockPutSession(sessionId ?? "testId", updatedSession);
-  }
-  // End #mock
-
+  // When post/put/delete Order, Session should be updated as well
+  // Hence, mockUpdateSessionOrders() should not be needed
   const handleAddOrder = (order: Order) => {
     const updatedOrders = [...orders, order];
     setOrders(updatedOrders);
@@ -133,7 +83,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             component="div" 
             color="primary"
           >
-            Order Form
+            {`Order Form (${timestamp})`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -159,7 +109,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
         </AccordionSummary>
         <AccordionDetails>
           <SortableTable<OrderTableData>
-            tableTitle={"Date: " + sessionTimestamp} 
+            tableTitle={"Date: " + timestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
             selectedRowId={orderToEdit ? orderToEdit.id : ""}
@@ -179,7 +129,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
         </AccordionSummary>
         <AccordionDetails>
           <SortableTable<OrderTableData>
-            tableTitle={"Date: " + sessionTimestamp} 
+            tableTitle={"Date: " + timestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
             selectedRowId={orderToEdit ? orderToEdit.id : ""}
