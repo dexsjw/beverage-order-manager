@@ -78,10 +78,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     }
   }
 
-  const exitOrderEditMode = () => {
-    setOrderToEdit(null);
-  }
-
   // Start #mock
   const mockUpdateSessionOrders = (updatedOrders: Order[]) => {
     const updatedSession: Session = {
@@ -110,7 +106,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     setOrders(updatedOrders);
     mockPutOrder(order.id, order);
     mockUpdateSessionOrders(updatedOrders); // #mock
-    exitOrderEditMode();
+    setOrderToEdit(null);
   }
 
   const handleRemoveOrder = (orderId: string) => {
@@ -118,7 +114,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
     setOrders(updatedOrders);
     mockDeleteOrder(orderId);
     mockUpdateSessionOrders(updatedOrders); // #mock
-    exitOrderEditMode();
+    setOrderToEdit(null);
   }
 
   const handleOrderSelect = (orderId: Key) => {
