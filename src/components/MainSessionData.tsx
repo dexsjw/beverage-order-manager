@@ -3,7 +3,6 @@ import { Key, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { mockDeleteOrder, mockGetSession, mockPostOrder, mockPutOrder, mockPutSession } from "../api-service/mock-service";
 import { useSessionUserContext } from "../context/SessionUserContext";
-import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
@@ -17,10 +16,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
 
   const [sessionTimestamp, setSessionTimestamp] = useState("");
   const [orders, setOrders] = useState<Order[]>([]);
-  const [orderEditMode, setOrderEditMode] = useState<{isEdit: boolean, selectedOrderId: string}>({
-    isEdit: false,
-    selectedOrderId: ""
-  })
+  const [orderToEdit, setOrderToEdit] = useState<Order | null>(null);
 
   // Start #mock
   // Session state is for mocking purpose only
@@ -83,10 +79,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   }
 
   const exitOrderEditMode = () => {
-    setOrderEditMode({
-      isEdit: false,
-      selectedOrderId: ""
-    })
+    setOrderToEdit(null);
   }
 
   // Start #mock
@@ -131,10 +124,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
   const handleOrderSelect = (orderId: Key) => {
     const order = orders.find(order => order.id === orderId);
     if (order !== undefined) {
-      setOrderEditMode({
-        isEdit: true,
-        selectedOrderId: order.id
-      });
+      setOrderToEdit(order);
     }
   }
 
@@ -153,8 +143,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
         <AccordionDetails>
           <OrderForm 
             selectedBrandIndex={selectedBrandIndex}
-            editMode={orderEditMode}
-            exitEditMode={exitOrderEditMode}
+            orderToEdit={orderToEdit}
             handleAddOrder={handleAddOrder}
             handleUpdateOrder={handleUpdateOrder}
             handleRemoveOrder={handleRemoveOrder}
@@ -176,7 +165,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
-            selectedRowId={orderEditMode.selectedOrderId}
+            selectedRowId={orderToEdit ? orderToEdit.id : ""}
             handleRowSelect={handleOrderSelect}
           />
         </AccordionDetails>
@@ -196,7 +185,7 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
             tableTitle={"Date: " + sessionTimestamp} 
             tableHeaders={orderTableHeaders}
             tableData={orderTableData}
-            selectedRowId={orderEditMode.selectedOrderId}
+            selectedRowId={orderToEdit ? orderToEdit.id : ""}
             handleRowSelect={handleOrderSelect}
           />
         </AccordionDetails>
