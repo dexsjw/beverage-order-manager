@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { mockGetSession, mockPutSession } from "../api-service/mock-service";
@@ -103,6 +103,13 @@ function MainSession() {
       }
       {joinedSessions.sessionIds.includes(session.id) &&
         <Box>
+          <Typography
+            variant="h4" 
+            component="div" 
+            color="primary"
+          >
+            {session.name}
+          </Typography>
           <Tabs
             value={tabIndex}
             onChange={(event, tabIndex) => handleTabChange(tabIndex)}
@@ -121,7 +128,7 @@ function MainSession() {
           <MainSessionData
             key={tabIndex}
             selectedBrandIndex={tabIndex}
-            timestamp={session.timestamp}
+            sessionTimestamp={session.timestamp}
             sessionOrders={session.data.orders}
             mockUpdateSessionOrders={mockUpdateSessionOrders}
           />
