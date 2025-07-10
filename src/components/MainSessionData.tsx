@@ -137,7 +137,8 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <OrderForm 
+          <OrderForm
+            key={orderToEdit?.id}
             selectedBrandIndex={selectedBrandIndex}
             orderToEdit={orderToEdit}
             handleAddOrder={handleAddOrder}
