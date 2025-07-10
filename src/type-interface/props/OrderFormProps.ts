@@ -2,7 +2,7 @@ import { Order } from "../Order";
 
 export type OrderFormProps = {
   selectedBrandIndex: number,
-  editMode: { isEdit: boolean, selectedOrderId: string },
+  orderToEdit: Order | null,
   exitEditMode: () => void,
   handleAddOrder: (order: Order) => void,
   handleUpdateOrder: (order: Order) => void,
