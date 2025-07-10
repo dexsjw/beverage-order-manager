@@ -116,7 +116,7 @@ function MainSessionData({
       <Accordion defaultExpanded>
         <AccordionSummary>
           <Typography
-            variant="h6" 
+            variant="h5" 
             component="div" 
             color="primary"
           >
@@ -136,7 +136,7 @@ function MainSessionData({
       <Accordion>
         <AccordionSummary>
           <Typography 
-            variant="h6" 
+            variant="h5" 
             component="div" 
             color="primary"
           >
