@@ -18,6 +18,10 @@ function MainSessionData({
   const [orderToEdit, setOrderToEdit] = useState<Order | null>(null);
 
   if (sessionOrders.length !== orders.length) {
+    // need to rethink logic when connected to actual backend
+    // because post/put/delete Order will not trigger MainSession to rerender
+    // resulting in the lengths always unequal
+    // and setting orders as sessionOrders is not right
     setOrders(sessionOrders); 
   }
 
