@@ -4,5 +4,5 @@ export type MainSessionDataProps = {
   selectedBrandIndex: number,
   timestamp: string,
   sessionOrders: Order[],
-  mockUpdateSessionOrders: (updatedOrders: Order[]) => void
+  mockUpdateSessionOrders: (updatedOrders: Order[]) => Promise<void>
 }

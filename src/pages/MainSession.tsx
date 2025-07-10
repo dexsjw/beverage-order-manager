@@ -50,7 +50,7 @@ function MainSession() {
   }
 
   // Start #mock
-  const mockUpdateSessionOrders = (updatedOrders: Order[]) => {
+  const mockUpdateSessionOrders = async (updatedOrders: Order[]) => {
     const updatedSession: Session = {
       ...session,
       data: {
@@ -58,8 +58,12 @@ function MainSession() {
         orders: updatedOrders
       }
     };
-    setSession(updatedSession);
-    mockPutSession(session.id, updatedSession);
+    const sessionResponse = await mockPutSession(session.id, updatedSession);
+    if (sessionResponse) {
+      setSession(sessionResponse);
+    } else {
+      console.error("Failed to update Session with updated Orders");
+    }
   }
   // End #mock
 
