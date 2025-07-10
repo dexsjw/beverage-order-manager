@@ -1,5 +1,6 @@
 import { Button, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSessionUserContext } from "../../context/SessionUserContext";
 import { Brands, BrandsData } from "../../static-data/BrandsData";
 import { Beverage } from "../../type-interface/Beverage";
 import { Customisations, CustomisationsOption, isCustomisationsKeyOfType } from "../../type-interface/Customisations";
@@ -9,13 +10,10 @@ import { FlexBoxColumnGap } from "../styled/FlexBox";
 import BeverageOrderSection from "./BeverageSection";
 import CustomisationsSection from "./CustomisationsSection";
 import QuantitySection from "./QuantitySection";
-import { useSessionUserContext } from "../../context/SessionUserContext";
-import { mockGetOrder } from "../../api-service/mock-service";
 
 function OrderForm({ 
   selectedBrandIndex,
-  editMode,
-  exitEditMode,
+  orderToEdit,
   handleAddOrder,
   handleUpdateOrder,
   handleRemoveOrder
@@ -77,21 +75,11 @@ function OrderForm({
   }
 
   const [order, setOrder] = useState<Order>(initialOrder);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (editMode.isEdit && editMode.selectedOrderId) {
-      enterEditMode();
-    }
-  }, [editMode]);
-
-  const enterEditMode = async () => {
-    const orderToEdit = await mockGetOrder(editMode.selectedOrderId);
-    if (orderToEdit) {
-      setOrder(orderToEdit);
-    } else {
-      console.error(`Unable to find Order with id: ${editMode.selectedOrderId}`);
-      exitEditMode();
-    }
+  if (orderToEdit && !isEditMode) {
+    setOrder(orderToEdit);
+    setIsEditMode(true);
   }
 
   const handleBeverageChange = (beverage: Beverage) => {
@@ -120,11 +108,13 @@ function OrderForm({
   const handleUpdateOrderClick = () => {
     handleUpdateOrder(order);
     setOrder(initialOrder);
+    setIsEditMode(false);
   }
 
   const handleRemoveOrderClick = () => {
     handleRemoveOrder(order.id);
     setOrder(initialOrder);
+    setIsEditMode(false);
   }
 
   return (
@@ -143,7 +133,7 @@ function OrderForm({
         quantity={order.quantity}
         handleQuantityChange={handleQuantityChange}
       />
-      {!editMode.isEdit &&
+      {!isEditMode &&
         <Button
           variant="contained"
           color="success"
@@ -152,7 +142,7 @@ function OrderForm({
           Add Order
         </Button>
       }
-      {editMode.isEdit &&
+      {isEditMode &&
         <FlexBoxColumnGap>
           <Button
             variant="contained"
