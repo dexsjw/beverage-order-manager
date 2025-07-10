@@ -6,7 +6,8 @@ import { Session } from "../type-interface/Session";
 import { mockPostSession } from "../api-service/mock-service";
 
 function SessionForm() {
-  const { sessionUser } = useSessionUserContext();
+  const { sessionUser, handleAddSessionId } = useSessionUserContext();
+  const navigate = useNavigate();
 
   const newSession: Session = {
     id: crypto.randomUUID(),
@@ -20,8 +21,6 @@ function SessionForm() {
       transactions: []
     }
   }
-
-  const navigate = useNavigate();
 
   const [session, setSession] = useState(newSession);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,8 +45,13 @@ function SessionForm() {
 
   const handleCreateSessionClick = async () => {
     if (session.name.trim() !== "" && session.password !== "" && confirmPassword !== "" && isPasswordsMatch) {
-      await mockPostSession(session);
-      navigate(`main-session/${session.id}`);
+      const createdSession = await mockPostSession(session);
+      if (createdSession) {
+        handleAddSessionId(createdSession.id);
+        navigate(`/main-session/${createdSession.id}`);
+      } else {
+        console.error("Failed to create new Session");
+      }
     }
   }
 
