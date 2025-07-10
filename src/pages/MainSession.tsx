@@ -28,7 +28,8 @@ function MainSession() {
           />
         ))}
       </Tabs>
-      <MainSessionData 
+      <MainSessionData
+        key={tabIndex}
         selectedBrandIndex={tabIndex}
       />
     </Box>

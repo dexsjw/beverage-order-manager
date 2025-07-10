@@ -152,7 +152,6 @@ function MainSessionData({ selectedBrandIndex }: Readonly<MainSessionDataProps>)
         </AccordionSummary>
         <AccordionDetails>
           <OrderForm 
-            key={Brands[selectedBrandIndex]}
             selectedBrandIndex={selectedBrandIndex}
             editMode={orderEditMode}
             exitEditMode={exitOrderEditMode}
