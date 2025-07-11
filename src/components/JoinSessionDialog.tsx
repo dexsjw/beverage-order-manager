@@ -24,7 +24,6 @@ function JoinSessionDialog({
   // This should be a post call to backend
   const handleJoinSession = () => {
     if (password === sessionCredentials.password) {
-      // TODO: add SessionUserContext.handleAddSessionId()
       handleAddSessionId(sessionCredentials.id);
       navigate(`/main-session/${sessionCredentials.id}`);
     } else {
