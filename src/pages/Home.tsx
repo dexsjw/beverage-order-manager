@@ -7,6 +7,8 @@ import SessionUserForm from "../components/SessionUserForm";
 import SortableTable from "../components/SortableTable";
 import { Session, SessionTableData } from "../type-interface/Session";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
+import { useNavigate } from "react-router-dom";
+import { useSessionUserContext } from "../context/SessionUserContext";
 
 const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
   id: "",
@@ -15,6 +17,9 @@ const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
 }
 
 function Home() {
+  const navigate = useNavigate();
+  const { joinedSessions } = useSessionUserContext();
+
   const [sessions, setSessions] = useState<Session[]>([]);
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -48,12 +53,16 @@ function Home() {
   const handleSessionSelect = (sessionId: Key) => {
     const session = sessions.find(session => session.id === sessionId);
     if (session !== undefined) {
-      setSessionCredentials({
-        id: session.id,
-        name: session.name,
-        password: session.password
-      })
-      setIsDialogOpen(true);
+      if (joinedSessions.sessionIds.includes(session.id)) {
+        navigate(`/main-session/${session.id}`)
+      } else {
+        setSessionCredentials({
+          id: session.id,
+          name: session.name,
+          password: session.password
+        })
+        setIsDialogOpen(true);
+      }
     }
   }
 
