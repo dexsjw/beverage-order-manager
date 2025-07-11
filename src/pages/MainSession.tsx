@@ -16,7 +16,6 @@ const emptySessionCredentials: Pick<Session, "id" | "name" | "password"> = {
 }
 
 function MainSession() {
-  // TODO: add JoinSessionDialog to check if session has been joined before
   const { sessionUser, joinedSessions } = useSessionUserContext();
   const { sessionId } = useParams();
   const navigate = useNavigate();
