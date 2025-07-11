@@ -26,7 +26,7 @@ function MainSession() {
     name: "",
     password: "",
     owner: sessionUser,
-    timestamp: new Date(Date.now()).toLocaleDateString("en-GB"),
+    timestamp: new Date(Date.now()).toLocaleDateString(),
     isActive: true,
     data: {
       orders: [],
