@@ -24,17 +24,16 @@ try {
 // 30 mins = 1,800,000 ms = 1.8e6 ms
 let currentJoinedSessions: JoinedSessions = {
   sessionIds: [],
-  expiryTimestamp: new Date(Date.now() + 1.8e6).toLocaleString("en-GB")
+  expiryTimestamp: new Date(Date.now() + 1.8e6).toISOString()
 };
 const existingJoinedSessionsStr = localStorage.getItem(BOM_JOINED_SESSIONS_KEY);
 if (existingJoinedSessionsStr) {
   try {
     const existingJoinedSessions: JoinedSessions = JSON.parse(existingJoinedSessionsStr);
-    if (Date.parse(existingJoinedSessions.expiryTimestamp) > Date.now()) {
-      currentJoinedSessions = existingJoinedSessions;
-    } else {
-      console.warn("Removing key...");
+    if (Date.parse(existingJoinedSessions.expiryTimestamp) <= Date.now()) {
       localStorage.removeItem(BOM_JOINED_SESSIONS_KEY);
+    } else {
+      currentJoinedSessions = existingJoinedSessions;
     }
   } catch (error) {
     console.error(error);
@@ -61,7 +60,7 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
       if (Date.parse(joinedSessions.expiryTimestamp) <= Date.now()) {
         setJoinedSessions({
           sessionIds: [],
-          expiryTimestamp: new Date(Date.now() + 1.8e6).toLocaleString("en-GB")
+          expiryTimestamp: new Date(Date.now() + 1.8e6).toISOString()
         })
         localStorage.removeItem(BOM_JOINED_SESSIONS_KEY);
       }
@@ -82,12 +81,14 @@ export function SessionUserProvider({ children }: Readonly<{ children: ReactNode
   }, [sessionUser]);
 
   const handleAddSessionId = useCallback((sessionId: string) => {
-    const updatedJoinedSessions: JoinedSessions = {
-      ...joinedSessions,
-      sessionIds: [...joinedSessions.sessionIds, sessionId]
-    };
-    setJoinedSessions(updatedJoinedSessions);
-    localStorage.setItem(BOM_JOINED_SESSIONS_KEY, JSON.stringify(updatedJoinedSessions));
+    if (!joinedSessions.sessionIds.includes(sessionId)) {
+      const updatedJoinedSessions: JoinedSessions = {
+        ...joinedSessions,
+        sessionIds: [...joinedSessions.sessionIds, sessionId]
+      };
+      setJoinedSessions(updatedJoinedSessions);
+      localStorage.setItem(BOM_JOINED_SESSIONS_KEY, JSON.stringify(updatedJoinedSessions));
+    }
   }, [joinedSessions]);
 
   const contextValue: SessionUserContextType = useMemo(() => {
