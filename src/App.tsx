@@ -10,9 +10,8 @@ import MainSession from './pages/MainSession'
 function App() {
   //TODO:
   // 1. Form validation
-  // 2. In OrderForm, when an Order is selected to be edited, move to the correct brand tab for editing
-  // 3. Complete Transaction
-  // 4. Complete History page
+  // 2. Complete Transaction
+  // 3. Complete History page
 
   return (
     <SessionUserProvider>
