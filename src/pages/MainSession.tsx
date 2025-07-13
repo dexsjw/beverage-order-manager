@@ -36,6 +36,7 @@ function MainSession() {
   const [sessionCredentials, setSessionCredentials] = useState<Pick<Session, "id" | "name" | "password">>(emptySessionCredentials);
   const [session, setSession] = useState(newSession);
   const [tabIndex, setTabIndex] = useState(0);
+  const [orderToEdit, setOrderToEdit] = useState<Order | null>(null);
 
   useEffect(() => {
     retrieveSessionData();
@@ -87,8 +88,9 @@ function MainSession() {
     navigate("/");
   }
 
-  const handleTabChange = (tabIndex: number) => {
+  const handleTabChange = (tabIndex: number, order?: Order) => {
     setTabIndex(tabIndex);
+    setOrderToEdit(order ? order : null);
   }
 
   return (
@@ -129,7 +131,10 @@ function MainSession() {
             selectedBrandIndex={tabIndex}
             sessionTimestamp={session.timestamp}
             sessionOrders={session.data.orders}
+            orderToEdit={orderToEdit}
+            setOrderToEdit={setOrderToEdit}
             mockUpdateSessionOrders={mockUpdateSessionOrders}
+            handleTabChange={handleTabChange}
           />
         </Box>
       }

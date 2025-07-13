@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { Key, useState } from "react";
 import { mockDeleteOrder, mockPostOrder, mockPutOrder } from "../api-service/mock-service";
+import { Brands } from "../static-data/BrandsData";
 import { Order, OrderTableData } from "../type-interface/Order";
 import { MainSessionDataProps } from "../type-interface/props/MainSessionDataProps";
 import { TableHeader } from "../type-interface/props/SortableTableProps";
@@ -11,11 +12,13 @@ function MainSessionData({
   selectedBrandIndex,
   sessionTimestamp,
   sessionOrders,
-  mockUpdateSessionOrders
+  orderToEdit,
+  setOrderToEdit,
+  mockUpdateSessionOrders,
+  handleTabChange
 }: Readonly<MainSessionDataProps>) {
 
   const [orders, setOrders] = useState<Order[]>([]);
-  const [orderToEdit, setOrderToEdit] = useState<Order | null>(null);
 
   if (sessionOrders.length !== orders.length) {
     // need to rethink logic when connected to actual backend
@@ -86,7 +89,13 @@ function MainSessionData({
   const handleOrderSelect = (orderId: Key) => {
     const order = orders.find(order => order.id === orderId);
     if (order !== undefined) {
-      setOrderToEdit(order);
+      const orderBrandIndex = Brands.findIndex(brand => brand === order.brand);
+      if (orderBrandIndex === -1) {
+        console.error("Unable to find Order's brand name to edit Order: " + order.brand);
+        handleTabChange(0);
+      } else {
+        handleTabChange(orderBrandIndex, order);
+      }
     }
   }
 

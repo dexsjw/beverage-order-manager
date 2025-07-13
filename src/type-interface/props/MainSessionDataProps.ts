@@ -4,5 +4,8 @@ export type MainSessionDataProps = {
   selectedBrandIndex: number,
   sessionTimestamp: string,
   sessionOrders: Order[],
-  mockUpdateSessionOrders: (updatedOrders: Order[]) => Promise<void>
+  orderToEdit: Order | null,
+  setOrderToEdit: React.Dispatch<React.SetStateAction<Order | null>>,
+  mockUpdateSessionOrders: (updatedOrders: Order[]) => Promise<void>,
+  handleTabChange: (tabIndex: number, orderToEdit?: Order) => void
 }
