@@ -12,6 +12,7 @@ function App() {
   // 1. Form validation
   // 2. Complete Transaction
   // 3. Complete History page
+  // 4. Add sorting to SortableTable
 
   return (
     <SessionUserProvider>
